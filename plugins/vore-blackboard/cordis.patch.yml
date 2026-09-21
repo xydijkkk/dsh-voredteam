@@ -1,0 +1,5 @@
+# vore-blackboard：网络安全模式的黑板引擎（宿主平面）。
+# 模型经 bb_* 工具读写事实/意图/提示；Web 会话标签页「作战面板 → 实时情况」读图。
+- insert:
+    - id: vore-blackboard
+      name: '@dsh-external/vore-blackboard'

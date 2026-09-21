@@ -1,0 +1,8 @@
+{
+  "_comment": "把下列值改成你本机的第三方技能库位置，然后另存为 vendor-sources.local.json（不随仓库发布）",
+  "claudeRed": "<D:/path/to/Claude-Red-main>",
+  "reverseSkill": "<D:/path/to/reverse-skill-main>",
+  "anthropic": "<D:/path/to/Anthropic-Cybersecurity-Skills-1.3.0>",
+  "clown": "<D:/path/to/clown-src-6k-skill>",
+  "anthropicSelection": "vendor/anthropic.selection.txt"
+}

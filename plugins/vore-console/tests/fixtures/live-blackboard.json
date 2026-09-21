@@ -1,0 +1,1666 @@
+{
+  "_comment": "作战面板渲染测试的**离线样例数据**（自造、脱敏，不含任何真实目标）。字段形状与 /vore-blackboard/{list,graph,status,coverage,assets} 的真实响应逐字段一致：盘点过一次真实响应后按同样字段造出来，改 store 输出形状时这里要跟着改。作业法是六阶段（起点 → 信息收集 → 浅层 → 中间层 → 深层 → 成果），所以 coverage.stages 与每个资产的 checks/checkSummary 都带六个键：info / verifyInfo / shallow / verifyShallow / owasp / deep。",
+  "capturedAt": "2025-01-01T02:00:00Z",
+  "projectId": "eng_001",
+  "list": {
+    "ok": true,
+    "projects": [
+      {
+        "id": "eng_001",
+        "session_id": "sess-0001-target",
+        "cwd": "C:\\work\\TARGET",
+        "title": "TARGET 授权评估 · 第 3 轮",
+        "origin": "授权目标：https://app.TARGET.example（含 *.TARGET.example 子域），授权书 SERIAL-0001。",
+        "goal": "在授权范围内产出可复现的高危漏洞证据链（原始请求/响应包 + PoC + 文件路径）。",
+        "status": "active",
+        "phase": "P3",
+        "fact_count": 5,
+        "intent_count": 4,
+        "open_count": 2,
+        "hint_count": 2,
+        "empty": false,
+        "created_at": "2025-01-01T00:00:00Z",
+        "updated_at": "2025-01-01T02:00:00Z"
+      },
+      {
+        "id": "eng_002",
+        "session_id": "sess-0002-empty",
+        "cwd": "C:\\work\\OTHER",
+        "title": "OTHER（刚建的空项目）",
+        "origin": "授权目标：https://OTHER.example",
+        "goal": "待补",
+        "status": "active",
+        "phase": "P1",
+        "fact_count": 0,
+        "intent_count": 0,
+        "open_count": 0,
+        "hint_count": 0,
+        "empty": true,
+        "created_at": "2025-01-01T03:00:00Z",
+        "updated_at": "2025-01-01T03:00:00Z"
+      }
+    ]
+  },
+  "graph": {
+    "ok": true,
+    "graph": {
+      "project": {
+        "id": "eng_001",
+        "session_id": "sess-0001-target",
+        "cwd": "C:\\work\\TARGET",
+        "title": "TARGET 授权评估 · 第 3 轮",
+        "origin": "授权目标：https://app.TARGET.example（含 *.TARGET.example 子域），授权书 SERIAL-0001。",
+        "goal": "在授权范围内产出可复现的高危漏洞证据链（原始请求/响应包 + PoC + 文件路径）。",
+        "status": "active",
+        "phase": "P3",
+        "asset_epoch": 3,
+        "recon_mark": 3,
+        "recon_rounds": 2,
+        "recon_last_added": 0,
+        "sources_done": "[\"domain\",\"subdomain\",\"url\"]",
+        "created_at": "2025-01-01T00:00:00Z",
+        "updated_at": "2025-01-01T02:00:00Z"
+      },
+      "facts": [
+        {
+          "id": "origin",
+          "project_id": "eng_001",
+          "description": "任务起点：授权目标 https://app.TARGET.example（含 *.TARGET.example 子域）",
+          "category": "origin",
+          "evidence": null,
+          "confidence": "confirmed",
+          "source_intent": null,
+          "deprecated": false,
+          "created_at": "2025-01-01T00:00:00Z"
+        },
+        {
+          "id": "goal",
+          "project_id": "eng_001",
+          "description": "任务目标：产出可复现的高危漏洞证据链（原始报文 + PoC + 路径）",
+          "category": "goal",
+          "evidence": null,
+          "confidence": "confirmed",
+          "source_intent": null,
+          "deprecated": false,
+          "created_at": "2025-01-01T00:00:00Z"
+        },
+        {
+          "id": "f001",
+          "project_id": "eng_001",
+          "description": "api.TARGET.example 解析到 10.0.0.11:443，指纹 nginx 1.24 / Spring Boot 2.7（响应头 X-Application-Context）",
+          "category": "asset",
+          "evidence": "recon/fingerprint/api.txt",
+          "confidence": "confirmed",
+          "source_intent": "i001",
+          "deprecated": false,
+          "created_at": "2025-01-01T00:20:00Z"
+        },
+        {
+          "id": "f002",
+          "project_id": "eng_001",
+          "description": "GET /api/v1/orders/{id} 越权读取：普通用户 A 的会话可读取用户 B 的订单明细，返回 200",
+          "category": "vuln",
+          "evidence": "poc/idor/orders.txt#resp-2",
+          "confidence": "confirmed",
+          "severity": "high",
+          "source_intent": "i003",
+          "deprecated": false,
+          "created_at": "2025-01-01T01:10:00Z"
+        },
+        {
+          "id": "f003",
+          "project_id": "eng_001",
+          "description": "GET /api/v1/export 导出接口不接受任何鉴权头也可以拉全量 CSV（20 万行）",
+          "category": "endpoint",
+          "evidence": "req/export-1.txt",
+          "confidence": "confirmed",
+          "source_intent": "i002",
+          "deprecated": false,
+          "created_at": "2025-01-01T01:30:00Z"
+        },
+        {
+          "id": "f004",
+          "project_id": "eng_001",
+          "description": "app.7f3a.js 内硬编码测试账号与 TOKEN=REDACTED（构建期未剔除）",
+          "category": "cred",
+          "evidence": "js/app.7f3a.js:1841",
+          "confidence": "confirmed",
+          "source_intent": "i004",
+          "deprecated": false,
+          "created_at": "2025-01-01T01:40:00Z"
+        },
+        {
+          "id": "f005",
+          "project_id": "eng_001",
+          "description": "疑似 GraphQL introspection 未关闭（/graphql 返回 __schema，可能被 WAF 改写响应）",
+          "category": "fact",
+          "evidence": "req/graphql-introspect.txt",
+          "confidence": "suspected",
+          "source_intent": null,
+          "deprecated": false,
+          "created_at": "2025-01-01T01:50:00Z"
+        },
+        {
+          "id": "f006",
+          "project_id": "eng_001",
+          "description": "推翻：/admin 路径不存在（早期 200 来自 SPA 兜底路由，非真实后台）",
+          "category": "fact",
+          "evidence": "req/admin-probe.txt",
+          "confidence": "deprecated",
+          "source_intent": null,
+          "deprecated": true,
+          "created_at": "2025-01-01T00:50:00Z"
+        }
+      ],
+      "intents": [
+        {
+          "id": "i001",
+          "project_id": "eng_001",
+          "description": "对 api.TARGET.example 做未授权接口枚举（含 v1/v2 与内部前缀）",
+          "domain": "api-security",
+          "priority": 8,
+          "status": "open",
+          "worker": null,
+          "dead": false,
+          "concluded_at": null,
+          "note": null,
+          "from": [
+            "origin"
+          ],
+          "created_at": "2025-01-01T00:10:00Z"
+        },
+        {
+          "id": "i002",
+          "project_id": "eng_001",
+          "description": "测试 /api/v1/export 的注入面与批量导出限流",
+          "domain": "web-injection",
+          "priority": 7,
+          "status": "claimed",
+          "worker": "web-injection",
+          "dead": false,
+          "concluded_at": null,
+          "note": null,
+          "from": [
+            "f003"
+          ],
+          "created_at": "2025-01-01T01:20:00Z"
+        },
+        {
+          "id": "i003",
+          "project_id": "eng_001",
+          "description": "验证订单接口的水平越权（A/B 双账号对拷）",
+          "domain": "auth-logic",
+          "priority": 9,
+          "status": "concluded",
+          "worker": "auth-logic",
+          "dead": false,
+          "to_fact": "f002",
+          "concluded_at": "2025-01-01T01:10:00Z",
+          "note": "已出证据链",
+          "from": [
+            "f001"
+          ],
+          "created_at": "2025-01-01T00:40:00Z"
+        },
+        {
+          "id": "i004",
+          "project_id": "eng_001",
+          "description": "子域爆破扩大资产面",
+          "domain": "recon",
+          "priority": 4,
+          "status": "dead",
+          "worker": "recon",
+          "dead": true,
+          "concluded_at": "2025-01-01T00:45:00Z",
+          "note": "通配 DNS 导致任意子域都解析（全部 200），无法据此判定存在性 —— 此路不通，改用证书透明度日志",
+          "from": [
+            "origin"
+          ],
+          "created_at": "2025-01-01T00:30:00Z"
+        }
+      ],
+      "hints": [
+        {
+          "id": "h001",
+          "project_id": "eng_001",
+          "content": "范围仅限 *.TARGET.example，不要碰第三方 CDN 域。",
+          "creator": "Human",
+          "created_at": "2025-01-01T00:05:00Z"
+        },
+        {
+          "id": "h002",
+          "project_id": "eng_001",
+          "content": "低频模糊：单接口 ≤ 20 req/min，禁用字典爆破。",
+          "creator": "Human",
+          "created_at": "2025-01-01T00:06:00Z"
+        }
+      ]
+    }
+  },
+  "status": {
+    "ok": true,
+    "summary": {
+      "project": {
+        "id": "eng_001",
+        "session_id": "sess-0001-target",
+        "cwd": "C:\\work\\TARGET",
+        "title": "TARGET 授权评估 · 第 3 轮",
+        "origin": "授权目标：https://app.TARGET.example（含 *.TARGET.example 子域），授权书 SERIAL-0001。",
+        "goal": "在授权范围内产出可复现的高危漏洞证据链（原始请求/响应包 + PoC + 文件路径）。",
+        "status": "active",
+        "phase": "P3",
+        "created_at": "2025-01-01T00:00:00Z",
+        "updated_at": "2025-01-01T02:00:00Z"
+      },
+      "counts": {
+        "facts": 5,
+        "intents": 4,
+        "open": 2,
+        "claimed": 1,
+        "dead": 1,
+        "hints": 2,
+        "assets": 6
+      },
+      "phase": "P3",
+      "phaseLabel": "浅层（核实信息收集 + 浅层测试）",
+      "coverage": {
+        "shallowPct": 83,
+        "deepPct": 60,
+        "gaps": 3,
+        "newSincePhase": 0,
+        "canAdvanceTo": {
+          "P2": true,
+          "P3": true,
+          "P4": false,
+          "P5": false,
+          "P6": false
+        }
+      },
+      "openIntents": [
+        {
+          "id": "i001",
+          "description": "对 api.TARGET.example 做未授权接口枚举（含 v1/v2 与内部前缀）",
+          "domain": "api-security",
+          "worker": null,
+          "from": [
+            "origin"
+          ]
+        },
+        {
+          "id": "i002",
+          "description": "测试 /api/v1/export 的注入面与批量导出限流",
+          "domain": "web-injection",
+          "worker": "web-injection",
+          "from": [
+            "f003"
+          ]
+        }
+      ],
+      "recentFacts": [
+        {
+          "id": "f003",
+          "description": "GET /api/v1/export 导出接口不接受任何鉴权头也可以拉全量 CSV",
+          "category": "endpoint"
+        },
+        {
+          "id": "f004",
+          "description": "app.7f3a.js 内硬编码测试账号与 TOKEN=REDACTED",
+          "category": "cred"
+        },
+        {
+          "id": "f005",
+          "description": "疑似 GraphQL introspection 未关闭",
+          "category": "fact"
+        }
+      ],
+      "hints": [
+        {
+          "id": "h002",
+          "project_id": "eng_001",
+          "content": "低频模糊：单接口 ≤ 20 req/min，禁用字典爆破。",
+          "creator": "Human",
+          "created_at": "2025-01-01T00:06:00Z"
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "ok": true,
+    "coverage": {
+      "phase": "P1",
+      "phaseLabel": "起点（资产收集直到饱和）",
+      "recon": {
+        "rounds": 2,
+        "lastAdded": 0,
+        "addedThisRound": 0,
+        "markEpoch": 3,
+        "assetEpoch": 3
+      },
+      "newSincePhase": 0,
+      "sourcesDone": [
+        "domain",
+        "subdomain",
+        "url",
+        "js"
+      ],
+      "sourcesMissing": [
+        "cloud"
+      ],
+      "stages": {
+        "info": {
+          "required": 36,
+          "done": 30,
+          "pct": 83,
+          "gaps": [
+            {
+              "assetId": "a005",
+              "asset": "10.0.0.11:8443",
+              "key": "tech"
+            },
+            {
+              "assetId": "a005",
+              "asset": "10.0.0.11:8443",
+              "key": "cert"
+            },
+            {
+              "assetId": "a005",
+              "asset": "10.0.0.11:8443",
+              "key": "dns"
+            },
+            {
+              "assetId": "a005",
+              "asset": "10.0.0.11:8443",
+              "key": "waf"
+            },
+            {
+              "assetId": "a005",
+              "asset": "10.0.0.11:8443",
+              "key": "headers"
+            },
+            {
+              "assetId": "a005",
+              "asset": "10.0.0.11:8443",
+              "key": "deps"
+            }
+          ]
+        },
+        "verifyInfo": {
+          "required": 20,
+          "done": 18,
+          "pct": 90,
+          "gaps": [
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "dns_ok"
+            },
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "waf_ok"
+            }
+          ]
+        },
+        "shallow": {
+          "required": 40,
+          "done": 33,
+          "pct": 83,
+          "gaps": [
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "lowFuzz"
+            },
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "compHint"
+            },
+            {
+              "assetId": "a003",
+              "asset": "https://api.TARGET.example/api/v1/export",
+              "key": "expose"
+            },
+            {
+              "assetId": "a003",
+              "asset": "https://api.TARGET.example/api/v1/export",
+              "key": "lowFuzz"
+            },
+            {
+              "assetId": "a003",
+              "asset": "https://api.TARGET.example/api/v1/export",
+              "key": "compHint"
+            },
+            {
+              "assetId": "a006",
+              "asset": "/api/v1/orders/{id}",
+              "key": "lowFuzz"
+            },
+            {
+              "assetId": "a006",
+              "asset": "/api/v1/orders/{id}",
+              "key": "compHint"
+            }
+          ]
+        },
+        "verifyShallow": {
+          "required": 20,
+          "done": 17,
+          "pct": 85,
+          "gaps": [
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "params_ok"
+            },
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "authEdge_ok"
+            },
+            {
+              "assetId": "a003",
+              "asset": "https://api.TARGET.example/api/v1/export",
+              "key": "authEdge_ok"
+            }
+          ]
+        },
+        "owasp": {
+          "required": 50,
+          "done": 14,
+          "pct": 28,
+          "gaps": [
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "A07"
+            },
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "A08"
+            },
+            {
+              "assetId": "a003",
+              "asset": "https://api.TARGET.example/api/v1/export",
+              "key": "A03"
+            },
+            {
+              "assetId": "a006",
+              "asset": "/api/v1/orders/{id}",
+              "key": "A10"
+            }
+          ]
+        },
+        "deep": {
+          "required": 32,
+          "done": 3,
+          "pct": 9,
+          "gaps": [
+            {
+              "assetId": "a002",
+              "asset": "api.TARGET.example",
+              "key": "idor"
+            },
+            {
+              "assetId": "a003",
+              "asset": "https://api.TARGET.example/api/v1/export",
+              "key": "logic"
+            },
+            {
+              "assetId": "a006",
+              "asset": "/api/v1/orders/{id}",
+              "key": "ssrf"
+            }
+          ]
+        }
+      },
+      "untested": {
+        "declared": true,
+        "items": [
+          {
+            "id": "u001",
+            "surface": "小程序 wxapkg 包",
+            "why": "模拟器未装微信，无法解包验证接口签名",
+            "stage": "P2"
+          },
+          {
+            "id": "u002",
+            "surface": "SCADA 10.0.0.0/24 网段",
+            "why": "授权书写明不含该网段",
+            "stage": "P4"
+          }
+        ]
+      },
+      "reviews": {
+        "vuln": 2,
+        "reviewed": 1,
+        "pending": 1
+      },
+      "counts": {
+        "assets": 6,
+        "shallowDone": 5,
+        "deepTargets": 5,
+        "deepDone": 3,
+        "gaps": 3,
+        "naShallow": 0,
+        "naDeep": 1,
+        "naNoReason": 0
+      },
+      "pct": {
+        "shallow": 83,
+        "deep": 60,
+        "shallowTested": 83,
+        "deepTested": 40
+      },
+      "byKind": {
+        "domain": {
+          "total": 1,
+          "shallowDone": 1,
+          "deepDone": 1
+        },
+        "subdomain": {
+          "total": 1,
+          "shallowDone": 1,
+          "deepDone": 0
+        },
+        "url": {
+          "total": 1,
+          "shallowDone": 1,
+          "deepDone": 0
+        },
+        "js": {
+          "total": 1,
+          "shallowDone": 1,
+          "deepDone": 1
+        },
+        "port": {
+          "total": 1,
+          "shallowDone": 0,
+          "deepDone": 1
+        },
+        "endpoint": {
+          "total": 1,
+          "shallowDone": 1,
+          "deepDone": 1
+        }
+      },
+      "blockers": {
+        "P1": [],
+        "P2": [],
+        "P3": [
+          "浅层未完成：核实信息收集 18/20，浅层测试 33/40"
+        ],
+        "P4": [
+          "中间层未完成：核验浅层 17/20，OWASP 14/50"
+        ],
+        "P5": [
+          "深层未完成 29 项检查"
+        ]
+      },
+      "canAdvanceTo": {
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": false,
+        "P6": false
+      },
+      "gaps": [
+        {
+          "id": "a005",
+          "kind": "port",
+          "value": "10.0.0.11:8443",
+          "stage": "浅测",
+          "priority": 2
+        },
+        {
+          "id": "a002",
+          "kind": "subdomain",
+          "value": "api.TARGET.example",
+          "stage": "深测",
+          "priority": 5
+        },
+        {
+          "id": "a003",
+          "kind": "url",
+          "value": "https://api.TARGET.example/api/v1/export",
+          "stage": "深测",
+          "priority": 5
+        }
+      ],
+      "reflow": {
+        "pending": true,
+        "count": 3,
+        "source": "js-reverse",
+        "note": "回灌：新增 3 个资产（来源 js-reverse；原阶段 P5）→ 回到 P1 起点，需再收一轮确认穷尽"
+      }
+    },
+    "assets": [
+      {
+        "id": "a001",
+        "project_id": "eng_001",
+        "kind": "domain",
+        "value": "TARGET.example",
+        "label": "主域",
+        "tech": "nginx 1.24",
+        "priority": 4,
+        "s2": "done",
+        "s3": "done",
+        "evidence": "recon/notes.md",
+        "notes": "主站与 SPA 入口",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "ok"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "done",
+            "lowFuzz": "done",
+            "compHint": "done"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "ok"
+          },
+          "owasp": {
+            "A01": "miss",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "hit",
+            "A06": "miss",
+            "A07": "miss",
+            "A08": "miss",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "miss",
+            "idor": "miss",
+            "sqli": "miss",
+            "ssrf": "miss",
+            "upload": "miss",
+            "logic": "miss",
+            "race": "miss",
+            "deser": "miss"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 8,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 4,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 0,
+            "required": 8
+          }
+        }
+      },
+      {
+        "id": "a002",
+        "project_id": "eng_001",
+        "kind": "subdomain",
+        "value": "api.TARGET.example",
+        "label": "API 子域",
+        "tech": "Spring Boot 2.7 / nginx 1.24",
+        "priority": 5,
+        "s2": "done",
+        "s3": "pending",
+        "evidence": "recon/fingerprint/api.txt",
+        "notes": "深测面：越权 / 注入 / 导出接口",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "wrong",
+            "waf_ok": "unknown"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "done",
+            "lowFuzz": "pending",
+            "compHint": "pending"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "unknown",
+            "authEdge_ok": "pending"
+          },
+          "owasp": {
+            "A01": "hit",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "miss",
+            "A06": "miss",
+            "A07": "unknown",
+            "A08": "unknown",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "pending",
+            "idor": "pending",
+            "sqli": "pending",
+            "ssrf": "pending",
+            "upload": "pending",
+            "logic": "pending",
+            "race": "pending",
+            "deser": "pending"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 2,
+            "required": 4
+          },
+          "shallow": {
+            "done": 6,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 2,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 0,
+            "required": 8
+          }
+        }
+      },
+      {
+        "id": "a003",
+        "project_id": "eng_001",
+        "kind": "url",
+        "value": "https://api.TARGET.example/api/v1/export",
+        "label": "导出接口",
+        "tech": "Spring Boot 2.7",
+        "priority": 5,
+        "s2": "done",
+        "s3": "pending",
+        "evidence": "req/export-1.txt",
+        "notes": "无鉴权可拉全量 CSV",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "ok"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "pending",
+            "lowFuzz": "pending",
+            "compHint": "pending"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "pending"
+          },
+          "owasp": {
+            "A01": "hit",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "miss",
+            "A06": "miss",
+            "A07": "miss",
+            "A08": "miss",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "hit",
+            "idor": "miss",
+            "sqli": "miss",
+            "ssrf": "miss",
+            "upload": "miss",
+            "logic": "unknown",
+            "race": "pending",
+            "deser": "pending"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 5,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 3,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 1,
+            "required": 8
+          }
+        }
+      },
+      {
+        "id": "a004",
+        "project_id": "eng_001",
+        "kind": "js",
+        "value": "https://app.TARGET.example/static/js/app.7f3a.js",
+        "label": "SPA 主 bundle",
+        "tech": "webpack 5",
+        "priority": 4,
+        "s2": "done",
+        "s3": "na",
+        "evidence": "js/app.7f3a.js",
+        "notes": "已抽取接口表/硬编码凭据，逆向产物归档，无需深测",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "na",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "na"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "na",
+            "errLeak": "done",
+            "expose": "na",
+            "lowFuzz": "na",
+            "compHint": "done"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "na"
+          },
+          "owasp": {
+            "A01": "na",
+            "A02": "na",
+            "A03": "na",
+            "A04": "na",
+            "A05": "na",
+            "A06": "na",
+            "A07": "na",
+            "A08": "na",
+            "A09": "na",
+            "A10": "na"
+          },
+          "deep": {}
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 8,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 4,
+            "required": 4
+          },
+          "owasp": {
+            "done": 10,
+            "required": 10
+          },
+          "deep": {
+            "done": 0,
+            "required": 0
+          }
+        }
+      },
+      {
+        "id": "a005",
+        "project_id": "eng_001",
+        "kind": "port",
+        "value": "10.0.0.11:8443",
+        "label": "8443",
+        "tech": "未知",
+        "priority": 2,
+        "s2": "pending",
+        "s3": "na",
+        "evidence": null,
+        "notes": "端口开放但未取指纹（低频探测待补）",
+        "checks": {
+          "info": {
+            "tech": "pending",
+            "cert": "pending",
+            "dns": "pending",
+            "waf": "pending",
+            "headers": "pending",
+            "deps": "pending"
+          },
+          "verifyInfo": {},
+          "shallow": {},
+          "verifyShallow": {},
+          "owasp": {},
+          "deep": {}
+        },
+        "checkSummary": {
+          "info": {
+            "done": 0,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 0,
+            "required": 0
+          },
+          "shallow": {
+            "done": 0,
+            "required": 0
+          },
+          "verifyShallow": {
+            "done": 0,
+            "required": 0
+          },
+          "owasp": {
+            "done": 0,
+            "required": 0
+          },
+          "deep": {
+            "done": 0,
+            "required": 0
+          }
+        }
+      },
+      {
+        "id": "a006",
+        "project_id": "eng_001",
+        "kind": "endpoint",
+        "value": "/api/v1/orders/{id}",
+        "label": "订单详情",
+        "tech": "Spring Boot 2.7",
+        "priority": 5,
+        "s2": "done",
+        "s3": "done",
+        "evidence": "poc/idor/orders.txt",
+        "notes": "水平越权已确认（f002）",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "ok"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "done",
+            "lowFuzz": "pending",
+            "compHint": "pending"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "ok"
+          },
+          "owasp": {
+            "A01": "hit",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "miss",
+            "A06": "miss",
+            "A07": "miss",
+            "A08": "miss",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "hit",
+            "idor": "hit",
+            "sqli": "miss",
+            "ssrf": "miss",
+            "upload": "miss",
+            "logic": "miss",
+            "race": "miss",
+            "deser": "miss"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 6,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 4,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 2,
+            "required": 8
+          }
+        }
+      }
+    ]
+  },
+  "assets": {
+    "ok": true,
+    "assets": [
+      {
+        "id": "a001",
+        "project_id": "eng_001",
+        "kind": "domain",
+        "value": "TARGET.example",
+        "label": "主域",
+        "tech": "nginx 1.24",
+        "priority": 4,
+        "s2": "done",
+        "s3": "done",
+        "evidence": "recon/notes.md",
+        "notes": "主站与 SPA 入口",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "ok"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "done",
+            "lowFuzz": "done",
+            "compHint": "done"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "ok"
+          },
+          "owasp": {
+            "A01": "miss",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "hit",
+            "A06": "miss",
+            "A07": "miss",
+            "A08": "miss",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "miss",
+            "idor": "miss",
+            "sqli": "miss",
+            "ssrf": "miss",
+            "upload": "miss",
+            "logic": "miss",
+            "race": "miss",
+            "deser": "miss"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 8,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 4,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 0,
+            "required": 8
+          }
+        }
+      },
+      {
+        "id": "a002",
+        "project_id": "eng_001",
+        "kind": "subdomain",
+        "value": "api.TARGET.example",
+        "label": "API 子域",
+        "tech": "Spring Boot 2.7 / nginx 1.24",
+        "priority": 5,
+        "s2": "done",
+        "s3": "pending",
+        "evidence": "recon/fingerprint/api.txt",
+        "notes": "深测面：越权 / 注入 / 导出接口",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "wrong",
+            "waf_ok": "unknown"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "done",
+            "lowFuzz": "pending",
+            "compHint": "pending"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "unknown",
+            "authEdge_ok": "pending"
+          },
+          "owasp": {
+            "A01": "hit",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "miss",
+            "A06": "miss",
+            "A07": "unknown",
+            "A08": "unknown",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "pending",
+            "idor": "pending",
+            "sqli": "pending",
+            "ssrf": "pending",
+            "upload": "pending",
+            "logic": "pending",
+            "race": "pending",
+            "deser": "pending"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 2,
+            "required": 4
+          },
+          "shallow": {
+            "done": 6,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 2,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 0,
+            "required": 8
+          }
+        }
+      },
+      {
+        "id": "a003",
+        "project_id": "eng_001",
+        "kind": "url",
+        "value": "https://api.TARGET.example/api/v1/export",
+        "label": "导出接口",
+        "tech": "Spring Boot 2.7",
+        "priority": 5,
+        "s2": "done",
+        "s3": "pending",
+        "evidence": "req/export-1.txt",
+        "notes": "无鉴权可拉全量 CSV",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "ok"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "pending",
+            "lowFuzz": "pending",
+            "compHint": "pending"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "pending"
+          },
+          "owasp": {
+            "A01": "hit",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "miss",
+            "A06": "miss",
+            "A07": "miss",
+            "A08": "miss",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "hit",
+            "idor": "miss",
+            "sqli": "miss",
+            "ssrf": "miss",
+            "upload": "miss",
+            "logic": "unknown",
+            "race": "pending",
+            "deser": "pending"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 5,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 3,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 1,
+            "required": 8
+          }
+        }
+      },
+      {
+        "id": "a004",
+        "project_id": "eng_001",
+        "kind": "js",
+        "value": "https://app.TARGET.example/static/js/app.7f3a.js",
+        "label": "SPA 主 bundle",
+        "tech": "webpack 5",
+        "priority": 4,
+        "s2": "done",
+        "s3": "na",
+        "evidence": "js/app.7f3a.js",
+        "notes": "已抽取接口表/硬编码凭据，逆向产物归档，无需深测",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "na",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "na"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "na",
+            "errLeak": "done",
+            "expose": "na",
+            "lowFuzz": "na",
+            "compHint": "done"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "na"
+          },
+          "owasp": {
+            "A01": "na",
+            "A02": "na",
+            "A03": "na",
+            "A04": "na",
+            "A05": "na",
+            "A06": "na",
+            "A07": "na",
+            "A08": "na",
+            "A09": "na",
+            "A10": "na"
+          },
+          "deep": {}
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 8,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 4,
+            "required": 4
+          },
+          "owasp": {
+            "done": 10,
+            "required": 10
+          },
+          "deep": {
+            "done": 0,
+            "required": 0
+          }
+        }
+      },
+      {
+        "id": "a005",
+        "project_id": "eng_001",
+        "kind": "port",
+        "value": "10.0.0.11:8443",
+        "label": "8443",
+        "tech": "未知",
+        "priority": 2,
+        "s2": "pending",
+        "s3": "na",
+        "evidence": null,
+        "notes": "端口开放但未取指纹（低频探测待补）",
+        "checks": {
+          "info": {
+            "tech": "pending",
+            "cert": "pending",
+            "dns": "pending",
+            "waf": "pending",
+            "headers": "pending",
+            "deps": "pending"
+          },
+          "verifyInfo": {},
+          "shallow": {},
+          "verifyShallow": {},
+          "owasp": {},
+          "deep": {}
+        },
+        "checkSummary": {
+          "info": {
+            "done": 0,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 0,
+            "required": 0
+          },
+          "shallow": {
+            "done": 0,
+            "required": 0
+          },
+          "verifyShallow": {
+            "done": 0,
+            "required": 0
+          },
+          "owasp": {
+            "done": 0,
+            "required": 0
+          },
+          "deep": {
+            "done": 0,
+            "required": 0
+          }
+        }
+      },
+      {
+        "id": "a006",
+        "project_id": "eng_001",
+        "kind": "endpoint",
+        "value": "/api/v1/orders/{id}",
+        "label": "订单详情",
+        "tech": "Spring Boot 2.7",
+        "priority": 5,
+        "s2": "done",
+        "s3": "done",
+        "evidence": "poc/idor/orders.txt",
+        "notes": "水平越权已确认（f002）",
+        "checks": {
+          "info": {
+            "tech": "done",
+            "cert": "done",
+            "dns": "done",
+            "waf": "done",
+            "headers": "done",
+            "deps": "done"
+          },
+          "verifyInfo": {
+            "tech_ok": "ok",
+            "cert_ok": "ok",
+            "dns_ok": "ok",
+            "waf_ok": "ok"
+          },
+          "shallow": {
+            "fp": "done",
+            "pathTruth": "done",
+            "params": "done",
+            "authEdge": "done",
+            "errLeak": "done",
+            "expose": "done",
+            "lowFuzz": "pending",
+            "compHint": "pending"
+          },
+          "verifyShallow": {
+            "fp_ok": "ok",
+            "path_ok": "ok",
+            "params_ok": "ok",
+            "authEdge_ok": "ok"
+          },
+          "owasp": {
+            "A01": "hit",
+            "A02": "miss",
+            "A03": "miss",
+            "A04": "miss",
+            "A05": "miss",
+            "A06": "miss",
+            "A07": "miss",
+            "A08": "miss",
+            "A09": "miss",
+            "A10": "miss"
+          },
+          "deep": {
+            "unauth": "hit",
+            "idor": "hit",
+            "sqli": "miss",
+            "ssrf": "miss",
+            "upload": "miss",
+            "logic": "miss",
+            "race": "miss",
+            "deser": "miss"
+          }
+        },
+        "checkSummary": {
+          "info": {
+            "done": 6,
+            "required": 6
+          },
+          "verifyInfo": {
+            "done": 4,
+            "required": 4
+          },
+          "shallow": {
+            "done": 6,
+            "required": 8
+          },
+          "verifyShallow": {
+            "done": 4,
+            "required": 4
+          },
+          "owasp": {
+            "done": 1,
+            "required": 10
+          },
+          "deep": {
+            "done": 2,
+            "required": 8
+          }
+        }
+      }
+    ]
+  }
+}

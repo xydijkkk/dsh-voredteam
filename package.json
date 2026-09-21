@@ -1,0 +1,51 @@
+{
+  "name": "@dsh-external/voredteam",
+  "version": "0.1.0",
+  "description": "voredteam —— 单模式（网络安全模式）DSH 插件合集：黑板书 Fact/Intent/Hint 引擎 + 总控派发专业子 agent + 作战面板/设置 两个面板 + 唯一门禁（禁 DDoS/禁爆破/模糊测试低频）。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "modes",
+    "agents",
+    "plugins",
+    "skills",
+    "shared",
+    "mcp",
+    "deploy",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "vendor",
+    "docs"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --no-warnings tests/smoke.mjs && node --no-warnings tests/registry.test.mjs && node --no-warnings tests/preset.test.mjs && node --no-warnings tests/load.mjs && node --no-warnings plugins/vore-console/tests/console.test.mjs && node --no-warnings plugins/vore-console/tests/panel-render.mjs && node --no-warnings plugins/vore-settings/tests/settings.test.mjs && node --no-warnings tests/client-contract.mjs && node --no-warnings tests/portability.test.mjs && node --no-warnings tests/vendor-integrity.mjs && node --no-warnings tests/mcp-integrity.mjs",
+    "client": "node --no-warnings tests/client-contract.mjs",
+    "accept": "node --no-warnings tests/acceptance.mjs",
+    "verify": "node --no-warnings tests/verify-all.mjs",
+    "preset:roster": "node --no-warnings tests/preset-roster.mjs",
+    "preset:schema": "node tests/preset-config-schema.mjs",
+    "preset:mount": "node tests/preset-mount.mjs",
+    "skills": "node --no-warnings tests/skill-discovery.mjs && node --no-warnings tests/skill-registry-vs-loadable.mjs && node --no-warnings tests/skill-catalog-size.mjs",
+    "vendor:skills": "node deploy/vendor-skills.mjs",
+    "vendor:skills:apply": "node deploy/vendor-skills.mjs --apply --prune",
+    "check": "node deploy/deploy.mjs",
+    "deploy": "node deploy/deploy.mjs --apply",
+    "registry:gen": "node deploy/gen-skill-registry.mjs",
+    "vendors": "node deploy/vendor-skills.mjs"
+  }
+}

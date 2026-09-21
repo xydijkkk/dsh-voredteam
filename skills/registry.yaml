@@ -1,0 +1,1745 @@
+# voredteam 技能注册表（由 deploy/gen-skill-registry.mjs 从仓库内置技能目录生成）
+#
+# 全部 path 为**仓库相对路径**（相对项目根），不指向任何本机外部位置 —— 便于发布。
+# 技能实体在 vendor/skills/（第三方库，许可证见 vendor/licenses/ 与 vendor/THIRD-PARTY.md）
+# 与本仓库 skills/（自研作战手册）。想登记本机独有的外部资产，请写在 skills/registry.local.yaml。
+#
+# 条目 247：Anthropic-Cybersecurity-Skills 120 · Claude-Red-main 50 · Claude-Red-main(legacy) 28 · clown-src-6k-skill 1 · reverse-skill-main 43 · voredteam 5
+# kind: skill（可被宿主装载的技能）| knowledge（只能 read 的参考件）
+# stage: 粗分类标签（便于检索，非权威）
+skills:
+
+  # ===== Anthropic-Cybersecurity-Skills =====
+  - id: anthropic-abusing-dpapi-for-credential-access
+    name: "abusing-dpapi-for-credential-access"
+    path: 'vendor/skills/anthropic/abusing-dpapi-for-credential-access/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api']
+    desc: "Extract DPAPI-protected secrets such as credentials and browser data offline and online."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-abusing-shadow-credentials-for-privesc
+    name: "abusing-shadow-credentials-for-privesc"
+    path: 'vendor/skills/anthropic/abusing-shadow-credentials-for-privesc/SKILL.md'
+    kind: skill
+    stage: ['auth', 'exploit', 'report']
+    desc: "Take over Active Directory user and computer accounts by writing alternate certificate keys to msDS-KeyCredentialLink (Shadow Credentials) with pyWhisker, Whisker, and Certipy, then authenticate via PKINIT."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-acquiring-disk-image-with-dd-and-dcfldd
+    name: "acquiring-disk-image-with-dd-and-dcfldd"
+    path: 'vendor/skills/anthropic/acquiring-disk-image-with-dd-and-dcfldd/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Create forensically sound bit-for-bit disk images using dd and dcfldd"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-active-directory-acl-abuse
+    name: "analyzing-active-directory-acl-abuse"
+    path: 'vendor/skills/anthropic/analyzing-active-directory-acl-abuse/SKILL.md'
+    kind: skill
+    stage: ['internal', 'detect']
+    desc: "Detect dangerous ACL misconfigurations in Active Directory using ldap3"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-android-malware-with-apktool
+    name: "analyzing-android-malware-with-apktool"
+    path: 'vendor/skills/anthropic/analyzing-android-malware-with-apktool/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Perform static analysis of Android APK malware samples using apktool"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-api-gateway-access-logs
+    name: "analyzing-api-gateway-access-logs"
+    path: 'vendor/skills/anthropic/analyzing-api-gateway-access-logs/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'cloud']
+    desc: "'Parses API Gateway access logs (AWS API Gateway, Kong, Nginx) to detect"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-azure-activity-logs-for-threats
+    name: "analyzing-azure-activity-logs-for-threats"
+    path: 'vendor/skills/anthropic/analyzing-azure-activity-logs-for-threats/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "'Queries Azure Monitor activity logs and sign-in logs via azure-monitor-query"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-browser-forensics-with-hindsight
+    name: "analyzing-browser-forensics-with-hindsight"
+    path: 'vendor/skills/anthropic/analyzing-browser-forensics-with-hindsight/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Analyze Chromium-based browser artifacts using Hindsight to extract browsing"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-certificate-transparency-for-phishing
+    name: "analyzing-certificate-transparency-for-phishing"
+    path: 'vendor/skills/anthropic/analyzing-certificate-transparency-for-phishing/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Monitor Certificate Transparency logs using crt.sh and Certstream to"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-cloud-storage-access-patterns
+    name: "analyzing-cloud-storage-access-patterns"
+    path: 'vendor/skills/anthropic/analyzing-cloud-storage-access-patterns/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud', 'detect']
+    desc: "Detect abnormal access patterns in AWS S3, GCS, and Azure Blob Storage"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-cobaltstrike-malleable-c2-profiles
+    name: "analyzing-cobaltstrike-malleable-c2-profiles"
+    path: 'vendor/skills/anthropic/analyzing-cobaltstrike-malleable-c2-profiles/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "Parse and analyze Cobalt Strike Malleable C2 profiles using dissect.cobaltstrike"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-disk-image-with-autopsy
+    name: "analyzing-disk-image-with-autopsy"
+    path: 'vendor/skills/anthropic/analyzing-disk-image-with-autopsy/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Perform comprehensive forensic analysis of disk images using Autopsy"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-dns-logs-for-exfiltration
+    name: "analyzing-dns-logs-for-exfiltration"
+    path: 'vendor/skills/anthropic/analyzing-dns-logs-for-exfiltration/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Analyzes DNS query logs to detect data exfiltration via DNS tunneling,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-docker-container-forensics
+    name: "analyzing-docker-container-forensics"
+    path: 'vendor/skills/anthropic/analyzing-docker-container-forensics/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Investigate compromised Docker containers by analyzing images, layers,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-email-headers-for-phishing-investigation
+    name: "analyzing-email-headers-for-phishing-investigation"
+    path: 'vendor/skills/anthropic/analyzing-email-headers-for-phishing-investigation/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "Parse and analyze email headers to trace the origin of phishing emails,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-golang-malware-with-ghidra
+    name: "analyzing-golang-malware-with-ghidra"
+    path: 'vendor/skills/anthropic/analyzing-golang-malware-with-ghidra/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Reverse engineer Go-compiled malware using Ghidra with specialized scripts"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-heap-spray-exploitation
+    name: "analyzing-heap-spray-exploitation"
+    path: 'vendor/skills/anthropic/analyzing-heap-spray-exploitation/SKILL.md'
+    kind: skill
+    stage: ['exploit', 'detect']
+    desc: "Detect and analyze heap spray attacks in memory dumps using Volatility3"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-kubernetes-audit-logs
+    name: "analyzing-kubernetes-audit-logs"
+    path: 'vendor/skills/anthropic/analyzing-kubernetes-audit-logs/SKILL.md'
+    kind: skill
+    stage: ['api', 'cloud', 'detect']
+    desc: "'Parses Kubernetes API server audit logs (JSON lines) to detect exec-into-pod,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-linux-elf-malware
+    name: "analyzing-linux-elf-malware"
+    path: 'vendor/skills/anthropic/analyzing-linux-elf-malware/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Analyzes malicious Linux ELF (Executable and Linkable Format) binaries"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-macro-malware-in-office-documents
+    name: "analyzing-macro-malware-in-office-documents"
+    path: 'vendor/skills/anthropic/analyzing-macro-malware-in-office-documents/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Analyzes malicious VBA macros embedded in Microsoft Office documents"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-malware-behavior-with-cuckoo-sandbox
+    name: "analyzing-malware-behavior-with-cuckoo-sandbox"
+    path: 'vendor/skills/anthropic/analyzing-malware-behavior-with-cuckoo-sandbox/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Executes malware samples in Cuckoo Sandbox to observe runtime behavior"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-malware-family-relationships-with-malpedia
+    name: "analyzing-malware-family-relationships-with-malpedia"
+    path: 'vendor/skills/anthropic/analyzing-malware-family-relationships-with-malpedia/SKILL.md'
+    kind: skill
+    stage: ['api', 'reverse']
+    desc: "Use the Malpedia platform and API to research malware family relationships,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-malware-persistence-with-autoruns
+    name: "analyzing-malware-persistence-with-autoruns"
+    path: 'vendor/skills/anthropic/analyzing-malware-persistence-with-autoruns/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'exploit']
+    desc: "Use Sysinternals Autoruns to systematically identify and analyze malware"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-malware-sandbox-evasion-techniques
+    name: "analyzing-malware-sandbox-evasion-techniques"
+    path: 'vendor/skills/anthropic/analyzing-malware-sandbox-evasion-techniques/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "Detect sandbox evasion techniques in malware samples by analyzing timing"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-memory-dumps-with-volatility
+    name: "analyzing-memory-dumps-with-volatility"
+    path: 'vendor/skills/anthropic/analyzing-memory-dumps-with-volatility/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "'Analyzes RAM memory dumps from compromised systems using the Volatility framework to identify malicious processes,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-memory-forensics-with-lime-and-volatility
+    name: "analyzing-memory-forensics-with-lime-and-volatility"
+    path: 'vendor/skills/anthropic/analyzing-memory-forensics-with-lime-and-volatility/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Performs Linux memory acquisition using LiME (Linux Memory Extractor)"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-network-covert-channels-in-malware
+    name: "analyzing-network-covert-channels-in-malware"
+    path: 'vendor/skills/anthropic/analyzing-network-covert-channels-in-malware/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "Detect and analyze covert communication channels used by malware including"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-network-flow-data-with-netflow
+    name: "analyzing-network-flow-data-with-netflow"
+    path: 'vendor/skills/anthropic/analyzing-network-flow-data-with-netflow/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Parse NetFlow v9 and IPFIX records to detect volumetric anomalies, port"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-network-packets-with-scapy
+    name: "analyzing-network-packets-with-scapy"
+    path: 'vendor/skills/anthropic/analyzing-network-packets-with-scapy/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "Craft, send, sniff, and dissect network packets using Scapy for protocol"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-network-traffic-for-incidents
+    name: "analyzing-network-traffic-for-incidents"
+    path: 'vendor/skills/anthropic/analyzing-network-traffic-for-incidents/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Analyzes network traffic captures and flow data to identify adversary activity during security incidents, including"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-network-traffic-of-malware
+    name: "analyzing-network-traffic-of-malware"
+    path: 'vendor/skills/anthropic/analyzing-network-traffic-of-malware/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Analyzes network traffic generated by malware during sandbox execution"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-network-traffic-with-wireshark
+    name: "analyzing-network-traffic-with-wireshark"
+    path: 'vendor/skills/anthropic/analyzing-network-traffic-with-wireshark/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "'Captures and analyzes network packet data using Wireshark and tshark"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-outlook-pst-for-email-forensics
+    name: "analyzing-outlook-pst-for-email-forensics"
+    path: 'vendor/skills/anthropic/analyzing-outlook-pst-for-email-forensics/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Analyze Microsoft Outlook PST and OST files for email forensic evidence"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-packed-malware-with-upx-unpacker
+    name: "analyzing-packed-malware-with-upx-unpacker"
+    path: 'vendor/skills/anthropic/analyzing-packed-malware-with-upx-unpacker/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Identifies and unpacks UPX-packed and other packed malware samples to"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-pdf-malware-with-pdfid
+    name: "analyzing-pdf-malware-with-pdfid"
+    path: 'vendor/skills/anthropic/analyzing-pdf-malware-with-pdfid/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Analyzes malicious PDF files using PDFiD, pdf-parser, and peepdf to"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-persistence-mechanisms-in-linux
+    name: "analyzing-persistence-mechanisms-in-linux"
+    path: 'vendor/skills/anthropic/analyzing-persistence-mechanisms-in-linux/SKILL.md'
+    kind: skill
+    stage: ['exploit', 'detect']
+    desc: "Detect and analyze Linux persistence mechanisms including crontab entries,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-ransomware-network-indicators
+    name: "analyzing-ransomware-network-indicators"
+    path: 'vendor/skills/anthropic/analyzing-ransomware-network-indicators/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "Identify ransomware network indicators including C2 beaconing patterns,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-supply-chain-malware-artifacts
+    name: "analyzing-supply-chain-malware-artifacts"
+    path: 'vendor/skills/anthropic/analyzing-supply-chain-malware-artifacts/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Investigate supply chain attack artifacts including trojanized software"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-typosquatting-domains-with-dnstwist
+    name: "analyzing-typosquatting-domains-with-dnstwist"
+    path: 'vendor/skills/anthropic/analyzing-typosquatting-domains-with-dnstwist/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Detect typosquatting, homograph phishing, and brand impersonation domains"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-uefi-bootkit-persistence
+    name: "analyzing-uefi-bootkit-persistence"
+    path: 'vendor/skills/anthropic/analyzing-uefi-bootkit-persistence/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'exploit']
+    desc: "'Analyzes UEFI bootkit persistence mechanisms including firmware implants"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-analyzing-web-server-logs-for-intrusion
+    name: "analyzing-web-server-logs-for-intrusion"
+    path: 'vendor/skills/anthropic/analyzing-web-server-logs-for-intrusion/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'detect']
+    desc: "Parse Apache and Nginx access logs to detect SQL injection attempts,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-attacking-oauth-with-device-code-phishing
+    name: "attacking-oauth-with-device-code-phishing"
+    path: 'vendor/skills/anthropic/attacking-oauth-with-device-code-phishing/SKILL.md'
+    kind: skill
+    stage: ['auth', 'internal', 'exploit']
+    desc: "Run OAuth 2.0 device-code and illicit-consent phishing against Microsoft Entra ID to steal access and refresh tokens, bypass MFA, and pivot across Microsoft 365 services."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-aws-s3-bucket-permissions
+    name: "auditing-aws-s3-bucket-permissions"
+    path: 'vendor/skills/anthropic/auditing-aws-s3-bucket-permissions/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "'Systematically audit AWS S3 bucket permissions to identify publicly"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-azure-active-directory-configuration
+    name: "auditing-azure-active-directory-configuration"
+    path: 'vendor/skills/anthropic/auditing-azure-active-directory-configuration/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'internal']
+    desc: "'Auditing Microsoft Entra ID (Azure Active Directory) configuration to"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-cloud-with-cis-benchmarks
+    name: "auditing-cloud-with-cis-benchmarks"
+    path: 'vendor/skills/anthropic/auditing-cloud-with-cis-benchmarks/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "'This skill details how to conduct cloud security audits using Center"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-gcp-iam-permissions
+    name: "auditing-gcp-iam-permissions"
+    path: 'vendor/skills/anthropic/auditing-gcp-iam-permissions/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "'Auditing Google Cloud Platform IAM permissions to identify overly permissive"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-kubernetes-cluster-rbac
+    name: "auditing-kubernetes-cluster-rbac"
+    path: 'vendor/skills/anthropic/auditing-kubernetes-cluster-rbac/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "'Auditing Kubernetes cluster RBAC configurations to identify overly permissive"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-kubernetes-rbac-privilege-escalation
+    name: "auditing-kubernetes-rbac-privilege-escalation"
+    path: 'vendor/skills/anthropic/auditing-kubernetes-rbac-privilege-escalation/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud']
+    desc: "Find over-permissive RBAC roles and service-account token abuse paths in Kubernetes using kubectl auth can-i, rbac-police, kubectl-who-can, and rakkess during authorized cluster security reviews."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-auditing-uefi-firmware-with-chipsec
+    name: "auditing-uefi-firmware-with-chipsec"
+    path: 'vendor/skills/anthropic/auditing-uefi-firmware-with-chipsec/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Use Intel CHIPSEC to assess platform firmware configuration, SPI flash write protection, BIOS lock, SMM/SMRR, and Secure Boot variable state, dump SPI flash, and triage UEFI variables for firmware-level threats."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-benchmarking-kubernetes-with-kube-bench
+    name: "benchmarking-kubernetes-with-kube-bench"
+    path: 'vendor/skills/anthropic/benchmarking-kubernetes-with-kube-bench/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "Run CIS Kubernetes Benchmark checks and remediate findings with kube-bench."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-automated-malware-submission-pipeline
+    name: "building-automated-malware-submission-pipeline"
+    path: 'vendor/skills/anthropic/building-automated-malware-submission-pipeline/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "'Builds an automated malware submission and analysis pipeline that collects"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-c2-infrastructure-with-sliver-framework
+    name: "building-c2-infrastructure-with-sliver-framework"
+    path: 'vendor/skills/anthropic/building-c2-infrastructure-with-sliver-framework/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "Build and configure a resilient command-and-control infrastructure using"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-c2-redirector-infrastructure
+    name: "building-c2-redirector-infrastructure"
+    path: 'vendor/skills/anthropic/building-c2-redirector-infrastructure/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "Architect redirectors with nginx and Apache, malleable profiles, and OPSEC"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-cloud-siem-with-sentinel
+    name: "building-cloud-siem-with-sentinel"
+    path: 'vendor/skills/anthropic/building-cloud-siem-with-sentinel/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "'This skill covers deploying Microsoft Sentinel as a cloud-native SIEM"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-identity-federation-with-saml-azure-ad
+    name: "building-identity-federation-with-saml-azure-ad"
+    path: 'vendor/skills/anthropic/building-identity-federation-with-saml-azure-ad/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud']
+    desc: "Establish SAML 2.0 identity federation between on-premises Active Directory"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-incident-response-dashboard
+    name: "building-incident-response-dashboard"
+    path: 'vendor/skills/anthropic/building-incident-response-dashboard/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Builds real-time incident response dashboards in Splunk, Elastic, or"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-incident-response-playbook
+    name: "building-incident-response-playbook"
+    path: 'vendor/skills/anthropic/building-incident-response-playbook/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Designs and documents structured incident response playbooks that define"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-malware-incident-communication-template
+    name: "building-malware-incident-communication-template"
+    path: 'vendor/skills/anthropic/building-malware-incident-communication-template/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "Build structured communication templates for malware incidents including"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-phishing-reporting-button-workflow
+    name: "building-phishing-reporting-button-workflow"
+    path: 'vendor/skills/anthropic/building-phishing-reporting-button-workflow/SKILL.md'
+    kind: skill
+    stage: ['report']
+    desc: "Implement a phishing report button in email clients with automated triage"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-building-red-team-c2-infrastructure-with-havoc
+    name: "building-red-team-c2-infrastructure-with-havoc"
+    path: 'vendor/skills/anthropic/building-red-team-c2-infrastructure-with-havoc/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "Deploy and configure the Havoc C2 framework with teamserver, HTTPS listeners,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-bypassing-authentication-with-forced-browsing
+    name: "bypassing-authentication-with-forced-browsing"
+    path: 'vendor/skills/anthropic/bypassing-authentication-with-forced-browsing/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'exploit']
+    desc: "Discovering and accessing unprotected pages, APIs, and administrative"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-coercing-authentication-with-coercer-petitpotam
+    name: "coercing-authentication-with-coercer-petitpotam"
+    path: 'vendor/skills/anthropic/coercing-authentication-with-coercer-petitpotam/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth']
+    desc: "Trigger machine account authentication with PetitPotam (MS-EFSR) and Coercer across MS-RPRN, MS-DFSNM, and MS-FSRVP to feed NTLM relay into AD CS Web Enrollment (ESC8) and other relay targets."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-api-security-testing
+    name: "conducting-api-security-testing"
+    path: 'vendor/skills/anthropic/conducting-api-security-testing/SKILL.md'
+    kind: skill
+    stage: ['web', 'api']
+    desc: "'Conducts security testing of REST, GraphQL, and gRPC APIs to identify"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-cloud-incident-response
+    name: "conducting-cloud-incident-response"
+    path: 'vendor/skills/anthropic/conducting-cloud-incident-response/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "'Responds to security incidents in cloud environments (AWS, Azure, GCP) by performing identity-based containment,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-cloud-penetration-testing
+    name: "conducting-cloud-penetration-testing"
+    path: 'vendor/skills/anthropic/conducting-cloud-penetration-testing/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud', 'detect']
+    desc: "'This skill outlines methodologies for performing authorized penetration"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-domain-persistence-with-dcsync
+    name: "conducting-domain-persistence-with-dcsync"
+    path: 'vendor/skills/anthropic/conducting-domain-persistence-with-dcsync/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "Perform DCSync attacks to replicate Active Directory credentials and"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-internal-network-penetration-test
+    name: "conducting-internal-network-penetration-test"
+    path: 'vendor/skills/anthropic/conducting-internal-network-penetration-test/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "Execute an internal network penetration test simulating an insider threat"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-malware-incident-response
+    name: "conducting-malware-incident-response"
+    path: 'vendor/skills/anthropic/conducting-malware-incident-response/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "'Responds to malware infections across enterprise endpoints by identifying the malware family, determining infection"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-memory-forensics-with-volatility
+    name: "conducting-memory-forensics-with-volatility"
+    path: 'vendor/skills/anthropic/conducting-memory-forensics-with-volatility/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Performs memory forensics analysis using Volatility 3 to extract evidence"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-network-penetration-test
+    name: "conducting-network-penetration-test"
+    path: 'vendor/skills/anthropic/conducting-network-penetration-test/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "'Conducts comprehensive network penetration tests against authorized"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-phishing-incident-response
+    name: "conducting-phishing-incident-response"
+    path: 'vendor/skills/anthropic/conducting-phishing-incident-response/SKILL.md'
+    kind: skill
+    stage: ['report', 'detect']
+    desc: "'Responds to phishing incidents by analyzing reported emails, extracting"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-spearphishing-simulation-campaign
+    name: "conducting-spearphishing-simulation-campaign"
+    path: 'vendor/skills/anthropic/conducting-spearphishing-simulation-campaign/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "Spearphishing simulation is a targeted social engineering attack vector"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-conducting-wireless-network-penetration-test
+    name: "conducting-wireless-network-penetration-test"
+    path: 'vendor/skills/anthropic/conducting-wireless-network-penetration-test/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "'Conducts authorized wireless network penetration tests to assess the"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-active-directory-tiered-model
+    name: "configuring-active-directory-tiered-model"
+    path: 'vendor/skills/anthropic/configuring-active-directory-tiered-model/SKILL.md'
+    kind: skill
+    stage: ['internal']
+    desc: "Implement Microsoft's Enhanced Security Admin Environment (ESAE) tiered"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-aws-verified-access-for-ztna
+    name: "configuring-aws-verified-access-for-ztna"
+    path: 'vendor/skills/anthropic/configuring-aws-verified-access-for-ztna/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud']
+    desc: "Configure AWS Verified Access to provide VPN-less zero trust network"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-certificate-authority-with-openssl
+    name: "configuring-certificate-authority-with-openssl"
+    path: 'vendor/skills/anthropic/configuring-certificate-authority-with-openssl/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "A Certificate Authority (CA) is the trust anchor in a PKI hierarchy,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-identity-aware-proxy-with-google-iap
+    name: "configuring-identity-aware-proxy-with-google-iap"
+    path: 'vendor/skills/anthropic/configuring-identity-aware-proxy-with-google-iap/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "'Configuring Google Cloud Identity-Aware Proxy (IAP) to enforce per-request"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-ldap-security-hardening
+    name: "configuring-ldap-security-hardening"
+    path: 'vendor/skills/anthropic/configuring-ldap-security-hardening/SKILL.md'
+    kind: skill
+    stage: ['internal']
+    desc: "Harden LDAP directory services against common attacks including credential"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-multi-factor-authentication-with-duo
+    name: "configuring-multi-factor-authentication-with-duo"
+    path: 'vendor/skills/anthropic/configuring-multi-factor-authentication-with-duo/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Deploy Cisco Duo multi-factor authentication across enterprise applications,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-network-segmentation-with-vlans
+    name: "configuring-network-segmentation-with-vlans"
+    path: 'vendor/skills/anthropic/configuring-network-segmentation-with-vlans/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "'Designs and implements VLAN-based network segmentation on managed switches"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-oauth2-authorization-flow
+    name: "configuring-oauth2-authorization-flow"
+    path: 'vendor/skills/anthropic/configuring-oauth2-authorization-flow/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Configure secure OAuth 2.0 authorization flows including Authorization"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-configuring-suricata-for-network-monitoring
+    name: "configuring-suricata-for-network-monitoring"
+    path: 'vendor/skills/anthropic/configuring-suricata-for-network-monitoring/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "'Deploys and configures Suricata IDS/IPS with Emerging Threats rulesets,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-deobfuscating-javascript-malware
+    name: "deobfuscating-javascript-malware"
+    path: 'vendor/skills/anthropic/deobfuscating-javascript-malware/SKILL.md'
+    kind: skill
+    stage: ['web', 'reverse']
+    desc: "'Deobfuscates malicious JavaScript code used in web-based attacks, phishing"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-deobfuscating-powershell-obfuscated-malware
+    name: "deobfuscating-powershell-obfuscated-malware"
+    path: 'vendor/skills/anthropic/deobfuscating-powershell-obfuscated-malware/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Systematically deobfuscate multi-layer PowerShell malware using AST analysis,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-deploying-active-directory-honeytokens
+    name: "deploying-active-directory-honeytokens"
+    path: 'vendor/skills/anthropic/deploying-active-directory-honeytokens/SKILL.md'
+    kind: skill
+    stage: ['internal']
+    desc: "'Deploys deception-based honeytokens in Active Directory including fake"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-deploying-cloud-deception-with-decoy-resources
+    name: "deploying-cloud-deception-with-decoy-resources"
+    path: 'vendor/skills/anthropic/deploying-cloud-deception-with-decoy-resources/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: ">-"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-deploying-cloudflare-access-for-zero-trust
+    name: "deploying-cloudflare-access-for-zero-trust"
+    path: 'vendor/skills/anthropic/deploying-cloudflare-access-for-zero-trust/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud']
+    desc: "'Deploying Cloudflare Access with Cloudflare Tunnel to provide zero trust"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-anomalous-authentication-patterns
+    name: "detecting-anomalous-authentication-patterns"
+    path: 'vendor/skills/anthropic/detecting-anomalous-authentication-patterns/SKILL.md'
+    kind: skill
+    stage: ['auth', 'detect']
+    desc: "'Detects anomalous authentication patterns using UEBA analytics, statistical"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-api-enumeration-attacks
+    name: "detecting-api-enumeration-attacks"
+    path: 'vendor/skills/anthropic/detecting-api-enumeration-attacks/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'api']
+    desc: "Detect and prevent API enumeration attacks including BOLA and IDOR exploitation"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-arp-poisoning-in-network-traffic
+    name: "detecting-arp-poisoning-in-network-traffic"
+    path: 'vendor/skills/anthropic/detecting-arp-poisoning-in-network-traffic/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Detect and prevent ARP spoofing attacks using ARPWatch, Dynamic ARP Inspection,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-aws-cloudtrail-anomalies
+    name: "detecting-aws-cloudtrail-anomalies"
+    path: 'vendor/skills/anthropic/detecting-aws-cloudtrail-anomalies/SKILL.md'
+    kind: skill
+    stage: ['api', 'cloud', 'detect']
+    desc: "Detect unusual API call patterns in AWS CloudTrail logs using boto3,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-aws-credential-exposure-with-trufflehog
+    name: "detecting-aws-credential-exposure-with-trufflehog"
+    path: 'vendor/skills/anthropic/detecting-aws-credential-exposure-with-trufflehog/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "'Detecting exposed AWS credentials in source code repositories, CI/CD"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-aws-guardduty-findings-automation
+    name: "detecting-aws-guardduty-findings-automation"
+    path: 'vendor/skills/anthropic/detecting-aws-guardduty-findings-automation/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Automate AWS GuardDuty threat detection findings processing using EventBridge"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-aws-iam-privilege-escalation
+    name: "detecting-aws-iam-privilege-escalation"
+    path: 'vendor/skills/anthropic/detecting-aws-iam-privilege-escalation/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Detect AWS IAM privilege escalation paths using boto3 and Cloudsplaining"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-azure-lateral-movement
+    name: "detecting-azure-lateral-movement"
+    path: 'vendor/skills/anthropic/detecting-azure-lateral-movement/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'internal', 'detect']
+    desc: "Detect lateral movement in Azure AD/Entra ID environments using Microsoft"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-azure-service-principal-abuse
+    name: "detecting-azure-service-principal-abuse"
+    path: 'vendor/skills/anthropic/detecting-azure-service-principal-abuse/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Detect and investigate Azure service principal abuse including privilege"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-azure-storage-account-misconfigurations
+    name: "detecting-azure-storage-account-misconfigurations"
+    path: 'vendor/skills/anthropic/detecting-azure-storage-account-misconfigurations/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud', 'detect']
+    desc: "Audit Azure Blob and ADLS storage accounts for public access exposure,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-broken-object-property-level-authorization
+    name: "detecting-broken-object-property-level-authorization"
+    path: 'vendor/skills/anthropic/detecting-broken-object-property-level-authorization/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'detect']
+    desc: "Detect and test for OWASP API3:2023 Broken Object Property Level Authorization"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-cloud-threats-with-guardduty
+    name: "detecting-cloud-threats-with-guardduty"
+    path: 'vendor/skills/anthropic/detecting-cloud-threats-with-guardduty/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "'This skill teaches security teams how to deploy and operationalize Amazon"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-command-and-control-over-dns
+    name: "detecting-command-and-control-over-dns"
+    path: 'vendor/skills/anthropic/detecting-command-and-control-over-dns/SKILL.md'
+    kind: skill
+    stage: ['exploit', 'detect']
+    desc: "'Detects command-and-control (C2) communications tunneled through DNS"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-compromised-cloud-credentials
+    name: "detecting-compromised-cloud-credentials"
+    path: 'vendor/skills/anthropic/detecting-compromised-cloud-credentials/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "'Detecting compromised cloud credentials across AWS, Azure, and GCP by"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-container-drift-at-runtime
+    name: "detecting-container-drift-at-runtime"
+    path: 'vendor/skills/anthropic/detecting-container-drift-at-runtime/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud', 'detect']
+    desc: "Detect unauthorized modifications to running containers by monitoring"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-container-escape-attempts
+    name: "detecting-container-escape-attempts"
+    path: 'vendor/skills/anthropic/detecting-container-escape-attempts/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Container escape is a critical attack technique where an adversary breaks"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-container-escape-with-falco-rules
+    name: "detecting-container-escape-with-falco-rules"
+    path: 'vendor/skills/anthropic/detecting-container-escape-with-falco-rules/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Detect container escape attempts in real-time using Falco runtime security"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-container-runtime-threats-with-falco
+    name: "detecting-container-runtime-threats-with-falco"
+    path: 'vendor/skills/anthropic/detecting-container-runtime-threats-with-falco/SKILL.md'
+    kind: skill
+    stage: ['cloud', 'detect']
+    desc: "Write and deploy Falco rules with the modern eBPF driver to detect container escape, namespace abuse, privileged mounts, and anomalous syscalls at runtime in Kubernetes and Docker."
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-credential-dumping-techniques
+    name: "detecting-credential-dumping-techniques"
+    path: 'vendor/skills/anthropic/detecting-credential-dumping-techniques/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Detect LSASS credential dumping, SAM database extraction, and NTDS.dit"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-cryptomining-in-cloud
+    name: "detecting-cryptomining-in-cloud"
+    path: 'vendor/skills/anthropic/detecting-cryptomining-in-cloud/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud', 'detect']
+    desc: "'This skill teaches security teams how to detect and respond to unauthorized"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-dcsync-attack-in-active-directory
+    name: "detecting-dcsync-attack-in-active-directory"
+    path: 'vendor/skills/anthropic/detecting-dcsync-attack-in-active-directory/SKILL.md'
+    kind: skill
+    stage: ['internal', 'detect']
+    desc: "Detect DCSync attacks where adversaries abuse Active Directory replication"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-dns-exfiltration-with-dns-query-analysis
+    name: "detecting-dns-exfiltration-with-dns-query-analysis"
+    path: 'vendor/skills/anthropic/detecting-dns-exfiltration-with-dns-query-analysis/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Detect data exfiltration through DNS tunneling by analyzing query entropy,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-exfiltration-over-dns-with-zeek
+    name: "detecting-exfiltration-over-dns-with-zeek"
+    path: 'vendor/skills/anthropic/detecting-exfiltration-over-dns-with-zeek/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "Detect DNS-based data exfiltration by analyzing Zeek dns.log for high-entropy"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-fileless-malware-techniques
+    name: "detecting-fileless-malware-techniques"
+    path: 'vendor/skills/anthropic/detecting-fileless-malware-techniques/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "'Detects and analyzes fileless malware that operates entirely in memory"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-golden-ticket-attacks-in-kerberos-logs
+    name: "detecting-golden-ticket-attacks-in-kerberos-logs"
+    path: 'vendor/skills/anthropic/detecting-golden-ticket-attacks-in-kerberos-logs/SKILL.md'
+    kind: skill
+    stage: ['internal', 'detect']
+    desc: "Detect Golden Ticket attacks in Active Directory by analyzing Kerberos"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-insider-data-exfiltration-via-dlp
+    name: "detecting-insider-data-exfiltration-via-dlp"
+    path: 'vendor/skills/anthropic/detecting-insider-data-exfiltration-via-dlp/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Detects insider data exfiltration by analyzing DLP policy violations,"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-lateral-movement-in-network
+    name: "detecting-lateral-movement-in-network"
+    path: 'vendor/skills/anthropic/detecting-lateral-movement-in-network/SKILL.md'
+    kind: skill
+    stage: ['internal', 'detect']
+    desc: "'Identifies lateral movement techniques in enterprise networks by analyzing"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-lateral-movement-with-splunk
+    name: "detecting-lateral-movement-with-splunk"
+    path: 'vendor/skills/anthropic/detecting-lateral-movement-with-splunk/SKILL.md'
+    kind: skill
+    stage: ['internal', 'detect']
+    desc: "Detect adversary lateral movement across networks using Splunk SPL queries"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-lateral-movement-with-zeek
+    name: "detecting-lateral-movement-with-zeek"
+    path: 'vendor/skills/anthropic/detecting-lateral-movement-with-zeek/SKILL.md'
+    kind: skill
+    stage: ['internal', 'detect']
+    desc: "'Detect lateral movement in network traffic using Zeek (formerly Bro)"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-misconfigured-azure-storage
+    name: "detecting-misconfigured-azure-storage"
+    path: 'vendor/skills/anthropic/detecting-misconfigured-azure-storage/SKILL.md'
+    kind: skill
+    stage: ['auth', 'cloud', 'detect']
+    desc: "'Detecting misconfigured Azure Storage accounts including publicly accessible"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-mobile-malware-behavior
+    name: "detecting-mobile-malware-behavior"
+    path: 'vendor/skills/anthropic/detecting-mobile-malware-behavior/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "'Detects and analyzes malicious behavior in mobile applications through"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-network-anomalies-with-zeek
+    name: "detecting-network-anomalies-with-zeek"
+    path: 'vendor/skills/anthropic/detecting-network-anomalies-with-zeek/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "'Deploys and configures Zeek (formerly Bro) network security monitor"
+    source: Anthropic-Cybersecurity-Skills
+  - id: anthropic-detecting-network-scanning-with-ids-signatures
+    name: "detecting-network-scanning-with-ids-signatures"
+    path: 'vendor/skills/anthropic/detecting-network-scanning-with-ids-signatures/SKILL.md'
+    kind: skill
+    stage: ['recon', 'detect']
+    desc: "Detect network reconnaissance and port scanning using Suricata and Snort"
+    source: Anthropic-Cybersecurity-Skills
+  # ===== Claude-Red-main =====
+  - id: claude-offensive-active-directory
+    name: "offensive-active-directory"
+    path: 'vendor/skills/claude-red/offensive-active-directory/SKILL.md'
+    kind: skill
+    stage: ['recon', 'api', 'internal']
+    desc: "\"Active Directory attack methodology for internal network red team engagements. Covers reconnaissance (BloodHound, PowerView, ADExplorer), credential abuse (Kerberoasting, ASREProasting, NTLM relay, LLMNR/NBT-NS poisoning), privilege escala"
+    source: Claude-Red-main
+  - id: claude-offensive-advanced-redteam
+    name: "offensive-advanced-redteam"
+    path: 'vendor/skills/claude-red/offensive-advanced-redteam/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'exploit', 'report']
+    desc: "\"Comprehensive red team operations methodology covering full engagement lifecycle from planning through reporting. Addresses engagement scoping and rules of engagement negotiation, multi-tier C2 infrastructure design with redirectors and do"
+    source: Claude-Red-main
+  - id: claude-offensive-anti-forensics
+    name: "offensive-anti-forensics"
+    path: 'vendor/skills/claude-red/offensive-anti-forensics/SKILL.md'
+    kind: skill
+    stage: ['auth', 'reverse', 'exploit']
+    desc: "\"Anti-forensics and evidence destruction techniques for red team operators conducting authorized engagements. Covers log clearing on Windows (wevtutil, Clear-EventLog, ETW provider patching) and Linux (journal truncation, utmp/wtmp binary e"
+    source: Claude-Red-main
+  - id: claude-offensive-api-abuse
+    name: "offensive-api-abuse"
+    path: 'vendor/skills/claude-red/offensive-api-abuse/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Advanced API exploitation methodology focused on business logic abuse and sophisticated attack patterns that bypass traditional security controls. Covers business logic bypass through API call chaining and workflow manipulation. Addresses "
+    source: Claude-Red-main
+  - id: claude-offensive-api-security
+    name: "offensive-api-security"
+    path: 'vendor/skills/claude-red/offensive-api-security/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Comprehensive API security testing methodology covering REST, gRPC, and WebSocket attack surfaces. Addresses the full OWASP API Security Top 10 2023 including BOLA/IDOR, broken authentication, excessive data exposure, rate limiting bypass,"
+    source: Claude-Red-main
+  - id: claude-offensive-bluetooth-ble
+    name: "offensive-bluetooth-ble"
+    path: 'vendor/skills/claude-red/offensive-bluetooth-ble/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'exploit']
+    desc: "\"Bluetooth Low Energy (BLE) attack methodology — GATT enumeration, characteristic read/write without auth, pairing downgrade (Just Works forced), LE Secure Connections bypass, MITM via active relay, sniffing with Sniffle (TI CC1352) / Ubert"
+    source: Claude-Red-main
+  - id: claude-offensive-bluetooth-classic
+    name: "offensive-bluetooth-classic"
+    path: 'vendor/skills/claude-red/offensive-bluetooth-classic/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'detect']
+    desc: "\"Bluetooth Classic (BR/EDR) attack methodology — device discovery, service enumeration via SDP, LMP/L2CAP layer attacks, legacy PIN cracking (BlueBorne / KNOB), Bluetooth file-transfer abuse (BlueSnarfing legacy), unauthenticated profile ab"
+    source: Claude-Red-main
+  - id: claude-offensive-business-logic
+    name: "offensive-business-logic"
+    path: 'vendor/skills/claude-red/offensive-business-logic/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'api']
+    desc: "\"Business logic vulnerability testing for web/mobile/API engagements. Covers workflow bypass, state machine violations, multi-step process abuse, price/quantity/discount manipulation, currency confusion, coupon stacking, refund/chargeback a"
+    source: Claude-Red-main
+  - id: claude-offensive-c2-frameworks
+    name: "offensive-c2-frameworks"
+    path: 'vendor/skills/claude-red/offensive-c2-frameworks/SKILL.md'
+    kind: skill
+    stage: ['api', 'cloud', 'internal']
+    desc: "\"Command and Control framework deployment, configuration, and operational tradecraft for red team engagements. Covers Cobalt Strike (malleable C2 profiles, Beacon types HTTP/HTTPS/DNS/SMB, Beacon Object Files for in-memory execution, sleep "
+    source: Claude-Red-main
+  - id: claude-offensive-cicd-pipeline
+    name: "offensive-cicd-pipeline"
+    path: 'vendor/skills/claude-red/offensive-cicd-pipeline/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'cloud']
+    desc: "\"Comprehensive CI/CD pipeline exploitation methodology covering GitHub Actions injection vectors (expression injection via PR titles and issue bodies, workflow_run event abuse, GITHUB_TOKEN over-scoping, composite action supply chain compro"
+    source: Claude-Red-main
+  - id: claude-offensive-cicd-secrets
+    name: "offensive-cicd-secrets"
+    path: 'vendor/skills/claude-red/offensive-cicd-secrets/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Comprehensive secrets extraction methodology targeting CI/CD environments across all major platforms. Covers environment variable extraction from build contexts, exploitation of vault and secrets-manager misconfigurations (HashiCorp Vault,"
+    source: Claude-Red-main
+  - id: claude-offensive-cloud
+    name: "offensive-cloud"
+    path: 'vendor/skills/claude-red/offensive-cloud/SKILL.md'
+    kind: skill
+    stage: ['recon', 'api', 'cloud']
+    desc: "\"Cloud security attack methodology covering AWS, Azure, and GCP. Includes credential harvesting (IMDS, ~/.aws, env vars, leaked CI secrets, instance roles), enumeration with cloud-specific tools (pacu, ScoutSuite, Prowler, ROADtools, gcp_en"
+    source: Claude-Red-main
+  - id: claude-offensive-container-escape
+    name: "offensive-container-escape"
+    path: 'vendor/skills/claude-red/offensive-container-escape/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'cloud']
+    desc: "\"Container escape and breakout techniques targeting Docker, containerd, and Podman runtimes. Covers privileged container breakout via host filesystem mount and nsenter, Docker socket abuse through /var/run/docker.sock, Linux capability expl"
+    source: Claude-Red-main
+  - id: claude-offensive-crypto-attacks
+    name: "offensive-crypto-attacks"
+    path: 'vendor/skills/claude-red/offensive-crypto-attacks/SKILL.md'
+    kind: skill
+    stage: ['auth', 'exploit', 'detect']
+    desc: "\"Systematic methodology for identifying and exploiting cryptographic implementation weaknesses in real-world applications. Covers padding oracle attacks against CBC-mode ciphers with PKCS7 padding (Vaudenay's original attack through modern "
+    source: Claude-Red-main
+  - id: claude-offensive-data-exfiltration
+    name: "offensive-data-exfiltration"
+    path: 'vendor/skills/claude-red/offensive-data-exfiltration/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'cloud']
+    desc: "\"Dense methodology covering DNS exfiltration (dnscat2, iodine, dns2tcp), HTTPS tunneling (domain fronting, CDN abuse, legitimate service channels), ICMP tunneling (icmpsh, ptunnel-ng), cloud storage dead drops (S3 presigned URLs, Azure Blob"
+    source: Claude-Red-main
+  - id: claude-offensive-deauth-disassoc
+    name: "offensive-deauth-disassoc"
+    path: 'vendor/skills/claude-red/offensive-deauth-disassoc/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'exploit']
+    desc: "\"Deauthentication and disassociation attacks against 802.11 networks — targeted single-client deauth for handshake capture, broadcast deauth for DoS (with authorization), action-frame attacks bypassing 802.11w (PMF), beacon flooding, mdk4 /"
+    source: Claude-Red-main
+  - id: claude-offensive-dependency-confusion
+    name: "offensive-dependency-confusion"
+    path: 'vendor/skills/claude-red/offensive-dependency-confusion/SKILL.md'
+    kind: skill
+    stage: ['recon', 'cloud', 'exploit']
+    desc: "\"Deep-dive offensive methodology for dependency confusion and namespace attacks across all major package ecosystems. Covers npm scope confusion exploiting the gap between public and private scoped packages and .npmrc misconfigurations where"
+    source: Claude-Red-main
+  - id: claude-offensive-deserialization
+    name: "offensive-deserialization"
+    path: 'vendor/skills/claude-red/offensive-deserialization/SKILL.md'
+    kind: skill
+    stage: ['web', 'cloud', 'reverse']
+    desc: "\"Insecure deserialization exploitation across Java, PHP, .NET, Python, Node.js, and Ruby. Covers gadget chain construction with ysoserial/phpggc/ysoserial.net, ObjectInputStream and BinaryFormatter sink identification, pickle __reduce__ RCE"
+    source: Claude-Red-main
+  - id: claude-offensive-evil-twin
+    name: "offensive-evil-twin"
+    path: 'vendor/skills/claude-red/offensive-evil-twin/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'internal']
+    desc: "\"Evil Twin / KARMA / Mana access point methodology — rogue AP construction with hostapd-mana / wifiphisher / airgeddon, KARMA universal probe response, Mana selective probe response, captive portal phishing, deauth-driven client coercion to"
+    source: Claude-Red-main
+  - id: claude-offensive-fuzzing
+    name: "offensive-fuzzing"
+    path: 'vendor/skills/claude-red/offensive-fuzzing/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'report', 'detect']
+    desc: "\"Practical offensive fuzzing methodology covering target identification, fuzzer selection (AFL++, libFuzzer, Honggfuzz, Boofuzz, syzkaller), harness writing, corpus curation, mutation strategies, coverage measurement, and crash triage. Use "
+    source: Claude-Red-main
+  - id: claude-offensive-graphql
+    name: "offensive-graphql"
+    path: 'vendor/skills/claude-red/offensive-graphql/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Offensive methodology for attacking GraphQL APIs during penetration tests and bug bounty engagements. Covers the full attack lifecycle: endpoint discovery, introspection abuse and blind schema reconstruction when introspection is disabled,"
+    source: Claude-Red-main
+  - id: claude-offensive-iot
+    name: "offensive-iot"
+    path: 'vendor/skills/claude-red/offensive-iot/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'api']
+    desc: "\"IoT and embedded device security testing methodology. Covers hardware reconnaissance (UART, JTAG, SWD, SPI flash, I2C EEPROM, eMMC chip-off), firmware acquisition (vendor portals, OTA capture, flash dump, binwalk extraction), firmware anal"
+    source: Claude-Red-main
+  - id: claude-offensive-jwt
+    name: "offensive-jwt"
+    path: 'vendor/skills/claude-red/offensive-jwt/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'exploit']
+    desc: "\"JWT attack methodology for penetration testers. Covers algorithm confusion (alg:none, RS256→HS256), weak HMAC secret brute force, kid parameter injection (SQLi, path traversal), jku/x5u/jwk header injection, JWKS cache poisoning, JWS/JWE c"
+    source: Claude-Red-main
+  - id: claude-offensive-k8s-attacks
+    name: "offensive-k8s-attacks"
+    path: 'vendor/skills/claude-red/offensive-k8s-attacks/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'api']
+    desc: "\"Kubernetes cluster attack techniques covering the full attack lifecycle from initial foothold in a pod to cluster-wide compromise. Covers service account token theft and impersonation, RBAC misconfiguration exploitation including wildcard "
+    source: Claude-Red-main
+  - id: claude-offensive-krack-fragattacks
+    name: "offensive-krack-fragattacks"
+    path: 'vendor/skills/claude-red/offensive-krack-fragattacks/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "\"KRACK (CVE-2017-13077..082) and FragAttacks (CVE-2020-24586..588 + 26139-26147) — key reinstallation, fragmentation, and aggregation attacks against WPA2 supplicants. Covers Vanhoef's test scripts, viability against modern patched stacks ("
+    source: Claude-Red-main
+  - id: claude-offensive-lateral-movement
+    name: "offensive-lateral-movement"
+    path: 'vendor/skills/claude-red/offensive-lateral-movement/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'internal']
+    desc: "\"Comprehensive lateral movement tradecraft for authorized red team engagements covering credential-based movement (pass-the-hash, pass-the-ticket, overpass-the-hash), NTLM relay attacks (ntlmrelayx with PetitPotam, DFSCoerce, PrinterBug coe"
+    source: Claude-Red-main
+  - id: claude-offensive-linux-privesc
+    name: "offensive-linux-privesc"
+    path: 'vendor/skills/claude-red/offensive-linux-privesc/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Comprehensive Linux privilege escalation methodology for offensive security engagements. Covers the full attack surface from a low-privilege shell to root: SUID/SGID binary abuse via GTFOBins, Linux capabilities exploitation (cap_setuid, c"
+    source: Claude-Red-main
+  - id: claude-offensive-lorawan-sub-ghz
+    name: "offensive-lorawan-sub-ghz"
+    path: 'vendor/skills/claude-red/offensive-lorawan-sub-ghz/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"LoRaWAN and sub-GHz (433 / 868 / 915 MHz) attack methodology — LoRaWAN ABP/OTAA join attack, network/session key reuse, frame counter replay, downlink injection on TTN/Helium-style networks, sub-GHz protocol replay (KeeLoq garage doors, fi"
+    source: Claude-Red-main
+  - id: claude-offensive-mobile
+    name: "offensive-mobile"
+    path: 'vendor/skills/claude-red/offensive-mobile/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Mobile (Android + iOS) application penetration testing methodology. Covers static analysis (apktool/jadx for Android, class-dump/Hopper/IDA for iOS), dynamic instrumentation with Frida and Objection, SSL pinning bypass strategies, root/jai"
+    source: Claude-Red-main
+  - id: claude-offensive-network-attacks
+    name: "offensive-network-attacks"
+    path: 'vendor/skills/claude-red/offensive-network-attacks/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "\"Dense description covering ARP spoofing, LLMNR/NBT-NS/mDNS poisoning, DNS poisoning, MITM attacks, VLAN hopping, DHCP attacks, 802.1X/NAC bypass, IPv6 attacks. Tools: Bettercap, Responder, mitm6, Ettercap, Wireshark. MITRE T1557, T1040. Us"
+    source: Claude-Red-main
+  - id: claude-offensive-osint
+    name: "offensive-osint"
+    path: 'vendor/skills/claude-red/offensive-osint/SKILL.md'
+    kind: skill
+    stage: ['recon', 'detect']
+    desc: "\"Comprehensive OSINT methodology skill for offensive security, red team intelligence gathering, and bug bounty reconnaissance. Covers domain recon, email harvesting, social media profiling, GitHub/code leaks, Shodan/Censys enumeration, brea"
+    source: Claude-Red-main
+  - id: claude-offensive-persistence
+    name: "offensive-persistence"
+    path: 'vendor/skills/claude-red/offensive-persistence/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'api']
+    desc: "\"Comprehensive persistence tradecraft for authorized red team engagements covering Windows and Linux mechanisms. Windows techniques include registry Run/RunOnce keys, scheduled tasks, WMI event subscriptions, DLL search order hijacking, COM"
+    source: Claude-Red-main
+  - id: claude-offensive-phishing
+    name: "offensive-phishing"
+    path: 'vendor/skills/claude-red/offensive-phishing/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Phishing campaign execution methodology for authorized red team engagements. Covers end-to-end campaign lifecycle: infrastructure provisioning (GoPhish, SMTP relay configuration, domain acquisition and aging, SPF/DKIM/DMARC alignment), pay"
+    source: Claude-Red-main
+  - id: claude-offensive-reporting
+    name: "offensive-reporting"
+    path: 'vendor/skills/claude-red/offensive-reporting/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'report']
+    desc: "\"Penetration test and red team report writing methodology. Covers executive summary structuring (risk-led narrative for non-technical readers), technical finding format (title, severity, affected scope, narrative, reproduction steps, impact"
+    source: Claude-Red-main
+  - id: claude-offensive-shellcode
+    name: "offensive-shellcode"
+    path: 'vendor/skills/claude-red/offensive-shellcode/SKILL.md'
+    kind: skill
+    stage: ['api', 'reverse', 'exploit']
+    desc: "\"Shellcode development reference for offensive security engagements. Use when writing custom x86/x64 shellcode, implementing position-independent code (PIC), building shellcode loaders, evading AV/EDR detection, or converting PE files to sh"
+    source: Claude-Red-main
+  - id: claude-offensive-social-engineering
+    name: "offensive-social-engineering"
+    path: 'vendor/skills/claude-red/offensive-social-engineering/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Social engineering attack techniques beyond email phishing for authorized red team and physical penetration testing engagements. Covers pretexting methodology (persona creation, authority and urgency psychological triggers, rapport buildin"
+    source: Claude-Red-main
+  - id: claude-offensive-sqli
+    name: "offensive-sqli"
+    path: 'vendor/skills/claude-red/offensive-sqli/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'api']
+    desc: "\"SQL injection testing skill for offensive security assessments and bug bounty hunting. Covers error-based, UNION-based, boolean/time-based blind, out-of-band, second-order, NoSQL, GraphQL, WebSocket, and JSON-operator SQLi. Includes WAF by"
+    source: Claude-Red-main
+  - id: claude-offensive-ssti
+    name: "offensive-ssti"
+    path: 'vendor/skills/claude-red/offensive-ssti/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'exploit']
+    desc: "\"Dense description covering Server-Side Template Injection across Jinja2, Twig, Freemarker, Velocity, Pebble, Smarty, Mako, Handlebars, ERB, Thymeleaf, EJS, Pug. Engine fingerprinting, filter bypass, blind exploitation, WAF evasion, SSTI-to"
+    source: Claude-Red-main
+  - id: claude-offensive-supply-chain
+    name: "offensive-supply-chain"
+    path: 'vendor/skills/claude-red/offensive-supply-chain/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Comprehensive offensive methodology for software supply chain attacks covering the full kill chain from reconnaissance through exploitation. Addresses dependency confusion across npm, PyPI, and NuGet ecosystems where internal registry over"
+    source: Claude-Red-main
+  - id: claude-offensive-tls-attacks
+    name: "offensive-tls-attacks"
+    path: 'vendor/skills/claude-red/offensive-tls-attacks/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'reverse']
+    desc: "\"Comprehensive methodology for auditing and exploiting TLS/SSL implementations and misconfigurations across network services and mobile applications. Covers protocol downgrade attacks including POODLE (CVE-2014-3566) against SSLv3 CBC paddi"
+    source: Claude-Red-main
+  - id: claude-offensive-toctou
+    name: "offensive-toctou"
+    path: 'vendor/skills/claude-red/offensive-toctou/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'api']
+    desc: "\"Time-of-Check / Time-of-Use (TOCTOU) race condition exploitation methodology across binary, kernel, filesystem, web, and container layers. Covers symbolic-link races (open/access/stat split), file-descriptor races, fopen/realpath traversal"
+    source: Claude-Red-main
+  - id: claude-offensive-wifi
+    name: "offensive-wifi"
+    path: 'vendor/skills/claude-red/offensive-wifi/SKILL.md'
+    kind: skill
+    stage: ['auth', 'exploit', 'detect']
+    desc: "\"Wireless / 802.11 attack methodology for red team engagements and wireless security assessments. Covers monitor-mode setup, WPA/WPA2-PSK handshake capture and PMKID attacks, WPA3 SAE downgrade and Dragonblood, WPA-Enterprise (EAP) attacks "
+    source: Claude-Red-main
+  - id: claude-offensive-wifi-recon
+    name: "offensive-wifi-recon"
+    path: 'vendor/skills/claude-red/offensive-wifi-recon/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'detect']
+    desc: "\"Wi-Fi reconnaissance methodology — adapter selection, monitor mode and packet injection setup, regulatory domain handling, multi-band airspace mapping, hidden SSID discovery, BSSID/ESSID/channel/PMF/encryption fingerprinting, client probe "
+    source: Claude-Red-main
+  - id: claude-offensive-windows-privesc
+    name: "offensive-windows-privesc"
+    path: 'vendor/skills/claude-red/offensive-windows-privesc/SKILL.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"Comprehensive Windows privilege escalation methodology for offensive security engagements. Covers the full attack surface from a standard user shell to NT AUTHORITY\\\\SYSTEM: token impersonation via SeImpersonate and SeAssignPrimaryToken pr"
+    source: Claude-Red-main
+  - id: claude-offensive-wpa-enterprise
+    name: "offensive-wpa-enterprise"
+    path: 'vendor/skills/claude-red/offensive-wpa-enterprise/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'internal']
+    desc: "\"WPA/WPA2/WPA3-Enterprise (802.1X / EAP) attack methodology — EAP method identification (PEAP-MSCHAPv2, EAP-TTLS, EAP-TLS, EAP-GTC, EAP-PWD, EAP-FAST), evil-twin RADIUS attacks with eaphammer for credential capture, MSCHAPv2 challenge-respo"
+    source: Claude-Red-main
+  - id: claude-offensive-wpa2-psk
+    name: "offensive-wpa2-psk"
+    path: 'vendor/skills/claude-red/offensive-wpa2-psk/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'internal']
+    desc: "\"WPA/WPA2-PSK attack methodology — four-way handshake capture via targeted deauthentication, PMKID attacks (no client required), hcxdumptool / hcxpcapngtool conversion to hashcat hc22000 format, GPU-accelerated cracking with dictionary, mas"
+    source: Claude-Red-main
+  - id: claude-offensive-wpa3-sae
+    name: "offensive-wpa3-sae"
+    path: 'vendor/skills/claude-red/offensive-wpa3-sae/SKILL.md'
+    kind: skill
+    stage: ['auth', 'detect']
+    desc: "\"WPA3 / SAE (Simultaneous Authentication of Equals) attack methodology — transition-mode (mixed WPA2/WPA3) downgrade, Dragonblood side-channel attacks (CVE-2019-9494, 9495, 13377, 13456), SAE auth flooding for AP CPU exhaustion, Hash-to-Ele"
+    source: Claude-Red-main
+  - id: claude-offensive-wps
+    name: "offensive-wps"
+    path: 'vendor/skills/claude-red/offensive-wps/SKILL.md'
+    kind: skill
+    stage: ['detect']
+    desc: "\"WPS (Wi-Fi Protected Setup) PIN attack methodology — Pixie Dust offline attack against vulnerable chipsets (Ralink, Realtek, Broadcom, MediaTek), online PIN brute-force with reaver/bully, lockout handling, time-of-day evasion, WPS push-but"
+    source: Claude-Red-main
+  - id: claude-offensive-z-wave
+    name: "offensive-z-wave"
+    path: 'vendor/skills/claude-red/offensive-z-wave/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'internal']
+    desc: "\"Z-Wave attack methodology — sniffing with Z-Force / EZ-Wave / RTL-SDR + ZniffMobile, S0 (legacy) network-key derivation flaw and key reuse, S2 (modern) ECDH commissioning analysis, replay/injection on unauthenticated nodes, default-key bru"
+    source: Claude-Red-main
+  - id: claude-offensive-zigbee-thread-matter
+    name: "offensive-zigbee-thread-matter"
+    path: 'vendor/skills/claude-red/offensive-zigbee-thread-matter/SKILL.md'
+    kind: skill
+    stage: ['web', 'exploit', 'detect']
+    desc: "\"Zigbee, Thread, and Matter mesh-protocol attack methodology — IEEE 802.15.4 sniffing with TI CC2531 / CC2540 / Sonoff Zigbee Dongle E, KillerBee toolkit, Touchlink commissioning abuse with the well-known transport key, replay/injection att"
+    source: Claude-Red-main
+  # ===== Claude-Red-main(legacy) =====
+  - id: claude-offensive-ai-security
+    name: "offensive-ai-security"
+    path: 'vendor/skills/claude-red-legacy/offensive-ai-security.md'
+    kind: skill
+    stage: ['recon', 'web']
+    desc: "\"AI/LLM security offensive checklist: prompt injection, jailbreaking, model extraction, training data poisoning, adversarial inputs, LLM-assisted attack automation, and AI system reconnaissance. Use when assessing AI/ML systems, red-teaming"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-basic-exploitation
+    name: "offensive-basic-exploitation"
+    path: 'vendor/skills/claude-red-legacy/offensive-basic-exploitation.md'
+    kind: skill
+    stage: ['web', 'exploit']
+    desc: "\"Week 5 exploit development curriculum. Foundational exploitation techniques: controlling EIP/RIP, ROP chain construction, ret2libc, shellcode injection, heap spraying, bypass techniques for ASLR/NX/stack canaries. Use when building initial"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-bug-identification
+    name: "offensive-bug-identification"
+    path: 'vendor/skills/claude-red-legacy/offensive-bug-identification.md'
+    kind: skill
+    stage: ['recon', 'detect']
+    desc: "\"Systematic bug identification methodology: source code review patterns, black-box testing strategies, taint analysis, dangerous function hunting, data flow tracing, and automated scanning setup. Use for code audits, bug bounty triage, or b"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-crash-analysis
+    name: "offensive-crash-analysis"
+    path: 'vendor/skills/claude-red-legacy/offensive-crash-analysis.md'
+    kind: skill
+    stage: ['exploit', 'detect']
+    desc: "\"Week 4 exploit development curriculum. Crash triage and analysis methodology: WinDbg/GDB analysis, ASAN/MSAN output interpretation, exploitability assessment, register/stack trace reading, root cause identification. Use when analyzing cras"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-edr-evasion
+    name: "offensive-edr-evasion"
+    path: 'vendor/skills/claude-red-legacy/offensive-edr-evasion.md'
+    kind: skill
+    stage: ['web', 'exploit']
+    desc: "\"EDR evasion offensive checklist: hook unhooking (user/kernel), direct syscalls, PPID spoofing, process injection variants, AMSI bypass, ETW patching, memory encryption, and behavior-based evasion. Use when planning EDR bypass during red te"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-exploit-dev-course
+    name: "offensive-exploit-dev-course"
+    path: 'vendor/skills/claude-red-legacy/offensive-exploit-dev-course.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "\"Full exploit development course roadmap and syllabus: weekly topics, recommended reading, lab setup, and learning path from vulnerability classes through advanced exploitation. Use to structure exploit dev training or onboard new researche"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-exploit-development
+    name: "offensive-exploit-development"
+    path: 'vendor/skills/claude-red-legacy/offensive-exploit-development.md'
+    kind: skill
+    stage: ['reverse', 'exploit', 'report']
+    desc: "\"Exploit development operational guide: environment setup, debugging workflow, PoC development lifecycle, writing reliable exploits, using pwntools/pwndbg, heap exploitation techniques, and weaponization considerations. Use when actively de"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-fast-checking
+    name: "offensive-fast-checking"
+    path: 'vendor/skills/claude-red-legacy/offensive-fast-checking.md'
+    kind: skill
+    stage: ['recon', 'api']
+    desc: "\"Speed-optimized offensive checklist for rapid assessment: quick-win vulnerability patterns, fast recon shortcuts, automated scanner configurations, and triage shortcuts. Use for time-boxed assessments, CTF-speed engagements, or initial rap"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-file-upload
+    name: "offensive-file-upload"
+    path: 'vendor/skills/claude-red-legacy/offensive-file-upload.md'
+    kind: skill
+    stage: ['web', 'exploit']
+    desc: "\"File upload vulnerability checklist: MIME type bypass, extension bypass, magic byte manipulation, path traversal in filenames, stored XSS via SVG/HTML upload, server-side processing attacks, and race conditions. Use for assessing file uplo"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-fuzzing-course
+    name: "offensive-fuzzing-course"
+    path: 'vendor/skills/claude-red-legacy/offensive-fuzzing-course.md'
+    kind: skill
+    stage: ['exploit', 'detect']
+    desc: "\"Week 2 of the exploit development curriculum. Covers fuzzing methodology: target selection, corpus generation, coverage-guided fuzzing with AFL++/libFuzzer, structured fuzzing, and triage/deduplication. Use when setting up fuzz campaigns, "
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-idor
+    name: "offensive-idor"
+    path: 'vendor/skills/claude-red-legacy/offensive-idor.md'
+    kind: skill
+    stage: ['recon', 'web', 'auth']
+    desc: "\"IDOR (Insecure Direct Object Reference) testing checklist: object ID enumeration, horizontal/vertical privilege escalation, GUID predictability, indirect references via hashes, chained IDOR, and API endpoint IDOR. Use for web app pentests "
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-initial-access
+    name: "offensive-initial-access"
+    path: 'vendor/skills/claude-red-legacy/offensive-initial-access.md'
+    kind: skill
+    stage: ['auth', 'exploit']
+    desc: "\"Initial access techniques checklist: phishing (spear/smishing), credential stuffing, exposed service exploitation, supply chain attacks, watering hole, VPN/RDP brute force, public-facing application exploitation. Maps to MITRE ATT&CK TA000"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-keylogger-arch
+    name: "offensive-keylogger-arch"
+    path: 'vendor/skills/claude-red-legacy/offensive-keylogger-arch.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "\"Low-level keylogger architecture design: kernel driver hooks (WH_KEYBOARD_LL, SetWindowsHookEx), ETW-based input capture, user-mode vs kernel-mode approaches, stealth techniques, and data exfiltration. Use for understanding input capture m"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-mitigations
+    name: "offensive-mitigations"
+    path: 'vendor/skills/claude-red-legacy/offensive-mitigations.md'
+    kind: skill
+    stage: ['exploit', 'detect']
+    desc: "\"Security mitigation reference and bypass catalog: ASLR, DEP/NX, RELRO, stack canaries, CFI, sandboxing, seccomp. Covers both detection of enabled mitigations and known bypass techniques. Use when assessing target hardening or planning expl"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-oauth
+    name: "offensive-oauth"
+    path: 'vendor/skills/claude-red-legacy/offensive-oauth.md'
+    kind: skill
+    stage: ['web', 'auth', 'exploit']
+    desc: "\"OAuth 2.0 attack checklist: authorization code interception, redirect_uri bypass, CSRF on OAuth flow, state parameter abuse, open redirector chaining, token leakage via Referer, PKCE bypass, and scope escalation. Use when testing OAuth imp"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-open-redirect
+    name: "offensive-open-redirect"
+    path: 'vendor/skills/claude-red-legacy/offensive-open-redirect.md'
+    kind: skill
+    stage: ['web', 'auth', 'exploit']
+    desc: "\"Open redirect vulnerability checklist: parameter identification, bypass techniques (URL encoding, double slashes, CRLF injection, protocol handlers), chaining with OAuth/SSRF, and impact escalation paths. Use for web app testing and bug bo"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-osint-methodology
+    name: "offensive-osint-methodology"
+    path: 'vendor/skills/claude-red-legacy/offensive-osint-methodology.md'
+    kind: skill
+    stage: ['recon', 'report', 'detect']
+    desc: "\"Structured OSINT methodology framework: target definition, source selection, collection workflows, data correlation, timeline reconstruction, and reporting. Use to guide systematic OSINT campaigns or teach OSINT methodology.\""
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-parameter-pollution
+    name: "offensive-parameter-pollution"
+    path: 'vendor/skills/claude-red-legacy/offensive-parameter-pollution.md'
+    kind: skill
+    stage: ['web', 'cloud', 'exploit']
+    desc: "\"HTTP parameter pollution (HPP) checklist: duplicate parameter injection, backend vs frontend parsing differences, WAF bypass via HPP, server-side vs client-side HPP, and practical exploitation patterns. Use when testing web applications fo"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-race-condition
+    name: "offensive-race-condition"
+    path: 'vendor/skills/claude-red-legacy/offensive-race-condition.md'
+    kind: skill
+    stage: ['web', 'exploit']
+    desc: "\"Race condition (TOCTOU) testing checklist: identifying timing windows, Burp Suite Turbo Intruder, Last-Byte sync technique, rate limit bypass, double-spend attacks, and concurrent request exploitation. Use for web app race condition testin"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-rce
+    name: "offensive-rce"
+    path: 'vendor/skills/claude-red-legacy/offensive-rce.md'
+    kind: skill
+    stage: ['web']
+    desc: "\"Remote Code Execution testing checklist: OS command injection, SSTI-to-RCE, deserialization RCE, file upload RCE, XXE with SSRF to RCE, RCE via dependency confusion, and CVE-based RCE patterns. Use for web app pentests and bug bounty RCE d"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-request-smuggling
+    name: "offensive-request-smuggling"
+    path: 'vendor/skills/claude-red-legacy/offensive-request-smuggling.md'
+    kind: skill
+    stage: ['web', 'reverse', 'exploit']
+    desc: "\"HTTP request smuggling checklist: CL.TE, TE.CL, TE.TE variants, detection with timing and differential responses, WAF bypass, cache poisoning, credential hijacking, and request smuggling via HTTP/2. Use when testing reverse proxy/load bala"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-ssrf
+    name: "offensive-ssrf"
+    path: 'vendor/skills/claude-red-legacy/offensive-ssrf.md'
+    kind: skill
+    stage: ['web', 'cloud', 'exploit']
+    desc: "\"Server-Side Request Forgery testing checklist: SSRF discovery, blind SSRF with out-of-band, cloud metadata endpoints (AWS/GCP/Azure), SSRF filter bypass techniques (IP encoding, DNS rebinding, redirect chains), and SSRF to RCE escalation. "
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-vuln-classes
+    name: "offensive-vuln-classes"
+    path: 'vendor/skills/claude-red-legacy/offensive-vuln-classes.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "\"Exploit development curriculum covering core vulnerability classes with real-world CVE case studies: stack/heap buffer overflows, use-after-free, integer overflows, format strings, type confusion, and race conditions. Use when learning or "
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-waf-bypass
+    name: "offensive-waf-bypass"
+    path: 'vendor/skills/claude-red-legacy/offensive-waf-bypass.md'
+    kind: skill
+    stage: ['web', 'exploit']
+    desc: "\"WAF bypass techniques checklist: encoding bypass (URL/HTML/Unicode/double encoding), case variation, comment injection, HTTP header manipulation, chunked encoding, IP rotation, timing attacks, and payload obfuscation per WAF vendor. Use wh"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-windows-boundaries
+    name: "offensive-windows-boundaries"
+    path: 'vendor/skills/claude-red-legacy/offensive-windows-boundaries.md'
+    kind: skill
+    stage: ['recon', 'cloud']
+    desc: "\"Windows security boundary taxonomy and attack surface enumeration: kernel/user boundary, sandbox boundaries (LPAC, AppContainer), COM/RPC boundaries, hypervisor boundary, trust level transitions. Use when planning privilege escalation path"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-windows-mitigations
+    name: "offensive-windows-mitigations"
+    path: 'vendor/skills/claude-red-legacy/offensive-windows-mitigations.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "\"Deep-dive on Windows exploit mitigations: ASLR, DEP/NX, CFG, CET/Shadow Stack, SEHOP, Heap Guard, ACG, Arbitrary Code Guard. Covers both the protection mechanism and known bypass techniques. Use when researching Windows exploit mitigations"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-xss
+    name: "offensive-xss"
+    path: 'vendor/skills/claude-red-legacy/offensive-xss.md'
+    kind: skill
+    stage: ['web', 'auth', 'exploit']
+    desc: "\"Cross-Site Scripting testing checklist: stored/reflected/DOM/blind XSS discovery, polyglot payloads, CSP bypass, XSS filter bypass, event handler injection, DOM clobbering, mutation XSS, and impact escalation (session hijack, phishing, key"
+    source: Claude-Red-main(legacy)
+  - id: claude-offensive-xxe
+    name: "offensive-xxe"
+    path: 'vendor/skills/claude-red-legacy/offensive-xxe.md'
+    kind: skill
+    stage: ['web', 'api', 'exploit']
+    desc: "\"XML External Entity injection testing checklist: classic XXE, blind XXE (out-of-band), XXE via file upload (SVG/docx), XXE in SOAP/REST, error-based XXE, XInclude attacks, and XXE filter bypass. Use for web app XXE testing and bug bounty.\""
+    source: Claude-Red-main(legacy)
+  # ===== clown-src-6k-skill =====
+  - id: clown-clown-src-skill
+    name: "skill"
+    path: 'vendor/skills/clown/clown-src-skill/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "|"
+    source: clown-src-6k-skill
+  # ===== reverse-skill-main =====
+  - id: reverse-api-security
+    name: "api-security"
+    path: 'vendor/skills/reverse-skill/api-security/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'api']
+    desc: "Use for authorized security assessment of REST, GraphQL, WebSocket, or SOAP APIs, including discovery, authentication, authorization, rate-limit, and CI/CD testing."
+    source: reverse-skill-main
+  - id: reverse-apk-reverse
+    name: "apk-reverse"
+    path: 'vendor/skills/reverse-skill/apk-reverse/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "在 CLI 环境下做 Android APK 逆向时使用。适用于 APK 解包、Java 反编译、smali 修改、重打包、Frida 动态 Hook，以及按需切换到 so/native 分析。优先使用本机已安装的 jadx、apktool、frida、adb、ida-reverse、radare2。"
+    source: reverse-skill-main
+  - id: reverse-attack-chain
+    name: "attack-chain"
+    path: 'vendor/skills/reverse-skill/attack-chain/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth', 'internal']
+    desc: "Use for authorized multi-stage attack-path planning and orchestration when a task spans reconnaissance, initial access, privilege escalation, lateral movement, or impact assessment. Route single-stage tasks directly to their specialist skil"
+    source: reverse-skill-main
+  - id: reverse-binary-diff
+    name: "binary-diff"
+    path: 'vendor/skills/reverse-skill/binary-diff/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-binary-ninja-reverse
+    name: "binary-ninja-reverse"
+    path: 'vendor/skills/reverse-skill/binary-ninja-reverse/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'reverse']
+    desc: "Use for authorized binary analysis in Binary Ninja, including HLIL/MLIL/LLIL inspection, strings/imports/exports, cross-references, types, patch review, Python API automation, and optional Binary Ninja MCP or localhost HTTP integration."
+    source: reverse-skill-main
+  - id: reverse-browser-automation
+    name: "browser-automation"
+    path: 'vendor/skills/reverse-skill/browser-automation/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-browser-extension-reverse
+    name: "browser-extension-reverse"
+    path: 'vendor/skills/reverse-skill/browser-extension-reverse/SKILL.md'
+    kind: skill
+    stage: ['auth', 'reverse', 'detect']
+    desc: "Use for authorized reverse engineering of browser extensions (Chrome/Firefox) including manifest analysis, background workers, and extension-based credential or traffic logic recovery."
+    source: reverse-skill-main
+  - id: reverse-case-review
+    name: "case-review"
+    path: 'vendor/skills/reverse-skill/case-review/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'report']
+    desc: "Reviews a reverse-skill case package for scope readiness, Evidence to Finding to Path traceability, work item coverage, timeline references, and optional artifact hash integrity before report handoff."
+    source: reverse-skill-main
+  - id: reverse-cloud-k8s
+    name: "cloud-k8s"
+    path: 'vendor/skills/reverse-skill/cloud-k8s/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'cloud']
+    desc: "Use for authorized cloud, container, and Kubernetes security assessment including metadata SSRF, IAM misconfig, container escape paths, and cluster RBAC review."
+    source: reverse-skill-main
+  - id: reverse-code-audit
+    name: "code-audit"
+    path: 'vendor/skills/reverse-skill/code-audit/SKILL.md'
+    kind: skill
+    stage: ['auth', 'api', 'detect']
+    desc: "Use for authorized source-code security review and SAST workflows including Semgrep, CodeQL patterns, dangerous API hunting, and fix verification."
+    source: reverse-skill-main
+  - id: reverse-ctf-sandbox
+    name: "ctf-sandbox"
+    path: 'vendor/skills/reverse-skill/ctf-sandbox/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Thin PRIMARY for CTF / AWD / 靶场 multi-type orchestration. Hands off to the sidecar CTF-Sandbox-Orchestrator. Use when the user says CTF, AWD, 靶场, or 比赛题 and no more specific pwn/APK/IDA route already won."
+    source: reverse-skill-main
+  - id: reverse-database-security
+    name: "database-security"
+    path: 'vendor/skills/reverse-skill/database-security/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Use for authorized database security assessment covering PostgreSQL/MySQL/MSSQL/Mongo/Redis exposure, authz, UDF/command paths, and misconfiguration review."
+    source: reverse-skill-main
+  - id: reverse-diagram-generator
+    name: "diagram-generator"
+    path: 'vendor/skills/reverse-skill/diagram-generator/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "generate, refine, validate, and render diagrams from natural language, notes, code snippets, schemas, tables, or existing diagram source. use for flowcharts, swimlanes, sequence diagrams, state diagrams, er diagrams, class diagrams, archite"
+    source: reverse-skill-main
+  - id: reverse-digital-forensics
+    name: "digital-forensics"
+    path: 'vendor/skills/reverse-skill/digital-forensics/SKILL.md'
+    kind: skill
+    stage: ['auth', 'detect']
+    desc: "Use for authorized digital forensics including memory dumps, disk timelines, PCAP investigation, artifact triage, and IR evidence preservation."
+    source: reverse-skill-main
+  - id: reverse-docs-generator
+    name: "docs-generator"
+    path: 'vendor/skills/reverse-skill/docs-generator/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-dotnet-reverse
+    name: "dotnet-reverse"
+    path: 'vendor/skills/reverse-skill/dotnet-reverse/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: ".NET / C# 二进制逆向。当目标是 .NET assembly（PE 头含 CLR、.exe/.dll 托管程序）、C# 编译产物（含 NativeAOT）、红队 Sharp* 工具（Rubeus / SharpHound / SharpHound 等）、.NET 混淆程序（ConfuserEx / SmartAssembly / Babel / Eazfuscator）、.NET loader / info-stealer / 套壳 malware 时使用。优先用 d"
+    source: reverse-skill-main
+  - id: reverse-edr-bypass-re
+    name: "edr-bypass-re"
+    path: 'vendor/skills/reverse-skill/edr-bypass-re/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-email-security
+    name: "email-security"
+    path: 'vendor/skills/reverse-skill/email-security/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Use for authorized email security review including phishing analysis, header authentication (SPF/DKIM/DMARC), BEC patterns, and mailbox token abuse research."
+    source: reverse-skill-main
+  - id: reverse-firmware-pentest
+    name: "firmware-pentest"
+    path: 'vendor/skills/reverse-skill/firmware-pentest/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-ghidra-reverse
+    name: "ghidra-reverse"
+    path: 'vendor/skills/reverse-skill/ghidra-reverse/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Use for free/open reverse engineering with Ghidra (headless or GUI), including decompile, cross-refs, and optional Ghidra MCP workflows when IDA is unavailable."
+    source: reverse-skill-main
+  - id: reverse-go-rust-reverse
+    name: "go-rust-reverse"
+    path: 'vendor/skills/reverse-skill/go-rust-reverse/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Use for reverse engineering stripped Go and Rust binaries including runtime recognition, pclntab/moduel data recovery, panic strings, and idiomatic decompilation recovery."
+    source: reverse-skill-main
+  - id: reverse-hardware-security
+    name: "hardware-security"
+    path: 'vendor/skills/reverse-skill/hardware-security/SKILL.md'
+    kind: skill
+    stage: ['auth', 'reverse']
+    desc: "Use for authorized hardware and embedded interface security research including UART/JTAG discovery, debug pad triage, secure boot overview, and offline firmware extraction support."
+    source: reverse-skill-main
+  - id: reverse-ida-reverse
+    name: "ida-reverse"
+    path: 'vendor/skills/reverse-skill/ida-reverse/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-identity-federation
+    name: "identity-federation"
+    path: 'vendor/skills/reverse-skill/identity-federation/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Use for authorized assessment of federated identity systems including SAML, OIDC, OAuth2 flows, SSO misconfiguration, and token confusion issues."
+    source: reverse-skill-main
+  - id: reverse-js-reverse
+    name: "js-reverse"
+    path: 'vendor/skills/reverse-skill/js-reverse/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "在使用 js-reverse-mcp 做前端 JavaScript 逆向时使用，适用于签名链路定位、页面观察取证、运行时采样、本地补环境复现与证据化输出。优先适配当前环境里的 js-reverse_* 工具，需要更强的浏览器/CDP/Hook 面时联动 jshookmcp。"
+    source: reverse-skill-main
+  - id: reverse-llm-security
+    name: "llm-security"
+    path: 'vendor/skills/reverse-skill/llm-security/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth']
+    desc: "Use for authorized security assessment of LLM applications and AI agents, including prompt injection, tool abuse, RAG exposure, memory poisoning, and model supply-chain risks."
+    source: reverse-skill-main
+  - id: reverse-macos-reverse
+    name: "macos-reverse"
+    path: 'vendor/skills/reverse-skill/macos-reverse/SKILL.md'
+    kind: skill
+    stage: ['auth', 'reverse']
+    desc: "Use for authorized macOS and Mach-O reverse engineering including codesign, Objective-C/Swift recovery, endpoint security surfaces, and Apple platform malware analysis."
+    source: reverse-skill-main
+  - id: reverse-malware-analysis
+    name: "malware-analysis"
+    path: 'vendor/skills/reverse-skill/malware-analysis/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "Use when analyzing suspected malware through static, dynamic, and behavioral techniques, including IOC extraction, YARA or Sigma rules, sandboxing, and anti-analysis behavior."
+    source: reverse-skill-main
+  - id: reverse-mobile-reverse
+    name: "mobile-reverse"
+    path: 'vendor/skills/reverse-skill/mobile-reverse/SKILL.md'
+    kind: skill
+    stage: ['auth', 'reverse']
+    desc: "Use for authorized Android or iOS application reverse engineering and security testing, including APK or IPA analysis, runtime instrumentation, SSL pinning, and platform protection checks."
+    source: reverse-skill-main
+  - id: reverse-ot-ics
+    name: "ot-ics"
+    path: 'vendor/skills/reverse-skill/ot-ics/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Use for authorized OT/ICS security assessment covering Purdue model zoning, PLC/SCADA exposure, industrial protocol discovery, and safe passive-first evaluation."
+    source: reverse-skill-main
+  - id: reverse-patch-diff-exploit
+    name: "patch-diff-exploit"
+    path: 'vendor/skills/reverse-skill/patch-diff-exploit/SKILL.md'
+    kind: skill
+    stage: ['exploit']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-pentest-tools
+    name: "pentest-tools"
+    path: 'vendor/skills/reverse-skill/pentest-tools/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-protocol-reverse
+    name: "protocol-reverse"
+    path: 'vendor/skills/reverse-skill/protocol-reverse/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'api']
+    desc: "Use for authorized reverse engineering of custom binary protocols, Protobuf/gRPC, WebSocket frames, and PCAP-driven protocol recovery."
+    source: reverse-skill-main
+  - id: reverse-pwn-chain
+    name: "pwn-chain"
+    path: 'vendor/skills/reverse-skill/pwn-chain/SKILL.md'
+    kind: skill
+    stage: ['reverse']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-radare2
+    name: "radare2"
+    path: 'vendor/skills/reverse-skill/radare2/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "|"
+    source: reverse-skill-main
+  - id: reverse-radio-sdr
+    name: "radio-sdr"
+    path: 'vendor/skills/reverse-skill/radio-sdr/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Use for authorized RF/SDR security research including signal identification, replay feasibility study in shielded labs, and wireless protocol analysis outside classic Wi-Fi."
+    source: reverse-skill-main
+  - id: reverse-reverse-engineering
+    name: "reverse-engineering"
+    path: 'vendor/skills/reverse-skill/reverse-engineering/SKILL.md'
+    kind: skill
+    stage: ['web', 'reverse', 'exploit']
+    desc: "Provides reverse engineering techniques. Use when the main job is to understand how a compiled, obfuscated, packed, or virtualized target works before exploiting or solving it, including binaries, APKs, WASM, firmware, custom VMs, bytecode,"
+    source: reverse-skill-main
+  - id: reverse-supply-chain-security
+    name: "supply-chain-security"
+    path: 'vendor/skills/reverse-skill/supply-chain-security/SKILL.md'
+    kind: skill
+    stage: ['cloud']
+    desc: "Use for software supply-chain security assessment covering SBOM, SCA, CI/CD pipelines, container images, build integrity, dependency provenance, and vulnerability reachability."
+    source: reverse-skill-main
+  - id: reverse-thick-client
+    name: "thick-client"
+    path: 'vendor/skills/reverse-skill/thick-client/SKILL.md'
+    kind: skill
+    stage: ['auth']
+    desc: "Use for authorized security testing of desktop thick clients including local storage, update channels, IPC, traffic, and client-side trust boundaries."
+    source: reverse-skill-main
+  - id: reverse-threat-hunting
+    name: "threat-hunting"
+    path: 'vendor/skills/reverse-skill/threat-hunting/SKILL.md'
+    kind: skill
+    stage: ['reverse', 'detect']
+    desc: "Use for blue-team threat hunting, detection engineering with Sigma/YARA, SIEM query design, and incident detection validation."
+    source: reverse-skill-main
+  - id: reverse-threat-intelligence
+    name: "threat-intelligence"
+    path: 'vendor/skills/reverse-skill/threat-intelligence/SKILL.md'
+    kind: skill
+    stage: ['recon', 'auth']
+    desc: "Use for authorized OSINT and cyber threat intelligence that enriches IOCs, campaigns, impersonation, scams, or threat actors from public sources. Includes bounded X/Twitter search through Xquik, source preservation, corroboration, and evide"
+    source: reverse-skill-main
+  - id: reverse-wifi-wireless
+    name: "wifi-wireless"
+    path: 'vendor/skills/reverse-skill/wifi-wireless/SKILL.md'
+    kind: skill
+    stage: ['auth', 'detect']
+    desc: "Use for authorized wireless security assessment including Wi-Fi capture, WPA handshake analysis, rogue AP detection research, and lab-only deauth testing."
+    source: reverse-skill-main
+  - id: reverse-windows-ad
+    name: "windows-ad"
+    path: 'vendor/skills/reverse-skill/windows-ad/SKILL.md'
+    kind: skill
+    stage: ['auth', 'internal']
+    desc: "Use for authorized Active Directory and Windows identity attacks including Kerberos, AD CS, BloodHound paths, NTLM relay, and domain privilege escalation research."
+    source: reverse-skill-main
+  # ===== voredteam =====
+  - id: vore-vore-blackboard-ops
+    name: "vore-blackboard-ops"
+    path: 'skills/vore-blackboard-ops/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "voredteam 网络安全模式的黑板操作规程：Fact/Intent/Hint 三类对象的写法、派单四要素、意图认领与结论、死路登记、人类提示吸收、与成果面板的对应关系。总控与所有子 agent 开工前都应加载。"
+    source: voredteam
+  - id: vore-vore-rate-discipline
+    name: "vore-rate-discipline"
+    path: 'skills/vore-rate-discipline/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "voredteam 唯一门禁的操作细则：禁 DDoS、禁爆破、模糊测试必须智能化低频。含各类工具的具体参数写法、被 vore-guard 拦截后的合规替代、以及\"先小样本后放大\"的样本策略。任何发起主动请求的子 agent 开工前必读。"
+    source: voredteam
+  - id: vore-vore-report
+    name: "vore-report"
+    path: 'skills/vore-report/SKILL.md'
+    kind: skill
+    stage: ['recon', 'exploit', 'report']
+    desc: "voredteam 网络安全模式的报告规范：七项必备结构（信息收集 / 漏洞验证含完整原始请求响应包 / 利用载荷 / 完整通关攻略 / 全 URL / 按资产类别分篇 / 失败项单独成篇）、高危判定标准、证据要求、成果面板同步。报告员必读，总控收口前必读。"
+    source: voredteam
+  - id: vore-vore-testing-methodology
+    name: "vore-testing-methodology"
+    path: 'skills/vore-testing-methodology/SKILL.md'
+    kind: skill
+    stage: ['web', 'auth', 'reverse']
+    desc: "voredteam 网络安全模式的三阶段作业法：P1 资产收集（直到连续一轮 0 新增的饱和）→ P2 对每个资产做指纹识别 + 低频模糊测试 + JS 逆向（新资产必须回灌）→ P3 深测（组件 CVE/Nday、逻辑漏洞、业务漏洞、越权、上传）。含每类资产的浅测清单、回灌规则、覆盖率账本与阶段出关条件。总控与所有子 agent 开工前必读。"
+    source: voredteam
+  - id: voredteam-registry-notes
+    name: "registry-notes"
+    path: 'skills/registry-notes.md'
+    kind: knowledge
+    stage: ['other']
+    source: voredteam

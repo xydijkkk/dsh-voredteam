@@ -1,0 +1,4 @@
+# vore-guard：网络安全模式的唯一门禁（禁 DDoS / 禁爆破 / 模糊测试智能化低频）。
+- insert:
+    - id: vore-guard
+      name: '@dsh-external/vore-guard'

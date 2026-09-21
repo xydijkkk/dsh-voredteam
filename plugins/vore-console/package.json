@@ -1,0 +1,45 @@
+{
+  "name": "@dsh-external/vore-console",
+  "version": "0.1.0",
+  "description": "voredteam 作战面板：会话标签页「作战面板」，两个分栏——实时情况（黑板书 SVG 图：事实节点 / 意图边 / 待探索虚框节点，3 秒轮询 + 缩放拖拽 + 右侧详情与写 hint）与任务汇总（漏洞成果表 + 资产接口 + 死路清单 + 一键复制 Markdown）。数据源为 vore-blackboard 的同源 HTTP 通道。",
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh-plugin",
+    "dsh-bundle",
+    "dsh-client-plugin",
+    "blackboard",
+    "console",
+    "security"
+  ],
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./pure": "./lib/pure.mjs",
+    "./package.json": "./package.json",
+    "./panel": "./lib/panel.js"
+  },
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "check": "node scripts/build-client.mjs --check"
+  }
+}

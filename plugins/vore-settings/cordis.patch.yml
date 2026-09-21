@@ -1,0 +1,4 @@
+# vore-settings：voredteam 设置面板（测绘 API / 技能 / MCP 管理）。
+- insert:
+    - id: vore-settings
+      name: '@dsh-external/vore-settings'

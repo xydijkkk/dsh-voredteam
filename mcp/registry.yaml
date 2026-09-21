@@ -1,0 +1,322 @@
+# 来源：本机（Windows）安全工具集实测盘点，只读扫描，未修改被盘点目录
+# 盘点时间：2026-09-19（会话内实测：文件核对 + 端口探测 + MCP 协议实拉）
+# 用途：voredteam 网络安全模式的内置 MCP 注册表；被 vore-settings 的 mcp.list 与部署脚本读取
+# 说明：URL 型条目（回环地址）开箱即用；stdio 型条目需要外部程序，用 ${VAR} 指明位置
+# 范围：已排除 ${VORE_TOOLS_DIR}/app/hexstrike-ai-client 及任何 hexstrike 相关项
+# 契约：条目键统一 2 空格缩进、顺序固定（id/name/transport/url/command/args/env/tools/tools_count/stage/require_running）
+# 注意：本文件由盘点生成，手工修改请保留 id 字段（id 是 mcp.list 与部署脚本的唯一关联键）
+mcp_servers:
+
+  # ── 已在本机运行的第三方 MCP（HTTP 实拉成功） ─────────────────────────
+  - id: anything-analyzer
+    name: Anything Analyzer 抓包逆向
+    transport: http
+    url: http://127.0.0.1:23816/mcp
+    command: null
+    args: []
+    env: {}
+    protocol: "2024-11-05"
+    server_name: anything-analyzer
+    capabilities: [tools, resources]
+    session: "需 mcp-session-id（initialize 响应头下发，客户端握手后自动持有）"
+    auth: "无（仅回环地址，无 Authorization 校验）"
+    tools: [list_sessions, create_session, start_capture, pause_capture, resume_capture,
+            stop_capture, delete_session, navigate, browser_back, browser_forward,
+            browser_reload, create_tab, close_tab, list_tabs, clear_browser_env,
+            browser_screenshot, cdp_send_command, get_requests, filter_requests,
+            get_request_detail, get_hooks, get_storage, run_analysis, get_reports,
+            chat_followup, get_interactions, get_interaction_summary,
+            replay_interactions, execute_browser_action, get_page_elements]
+    tools_count: 30
+    stage: [抓包, JS逆向, 接口分析, 会话复现, AI协议分析]
+    require_running: "Anything Analyzer 程序需已启动（进程 Anything Analyzer.exe；另占 8888 端口）"
+
+  # ── Burp Suite MCP（PortSwigger 官方扩展 v1.3.0） ────────────────────
+  - id: burp-suite-mcp
+    name: Burp Suite MCP（SSE 直连）
+    transport: sse
+    url: http://127.0.0.1:9876/sse
+    command: null
+    args: []
+    env: {}
+    auth: "无；但受 Burp 内 MCP tab 的审批开关约束（HTTP 请求审批 / 数据访问审批 / 目标自动批准列表）"
+    extension_jar: ${VORE_TOOLS_DIR}/other/burp-mcp-all.jar
+    tools: [send_http1_request, send_http2_request, create_repeater_tab,
+            create_repeater_tab_http2, send_to_intruder, url_encode, url_decode,
+            base64_encode, base64_decode, generate_random_string,
+            output_project_options, output_user_options, set_project_options,
+            set_user_options, get_active_editor_contents, set_active_editor_contents,
+            set_task_execution_engine_state, set_proxy_intercept_state,
+            get_proxy_http_history, get_proxy_http_history_regex,
+            get_proxy_websocket_history, get_proxy_websocket_history_regex,
+            get_organizer_items, get_organizer_items_regex,
+            get_scanner_issues, generate_collaborator_payload, get_collaborator_interactions]
+    tools_count: 27
+    stage: [HTTP重放, 参数爆破, 漏洞扫描, 出网带外检测, 数据流读取]
+    require_running: "Burp Suite 需已启动并加载 MCP 扩展；MCP tab 里 Enabled 勾选；默认监听 127.0.0.1:9876"
+    note: "tools_count 27 = 23 通用 + 4 仅 Professional（scanner/collaborator），本机实测数为 27"
+
+  - id: burp-mcp-proxy-stdio
+    name: Burp MCP stdio 代理（本地兼容补丁版）
+    transport: stdio
+    url: null
+    command: ${JAVA_HOME}/bin/java.exe
+    args: ["-jar", "${VORE_TOOLS_DIR}/app/burp-mcp-proxy/build/libs/mcp-proxy-all.jar", "--sse-url", "http://127.0.0.1:9876"]
+    env: {}
+    tools: []
+    tools_count: 0
+    stage: [HTTP重放, 参数爆破, 漏洞扫描]
+    require_running: "Burp + 扩展需已启动（纯转发，工具面与 burp-suite-mcp 完全一致）"
+    note: "上游 v1.0.0 代理会把 initialize 转发给已初始化的 SSE 会话，Burp 返回 Server already initialized；本机版本已打补丁，stdio 侧自行应答握手。仅给只支持 stdio 的客户端使用"
+
+  - id: burp-mcp-server-src
+    name: Burp MCP 扩展源码（可重建）
+    transport: source
+    url: null
+    command: ${VORE_TOOLS_DIR}/app/burp-mcp-server/gradlew.bat
+    args: ["embedProxyJar"]
+    env: { "JAVA_HOME": "${JAVA_HOME}" }
+    tools: []
+    tools_count: 0
+    stage: [扩展开发, 工具面扩展]
+    require_running: "无（构建产物 build\\libs\\burp-mcp-all.jar；内嵌 libs\\mcp-proxy-all.jar）"
+
+  - id: pentagi-mcp
+    name: PentAGI 桥接（流程/日志只读 + 受控建流）
+    transport: stdio
+    url: null
+    command: ${VORE_TOOLS_DIR}/app/pentagi-mcp/.venv/Scripts/python.exe
+    args: ["${VORE_TOOLS_DIR}/app/pentagi-mcp/server.py"]
+    env: { "PENTAGI_BASE_URL": "https://127.0.0.1:8443/api/v1", "PENTAGI_TOKEN_FILE": "${VORE_TOOLS_DIR}/app/pentagi-mcp/.pentagi-api-token" }
+    auth: "Bearer token（PentAGI Settings → API Tokens 生成；工具调用时实时读文件，改 token 无需改配置）"
+    tools: [server_health, auth_check, list_flows, get_flow, read_api, create_flow, control_flow]
+    tools_count: 7
+    stage: [编排, 流程只读审计, 自动化渗透流控制]
+    require_running: "① PentAGI docker compose 栈需已起来（127.0.0.1:8443，HTTPS 自签，httpx verify=False）② PENTAGI_TOKEN_FILE 指向的 ${VORE_TOOLS_DIR}/app/pentagi-mcp/.pentagi-api-token **需先生成**——2026 审计实测该文件不存在，未生成前 auth_check 与全部 7 个工具必失败"
+    note: "审计复核（docs/EVERYTHING-AUDIT.md §5-1）：token 文件缺失。生成步骤：PentAGI（https://127.0.0.1:8443）→ Settings → API Tokens 新建 → 把 token 内容写入 ${VORE_TOOLS_DIR}/app/pentagi-mcp/.pentagi-api-token（单行、无引号）；server.py 调用时实时读该文件，换 token 无需改本注册表"
+
+  - id: pentagi-cdp-gateway
+    name: PentAGI → Trae CDP 受限网关（非 MCP，纯 HTTP）
+    transport: http
+    url: http://127.0.0.1:17896/v1/action
+    command: powershell.exe
+    args: ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${VORE_TOOLS_DIR}/app/pentagi-cdp-gateway/start.ps1", "-Foreground"]
+    env: {}
+    auth: "Authorization: Bearer <data\\gateway.token 内容>（≥32 字符，secrets.token_urlsafe(48)）"
+    actions: [lease, status, send, analyze, confirm, confirm_batch, release]
+    health: http://127.0.0.1:17896/healthz
+    ports: { listen: 17896, cdp: 9222 }
+    tools: []
+    tools_count: 0
+    stage: [浏览器自动化, 多账号会话, 联网LLM网页交互]
+    require_running: "① Trae SOLO CN 需以 --remote-debugging-port=9222 启动（${VORE_TOOLS_DIR}/other/codex-mcp/start_trae_debug.bat）② 账号清单 ${HOME}/Desktop/account/accounts.json（当前仅 1 个账号 1 → cdpPort 9222）③ 网关用 ${VORE_TOOLS_DIR}/other/codex-mcp/.venv/Scripts/python.exe 拉起；install.ps1 注册计划任务 PentAGI CDP Gateway"
+    note: "自定义 JSON 网关，不是 MCP 协议；CDP 端口 = 9222 + account_index"
+
+  - id: trae-codex-bridge
+    name: Trae↔Codex 双向消息桥 + CDP 注入
+    transport: stdio
+    url: null
+    command: ${VORE_TOOLS_DIR}/other/codex-mcp/.venv/Scripts/python.exe
+    args: ["${VORE_TOOLS_DIR}/other/codex-mcp/server.py", "--transport", "stdio"]
+    env: {}
+    auth: "无（stdio）；改用 sse/http 时监听 127.0.0.1:8765 且无鉴权"
+    tools: [send_to_window, analyze_chat_ui, auto_confirm_dialog, ping, send_message,
+            get_messages, mark_read, reply, list_conversation, get_status, clear_mailbox]
+    tools_count: 11
+    stage: [浏览器自动化, 多Agent消息桥, 会话轮询]
+    require_running: "Trae 需以 CDP 9222 启动（send_to_window / analyze_chat_ui / auto_confirm_dialog 依赖）"
+    note: "依赖 mcp 2.0.0（from mcp.server import MCPServer）+ 自带 cdp_bridge.py；邮箱目录 ${VORE_TOOLS_DIR}/other/codex-mcp/mailbox"
+
+  # ── 大项目里内嵌的 MCP 服务面 ────────────────────────────────────────
+  - id: cyberstrikeai-http-mcp
+    name: CyberStrikeAI MCP（HTTP，含 90 个 YAML 工具配方）
+    transport: http
+    url: http://127.0.0.1:8081/mcp
+    command: null
+    args: []
+    env: {}
+    auth: "首选用户 Bearer Token（需 mcp:execute 权限）：Authorization: Bearer <token>；兼容模式 X-MCP-Token 头（需 config.yaml 里 allow_global_access: true，属高风险，默认 false）"
+    tools: [record_vulnerability, list_vulnerabilities, get_vulnerability,
+            create_asset, get_asset, query_assets, update_asset, delete_asset, complete_asset_scan,
+            upsert_project_fact, get_project_fact, list_project_facts, search_project_facts,
+            deprecate_project_fact, restore_project_fact,
+            list_knowledge_risk_types, search_knowledge_base, analyze_image,
+            get_tool_execution, wait_tool_execution, cancel_tool_execution,
+            webshell_exec, webshell_file_list, webshell_file_read, webshell_file_write,
+            manage_webshell_list, manage_webshell_add, manage_webshell_update,
+            manage_webshell_delete, manage_webshell_test,
+            batch_task_list, batch_task_get, batch_task_create, batch_task_start, batch_task_rerun,
+            batch_task_pause, batch_task_delete, batch_task_update_metadata,
+            batch_task_update_schedule, batch_task_schedule_enabled,
+            batch_task_add_task, batch_task_update_task, batch_task_remove_task,
+            c2_listener, c2_session, c2_task, c2_task_manage, c2_payload, c2_event,
+            c2_profile, c2_file]
+    tools_count: 51
+    stage: [资产管理, 漏洞登记, 知识库检索, C2, WebShell, 批量任务, 视觉分析]
+    require_running: "① 先启动 Web 服务：${VORE_TOOLS_DIR}/app/CyberStrikeAI/启动-CyberStrikeAI.cmd（cyberstrike-ai.exe -config config.yaml --https，默认 https://127.0.0.1:8080）② config.yaml 的 mcp.enabled 当前为 false，需改 true（host 127.0.0.1 / port 8081）才会监听"
+    note: "tools_count 51 = internal\\mcp\\builtin\\constants.go 里的工具常量（不含按角色可见性注册的 90 个 tools\\*.yaml 配方）；analyze_image 仅 vision.enabled=true 时注册，c2_* 8 个仅 c2.enabled=true 时注册，二者当前均为 false。**90 个 YAML 工具配方另立指位条目：cyberstrikeai-tool-recipes（registered:false，含 71/90 命令在 Windows 不可解析的实测结论）**"
+
+  - id: cyberstrikeai-stdio-mcp
+    name: CyberStrikeAI MCP（stdio 单文件入口）
+    transport: stdio
+    url: null
+    command: ${VORE_TOOLS_DIR}/app/CyberStrikeAI/cyberstrike-mcp-stdio.exe
+    args: ["-config", "${VORE_TOOLS_DIR}/app/CyberStrikeAI/config.yaml"]
+    env: {}
+    tools: []
+    tools_count: 0
+    stage: [命令执行, 资产/漏洞登记, C2, WebShell]
+    require_running: "无需 Web 服务（stdio 全程走 stderr 日志，stdout 只走 JSON-RPC）；工具面与 cyberstrikeai-http-mcp 同一注册集"
+
+  - id: cs-reverse-shell
+    name: CyberStrikeAI 反向 Shell MCP（项目内独立 MCP）
+    transport: stdio
+    url: null
+    command: ${VORE_TOOLS_DIR}/app/CyberStrikeAI/venv/Scripts/python.exe
+    args: ["${VORE_TOOLS_DIR}/app/CyberStrikeAI/mcp-servers/reverse_shell/mcp_reverse_shell.py"]
+    env: {}
+    tools: [reverse_shell_start_listener, reverse_shell_stop_listener, reverse_shell_status,
+            reverse_shell_send_command, reverse_shell_disconnect]
+    tools_count: 5
+    stage: [反弹Shell接管, 命令执行]
+    require_running: "目标机需能回连本机；仅支持 1 个监听器 + 1 个客户端"
+
+  - id: cs-pent-claude-agent
+    name: CyberStrikeAI Pentest Agent 包装 MCP（Claude Agent SDK）
+    transport: stdio
+    url: null
+    command: ${VORE_TOOLS_DIR}/app/CyberStrikeAI/venv/Scripts/python.exe
+    args: ["${VORE_TOOLS_DIR}/app/CyberStrikeAI/mcp-servers/pent_claude_agent/mcp_pent_claude_agent.py", "--config", "${VORE_TOOLS_DIR}/app/CyberStrikeAI/mcp-servers/pent_claude_agent/pent_claude_agent_config.yaml"]
+    env: { "ANTHROPIC_API_KEY": "sk-xxx", "ANTHROPIC_BASE_URL": "https://dashscope.aliyuncs.com/apps/anthropic", "ANTHROPIC_MODEL": "qwen3.5-plus", "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1", "DISABLE_TELEMETRY": "1" }
+    tools: [pent_claude_run_pentest_task, pent_claude_analyze_vulnerability,
+            pent_agent_execute, pent_agent_diagnose, pent_claude_status]
+    tools_count: 5
+    stage: [子Agent编排, 漏洞分析]
+    require_running: "需 claude-agent-sdk 与可用 Anthropic 兼容 API Key（配置文件里为 sk-xxx 占位）；allowed_tools = Read/Write/Bash/Grep/Glob"
+
+  # ── 内置 MCP（要放进插件里的） ───────────────────────────────────────
+  - id: fofa-mcp
+    name: FOFA 资产搜索 MCP（三账号自动限流切换）
+    transport: stdio
+    url: null
+    command: ${VORE_UV_BIN_DIR}/uv.exe
+    args: ["run", "--active", "${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/fofa_MCP/fofa.py"]
+    env: { "FOFA_EMAIL": "<主号邮箱>", "FOFA_KEY": "<主号 key>", "FOFA_EMAIL_BACKUP": "<备用邮箱>", "FOFA_KEY_BACKUP": "<备用 key>", "FOFA_EMAIL_BACKUP2": "<备用2 邮箱>", "FOFA_KEY_BACKUP2": "<备用2 key>" }
+    env_file: ${VORE_CLOWN_DIR}/mcp-servers/fofa_MCP/.env
+    tools: [get_alerts]
+    tools_count: 1
+    stage: [资产测绘, 指纹识别, 入口面发现]
+    require_running: "无需常驻服务；uv 需已就位（0.12.0），.python-version=3.12 且有本机 3.12.2 解释器；**且 .env 里 FOFA_EMAIL / FOFA_KEY 必须先填**（见 note），未填时 get_alerts 一律失败"
+    note: "目录 ${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/ 下仅此 1 个 MCP（10 是文件数）；主号遇 429 / 业务码 820041 时自动切 backup、backup2。**【审计实测·凭据空占位】env_file 指向的 .env 四个 key 实测长度全为 0**（FOFA_EMAIL / FOFA_KEY / FOFA_EMAIL_BACKUP / FOFA_KEY_BACKUP 均为空占位，backup2 两项未定义），本条目 env 里的 <主号邮箱> 等也只是占位说明、不是实配 —— 需先填 ${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/fofa_MCP/.env，或改用 voredteam 设置面板（vore-settings）里填的 fofa key 注入环境变量，否则三账号轮换与资产测绘不可用"
+
+  # ── C2 控制面（89 工具） ─────────────────────────────────────────────
+  - id: adaptix-c2-mcp
+    name: AdaptixC2 MCP（beacon 控制面）
+    transport: stdio
+    url: null
+    command: ${VORE_UV_BIN_DIR}/uv.exe
+    args: ["--directory", "${HOME}/Desktop/C2/AdaptixC2_mcp", "run", "AdaptixC2_mcp.py"]
+    env: { "ADAPTIX_HOST": "localhost", "ADAPTIX_PORT": "4321", "ADAPTIX_ENDPOINT": "endpoint", "ADAPTIX_USER": "operator1", "ADAPTIX_PASSWORD": "pass", "ADAPTIX_VERSION": "v1.2", "ADAPTIX_CMD_TIMEOUT": "180", "ADAPTIX_VERIFY_TLS": "0" }
+    tools: [get_live_beacons, cat, cd, cp, disks, download, execute_bof, exfil_cancel,
+            exfil_start, exfil_stop, getuid, jobs_list, jobs_kill, link_smb, link_tcp, ls,
+            lportfwd_start, lportfwd_stop, mv, mkdir, profile_download_chunksize,
+            profile_killdate, profile_workingtime, ps_list, ps_kill, pwd, rev2self, rm,
+            rportfwd_start, rportfwd_stop, sleep, socks_start, socks_stop, terminate_thread,
+            terminate_process, unlink, upload, getsystem_token, uacbybass_sspi,
+            uacbybass_regshellcmd, quser, kerbeus_asreproasting, kerbeus_asktgt, kerbeus_asktgs,
+            kerbeus_changepw, kerbeus_describe, kerbeus_dump, kerbeus_hash, kerbeus_kerberoasting,
+            kerbeus_klist, kerbeus_ptt, kerbeus_purge, kerbeus_renew, kerbeus_s4u,
+            kerbeus_cross_s4u, kerbeus_tgtdeleg, kerbeus_triage, autologon, credman, hashdump,
+            arp, cacls, env, ipconfig, listdns, netstat, privcheck_alwayselevated,
+            privcheck_hijackablepath, privcheck_tokenpriv, privcheck_unattendfiles,
+            privcheck_unquotedsvc, privcheck_vulndrivers, routeprint, uptime, useridletime,
+            whoami, winver, findobj_module, findobj_prochandle, process_conn, powershell,
+            execute_assembly, set_current_agent, get_session_status, list_agents_info,
+            list_listeners_info, list_agent_tasks, send_agent_command, reconnect]
+    tools_count: 89
+    stage: [C2指挥, 横向移动, 凭据获取, 域渗透, 文件传输, 端口转发]
+    require_running: "① 先起服务端：powershell -File ${HOME}/Desktop/C2/start.ps1 -Server（WSL Ubuntu 内跑 adaptixserver，监听 :4321，仅 ::1）② 依赖 fastmcp + websocket-client + requests，已装在同目录 .venv"
+    note: "ADAPTIX_HOST 必须是 localhost（WSL2 只转发 ::1，127.0.0.1 连不上）；ADAPTIX_PASSWORD 为共享口令 pass（profile.yaml 是 only_password: true，不是 pass1）；89 = 81 原生 AX 工具 + 8 会话/清点工具（ps_run 已注释未注册）"
+
+  # ── 盘点结论：下列项不注册为 MCP，仅供 mcp.list 提示，勿当作服务器拉起 ──
+  - id: artex-main
+    name: ARTEX（MCP 客户端/宿主，不对外提供 MCP 服务）
+    transport: none
+    url: null
+    command: null
+    args: []
+    env: {}
+    tools: []
+    tools_count: 0
+    registered: false
+    stage: [编排台, MCP客户端]
+    require_running: "无预编译产物；如需用其 API 需自行 go build 或走 docker-compose（-addr :8787 HTTP API 与 -proxy :8788 流量代理）"
+    note: "mcphttp\\client.go 自述为 remote (Streamable HTTP) MCP client，protocolVersion 2025-06-18；MCP 在 UI 系统→MCP 页配置，工具命名 mcp__server__tool。故不作为 MCP 服务器注册"
+
+  - id: openai-sec
+    name: openai_sec（@openai/codex-security CLI，无 MCP 入口）
+    transport: none
+    url: null
+    command: null
+    args: []
+    env: {}
+    tools: []
+    tools_count: 0
+    registered: false
+    stage: [代码安全扫描]
+    require_running: "无 MCP 服务；应作为命令执行型工具接入：npx @openai/codex-security scan . --model <model> --effort high"
+    note: "目录内只有 package.json / package-lock.json / 使用方法.txt / node_modules；node_modules\\.bin 下为 codex、codex-security、extract-zip、incur 等 CLI"
+
+  # ── 追加：审计补登记（docs/EVERYTHING-AUDIT.md 落库，2026） ───────────────
+  - id: chrome-mcp-server
+    name: Chrome MCP Server（复用已登录 Chrome 会话）
+    transport: http
+    url: http://127.0.0.1:12306/mcp
+    command: null
+    args: []
+    env: {}
+    auth: "无（仅回环地址 + Chrome 扩展面板开关）"
+    tools: []
+    tools_count: 0
+    stage: [浏览器自动化, 会话复用, 页面采集]
+    require_running: "① Chrome 需已启动 ② Chrome MCP Server 扩展已启用且面板显示「服务运行中（端口：12306）」③ 说明书 ${VORE_TOOLS_DIR}/工具导航.txt:15-22"
+    note: "按说明书实测写成 HTTP(mcp) 直连：MCP 地址 http://127.0.0.1:12306/mcp，Codex 侧注册名 chrome_mcp（${HOME}/.codex/config.toml）。本 MCP 走 Chrome 扩展的 Native Server，**不需要**启动参数；若改用 CDP 型接入，才需 Chrome 以 --remote-debugging-port 启动（参见 pentagi-cdp-gateway 的 9222 约定）。工具面未枚举（tools_count 0＝待首次实拉后回填）"
+  - id: burp-mcp-all-jar-pin
+    name: Burp MCP 扩展产物版本指位（other\burp-mcp-all.jar）
+    transport: source
+    url: null
+    command: null
+    args: []
+    env: {}
+    tools: []
+    tools_count: 0
+    registered: false
+    stage: [扩展维护, 版本核对]
+    require_running: "无（仅指位：升级/重装 Burp MCP 扩展时比对 burp-suite-mcp 条目 extension_jar 的哈希与体积）"
+    note: "产物 ${VORE_TOOLS_DIR}/other/burp-mcp-all.jar（17.95 MB，2026 盘点时实测）；与 burp-mcp-server 源码构建产物同源。仅作版本指位，程序不得当作 MCP 服务器拉起"
+  - id: ctf-tool-index-source
+    name: CTF 沙盒与题型工具索引（指位，非 MCP 服务）
+    transport: source
+    url: null
+    command: null
+    args: []
+    env: {}
+    tools: []
+    tools_count: 0
+    registered: false
+    stage: [题型路由, 工具面索引]
+    require_running: "无（仅指位）：${VORE_TOOLS_DIR}/app/reverse-skill-main/CTF-Sandbox-Orchestrator（1 总控 + 41 题型子技能）+ skills\\pentest-tools\\references\\kali-mcp-ecosystem.md + kali\\mcp-kali-example.json"
+    note: "按 skills/registry.yaml 的 ctf-orchestrator / ctf-NN-* 条目取用；本条目只作 MCP 侧指位，不提供 MCP 协议面"
+  - id: cyberstrikeai-tool-recipes
+    name: CyberStrikeAI 90 个 YAML 工具配方（指位，非 MCP 服务）
+    transport: source
+    url: null
+    command: null
+    args: []
+    env: {}
+    tools: []
+    tools_count: 0
+    registered: false
+    stage: [工具配方, 资产/漏洞登记]
+    require_running: "无（仅指位）：${VORE_TOOLS_DIR}/app/CyberStrikeAI/tools/*.yaml（90 个）。注意配方依赖 Linux 工具链——逐条解析 command 实测 71/90 在 Windows PATH 不可解析（nmap/nuclei/ffuf/sqlmap/hashcat/r2/msfvenom…），14 条用 python3、2 条用 /bin/bash，需经 WSL/容器执行"
+    note: "cyberstrikeai-http-mcp 条目的 tools_count 51 仅覆盖 internal\\mcp\\builtin\\constants.go 的内置常量；这 90 个配方是另一层工具面，故单列指位（registered:false），不并入 http 条目的 tools 列表"

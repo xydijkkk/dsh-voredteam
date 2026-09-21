@@ -1,0 +1,4 @@
+# vore-console：作战面板
+- insert:
+    - id: vore-console
+      name: '@dsh-external/vore-console'

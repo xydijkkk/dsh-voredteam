@@ -1,0 +1,30 @@
+{
+	"name": "@dsh-external/vore-blackboard",
+	"version": "0.1.0",
+	"description": "vore 网络安全模式的黑板引擎（状态空间搜索范式）：Fact/Intent/Hint 三类对象的图数据层 + bb_* 工具面 + 逐轮图快照注入 + 作战面板 HTTP 通道。总控做 reason（读全图提意图），子 agent 做 explore（认领意图产出事实）。",
+	"keywords": [
+		"deepseek",
+		"deepseek-harness",
+		"dsh-plugin",
+		"dsh-bundle",
+		"blackboard",
+		"fact-intent-graph",
+		"security"
+	],
+	"type": "module",
+	"main": "./lib/index.js",
+	"exports": {
+		".": "./lib/index.js",
+		"./store": "./lib/store.js",
+		"./package.json": "./package.json"
+	},
+	"peerDependencies": {
+		"@deepseek-ai/dsh-tools": "*"
+	},
+	"license": "MIT",
+	"dsh": {
+		"bundle": {
+			"patch": "./cordis.patch.yml"
+		}
+	}
+}

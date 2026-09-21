@@ -1,0 +1,15 @@
+# mcp/registry.local.example.yaml —— 把内置注册表里的 ${VAR} 填成你本机的真实路径。
+#
+# 用法：复制为 mcp/registry.local.yaml（**不要提交到仓库**），按需覆盖 registry.yaml 里的条目字段。
+#   vore-settings 的 mcp.list 会先读 registry.yaml，再用本文件的同 id 条目做字段覆盖。
+#
+# 也可以不改文件，直接设环境变量（推荐，CI/多机更省事）：
+#   setx VORE_TOOLS_DIR  D:\everything
+#   setx VORE_CLOWN_DIR  D:\everything\clown-src-6k-skill
+#   setx VORE_UV_BIN_DIR C:\Users\<you>\.local\bin
+#
+overrides:
+  # - id: burp-mcp-proxy-stdio
+  #   command: ${VORE_TOOLS_DIR}/other/burp-mcp-all.jar
+  # - id: pentagi-mcp
+  #   command: ${VORE_TOOLS_DIR}/app/pentagi-mcp/.venv/Scripts/python.exe

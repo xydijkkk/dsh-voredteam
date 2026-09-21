@@ -1,0 +1,26 @@
+{
+	"name": "@dsh-external/vore-guard",
+	"version": "0.1.0",
+	"description": "vore 网络安全模式的唯一门禁：禁止 DDoS、禁止爆破（在线字典/凭据填充）、模糊测试必须智能化低频（显式速率上限 + 阈值校验）。命中即拦并给出合规降级路径，判定落 vore-guard-log.md。",
+	"keywords": [
+		"deepseek",
+		"deepseek-harness",
+		"dsh-plugin",
+		"dsh-bundle",
+		"guard",
+		"rate-limit",
+		"security"
+	],
+	"type": "module",
+	"main": "./lib/index.js",
+	"exports": {
+		".": "./lib/index.js",
+		"./package.json": "./package.json"
+	},
+	"license": "MIT",
+	"dsh": {
+		"bundle": {
+			"patch": "./cordis.patch.yml"
+		}
+	}
+}

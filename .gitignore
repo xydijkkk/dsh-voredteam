@@ -1,0 +1,35 @@
+# 本地专用文件（不随仓库发布）
+skills/registry.local.yaml
+deploy/vendor-sources.local.json
+mcp/registry.local.yaml
+_uninstall-backup/
+
+# 依赖与产物
+node_modules/
+*.log
+*.bak-*
+*.bak
+dist/
+build/
+*.tgz
+
+# 密钥 / 本机配置（绝不能进仓库）
+.env
+.env.*
+settings.json
+*.secret.json
+*.local.json
+*.local.yaml
+
+# 黑板数据库与备份（跑起来就会生成，属于本地数据）
+*.db
+*.db-wal
+*.db-shm
+blackboard.backup-*
+vore-guard-log.md
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
