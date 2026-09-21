@@ -1,4 +1,4 @@
-// voredteam 验收自检：一条命令给出全项目的结构与契约体检（离线，不需要 DSH 运行）。
+// dsh-voredteam 验收自检：一条命令给出全项目的结构与契约体检（离线，不需要 DSH 运行）。
 // 运行：node --no-warnings tests/acceptance.mjs
 import fs from "node:fs";
 import path from "node:path";
@@ -91,7 +91,7 @@ add("离线测试三件套", ["tests/smoke.mjs", "tests/registry.test.mjs", "tes
 
 // 输出
 const pad = (s, n) => s + " ".repeat(Math.max(0, n - [...s].reduce((w, c) => w + (c.charCodeAt(0) > 255 ? 2 : 1), 0)));
-console.log("\nvoredteam 验收自检\n" + "─".repeat(72));
+console.log("\ndsh-voredteam 验收自检\n" + "─".repeat(72));
 for (const r of rows) console.log(`  ${r.ok ? "✓" : "✗"}  ${pad(r.name, 40)} ${r.detail ?? ""}`);
 const ok = rows.filter((r) => r.ok).length;
 console.log("─".repeat(72));

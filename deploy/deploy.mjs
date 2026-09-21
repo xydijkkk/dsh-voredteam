@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * voredteam 一键部署 CLI —— 把「预设目录落盘」与「profile 插件挂载」两件事变成可重复执行的校验/应用。
+ * dsh-voredteam 一键部署 CLI —— 把「预设目录落盘」与「profile 插件挂载」两件事变成可重复执行的校验/应用。
  *
  *   node deploy/deploy.mjs              等价于 --check：离线校验，逐项打 ✓/✗（不写盘）
  *   node deploy/deploy.mjs --dry-run    打印将要发生的变更（不写盘）
@@ -32,7 +32,7 @@ const rootDir = ROOT;
 const PLUGINS_DIR = path.join(ROOT, "plugins");
 const MODES_DIR = path.join(ROOT, "modes");
 
-/** 这些包名永远不该出现在 voredteam 的 profile 记账里（DSH 自身基础包）。 */
+/** 这些包名永远不该出现在 dsh-voredteam 的 profile 记账里（DSH 自身基础包）。 */
 const BASELINE_BUNDLES = new Set(["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app"]);
 
 const c = {
@@ -186,7 +186,7 @@ function parseArgs(argv) {
   return opts;
 }
 
-const HELP = `voredteam 一键部署 CLI
+const HELP = `dsh-voredteam 一键部署 CLI
 
 用法：
   node deploy/deploy.mjs [--check | --dry-run | --apply] [选项]
@@ -376,7 +376,7 @@ function materializePreset(src, dest, mode) {
     }
   }
   fs.writeFileSync(path.join(dest, PRESET_MARKER), JSON.stringify({
-    managedBy: "voredteam/deploy/deploy.mjs",
+    managedBy: "dsh-voredteam/deploy/deploy.mjs",
     source: src, mode, syncedAt: new Date().toISOString(),
     renderedTokens: { [PRESET_ROOT_TOKEN]: rootDir.replace(/\\/g, "/"), files: rendered },
   }, null, 2) + "\n", "utf8");
@@ -558,7 +558,7 @@ function nextSteps(opts, st, plan, { changed = false } = {}) {
 function printCheck(opts, st, plan) {
   const all = [];
 
-  console.log(`${c.bold}voredteam 部署校验${c.reset} ${c.dim}(--check，不写盘)${c.reset}`);
+  console.log(`${c.bold}dsh-voredteam 部署校验${c.reset} ${c.dim}(--check，不写盘)${c.reset}`);
   console.log(info(`项目根       ${ROOT}`));
   console.log(info(`DSH home     ${opts.home}${process.env.DSH_HOME ? "  (来自环境变量 DSH_HOME)" : "  (默认 ~/.dsh)"}`));
   console.log(info(`目标 profile ${opts.profile} → ${st.profileFile}`));
@@ -666,7 +666,7 @@ function printCheck(opts, st, plan) {
 }
 
 function printDryRun(opts, st, plan) {
-  console.log(`${c.bold}voredteam 部署预演${c.reset} ${c.dim}(--dry-run，不写盘)${c.reset}`);
+  console.log(`${c.bold}dsh-voredteam 部署预演${c.reset} ${c.dim}(--dry-run，不写盘)${c.reset}`);
   console.log(info(`DSH home     ${opts.home}`));
   console.log(info(`目标 profile ${opts.profile} → ${st.profileFile}`));
 
@@ -718,7 +718,7 @@ function printDryRun(opts, st, plan) {
 }
 
 function runApply(opts, st, plan) {
-  console.log(`${c.bold}voredteam 部署应用${c.reset} ${c.dim}(--apply，幂等)${c.reset}`);
+  console.log(`${c.bold}dsh-voredteam 部署应用${c.reset} ${c.dim}(--apply，幂等)${c.reset}`);
   console.log(info(`DSH home     ${opts.home}`));
   const errors = [];
 

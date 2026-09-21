@@ -1,4 +1,4 @@
-// voredteam 装载冒烟：模拟 DSH 宿主 ctx，真实 import 各插件并调用 apply()，验证
+// dsh-voredteam 装载冒烟：模拟 DSH 宿主 ctx，真实 import 各插件并调用 apply()，验证
 // ① profile node_modules 里能解析到 5 个包；② 黑板插件在假 ctx 下注册出工具/路由/上下文；
 // ③ 工具 execute 能跑通（建项目 → 提议图 → 认领 → 结论）；④ 门禁 guard 真的拦截。
 // 运行：node --no-warnings tests/load.mjs

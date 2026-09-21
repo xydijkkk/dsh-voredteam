@@ -1,7 +1,7 @@
 {
   "name": "@dsh-external/vore-console",
   "version": "0.1.0",
-  "description": "voredteam 作战面板：会话标签页「作战面板」，两个分栏——实时情况（黑板书 SVG 图：事实节点 / 意图边 / 待探索虚框节点，3 秒轮询 + 缩放拖拽 + 右侧详情与写 hint）与任务汇总（漏洞成果表 + 资产接口 + 死路清单 + 一键复制 Markdown）。数据源为 vore-blackboard 的同源 HTTP 通道。",
+  "description": "dsh-voredteam 作战面板：会话标签页「作战面板」，两个分栏——实时情况（黑板书 SVG 图：事实节点 / 意图边 / 待探索虚框节点，3 秒轮询 + 缩放拖拽 + 右侧详情与写 hint）与任务汇总（漏洞成果表 + 资产接口 + 死路清单 + 一键复制 Markdown）。数据源为 vore-blackboard 的同源 HTTP 通道。",
   "keywords": [
     "deepseek",
     "deepseek-harness",

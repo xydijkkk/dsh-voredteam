@@ -1,7 +1,7 @@
 {
-  "name": "@dsh-external/voredteam",
+  "name": "@dsh-external/dsh-voredteam",
   "version": "0.1.0",
-  "description": "voredteam —— 单模式（网络安全模式）DSH 插件合集：黑板书 Fact/Intent/Hint 引擎 + 总控派发专业子 agent + 作战面板/设置 两个面板 + 唯一门禁（禁 DDoS/禁爆破/模糊测试低频）。",
+  "description": "dsh-voredteam —— 单模式（网络安全模式）DSH 插件合集：黑板书 Fact/Intent/Hint 引擎 + 总控派发专业子 agent + 作战面板/设置 两个面板 + 唯一门禁（禁 DDoS/禁爆破/模糊测试低频）。",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {

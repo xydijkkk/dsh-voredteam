@@ -13,7 +13,7 @@ const CAP = capIdx >= 0 ? Number(argv[capIdx + 1]) : 200;
 const LIST = argv.includes("--list");
 
 const ROOTS = [
-  ["voredteam 自研", path.join(REPO_ROOT, "skills")],
+  ["dsh-voredteam 自研", path.join(REPO_ROOT, "skills")],
   ["vendor: claude-red", path.join(REPO_ROOT, "vendor", "skills", "claude-red")],
   ["vendor: claude-red-legacy", path.join(REPO_ROOT, "vendor", "skills", "claude-red-legacy")],
   ["vendor: reverse-skill", path.join(REPO_ROOT, "vendor", "skills", "reverse-skill")],

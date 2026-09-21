@@ -1,4 +1,4 @@
-// voredteam 全量验证：对交付物做机器可查的逐项体检（离线）。
+// dsh-voredteam 全量验证：对交付物做机器可查的逐项体检（离线）。
 // 覆盖：文件清单 / 语法 / JSON / YAML / 角色卡 / 技能与 MCP 注册表全量校验 /
 //      禁用引用扫描 / 预设一致性 / 插件元数据 / 数据契约。
 // 运行：node --no-warnings tests/verify-all.mjs
@@ -372,7 +372,7 @@ if (!YAML) {
 // ── 输出 ────────────────────────────────────────────────────────────────────
 let lastSection = "";
 let okCount = 0;
-console.log(`\nvoredteam 全量验证（root=${root}）\n${"═".repeat(78)}`);
+console.log(`\ndsh-voredteam 全量验证（root=${root}）\n${"═".repeat(78)}`);
 for (const r of results) {
   if (r.section !== lastSection) { console.log(`\n▌ ${r.section}`); lastSection = r.section; }
   if (r.ok) okCount++;

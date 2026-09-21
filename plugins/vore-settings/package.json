@@ -1,7 +1,7 @@
 {
 	"name": "@dsh-external/vore-settings",
 	"version": "0.1.0",
-	"description": "voredteam 设置面板：测绘/辅助 API 密钥（fofa/shodan/yescaptcha/grok 网关）、限速参数、技能根与 SKILL.md 扫描、MCP registry 清单与启用开关。设置持久化于 ~/.dsh/voredteam/settings.json；宿主提供 CSRF + 同源栅栏的 HTTP 通道与 vore_settings_* / vore_skill_search / vore_mcp_list 工具面，Web 客户端面板注册到 settings.section。",
+	"description": "dsh-voredteam 设置面板：测绘/辅助 API 密钥（fofa/shodan/yescaptcha/grok 网关）、限速参数、技能根与 SKILL.md 扫描、MCP registry 清单与启用开关。设置持久化于 ~/.dsh/voredteam/settings.json；宿主提供 CSRF + 同源栅栏的 HTTP 通道与 vore_settings_* / vore_skill_search / vore_mcp_list 工具面，Web 客户端面板注册到 settings.section。",
 	"keywords": [
 		"deepseek",
 		"deepseek-harness",

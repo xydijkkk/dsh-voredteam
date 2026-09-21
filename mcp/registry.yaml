@@ -1,6 +1,6 @@
 # 来源：本机（Windows）安全工具集实测盘点，只读扫描，未修改被盘点目录
 # 盘点时间：2026-09-19（会话内实测：文件核对 + 端口探测 + MCP 协议实拉）
-# 用途：voredteam 网络安全模式的内置 MCP 注册表；被 vore-settings 的 mcp.list 与部署脚本读取
+# 用途：dsh-voredteam 网络安全模式的内置 MCP 注册表；被 vore-settings 的 mcp.list 与部署脚本读取
 # 说明：URL 型条目（回环地址）开箱即用；stdio 型条目需要外部程序，用 ${VAR} 指明位置
 # 范围：已排除 ${VORE_TOOLS_DIR}/app/hexstrike-ai-client 及任何 hexstrike 相关项
 # 契约：条目键统一 2 空格缩进、顺序固定（id/name/transport/url/command/args/env/tools/tools_count/stage/require_running）
@@ -207,7 +207,7 @@ mcp_servers:
     tools_count: 1
     stage: [资产测绘, 指纹识别, 入口面发现]
     require_running: "无需常驻服务；uv 需已就位（0.12.0），.python-version=3.12 且有本机 3.12.2 解释器；**且 .env 里 FOFA_EMAIL / FOFA_KEY 必须先填**（见 note），未填时 get_alerts 一律失败"
-    note: "目录 ${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/ 下仅此 1 个 MCP（10 是文件数）；主号遇 429 / 业务码 820041 时自动切 backup、backup2。**【审计实测·凭据空占位】env_file 指向的 .env 四个 key 实测长度全为 0**（FOFA_EMAIL / FOFA_KEY / FOFA_EMAIL_BACKUP / FOFA_KEY_BACKUP 均为空占位，backup2 两项未定义），本条目 env 里的 <主号邮箱> 等也只是占位说明、不是实配 —— 需先填 ${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/fofa_MCP/.env，或改用 voredteam 设置面板（vore-settings）里填的 fofa key 注入环境变量，否则三账号轮换与资产测绘不可用"
+    note: "目录 ${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/ 下仅此 1 个 MCP（10 是文件数）；主号遇 429 / 业务码 820041 时自动切 backup、backup2。**【审计实测·凭据空占位】env_file 指向的 .env 四个 key 实测长度全为 0**（FOFA_EMAIL / FOFA_KEY / FOFA_EMAIL_BACKUP / FOFA_KEY_BACKUP 均为空占位，backup2 两项未定义），本条目 env 里的 <主号邮箱> 等也只是占位说明、不是实配 —— 需先填 ${VORE_TOOLS_DIR}/clown-src-6k-skill/mcp-servers/fofa_MCP/.env，或改用 dsh-voredteam 设置面板（vore-settings）里填的 fofa key 注入环境变量，否则三账号轮换与资产测绘不可用"
 
   # ── C2 控制面（89 工具） ─────────────────────────────────────────────
   - id: adaptix-c2-mcp

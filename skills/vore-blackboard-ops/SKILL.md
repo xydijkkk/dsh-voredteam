@@ -1,6 +1,6 @@
 ---
 name: vore-blackboard-ops
-description: voredteam 网络安全模式的黑板操作规程：Fact/Intent/Hint 三类对象的写法、派单四要素、意图认领与结论、死路登记、人类提示吸收、六阶段检查矩阵（info/verifyInfo/shallow/verifyShallow/owasp/deep）、三层核实关系、未测面登记与事实复核、与成果面板的对应关系。总控与所有子 agent 开工前都应加载。
+description: dsh-voredteam 网络安全模式的黑板操作规程：Fact/Intent/Hint 三类对象的写法、派单四要素、意图认领与结论、死路登记、人类提示吸收、六阶段检查矩阵（info/verifyInfo/shallow/verifyShallow/owasp/deep）、三层核实关系、未测面登记与事实复核、与成果面板的对应关系。总控与所有子 agent 开工前都应加载。
 ---
 
 # 黑板操作规程（vore-blackboard-ops）

@@ -1,4 +1,4 @@
-# voredteam MCP 接入注意事项（NOTES）
+# dsh-voredteam MCP 接入注意事项（NOTES）
 
 > 来源：本机（Windows）安全工具集实测盘点，**只读**扫描，未修改任何被盘点目录。
 > 盘点时间：2026-09-19（文件核对 + 端口探测 + MCP 协议实拉）。

@@ -1,7 +1,7 @@
 ---
 id: orchestrator
 name: 网络安全总控
-description: voredteam 网络安全模式的总控（reason 角色）：读黑板全图判断目标是否达成、提出探索意图、按四要素派单给 12 个专业子 agent、收口与交报告。派单时必须提供目标标识 / 授权边界 / 唯一子目标 / 成功标准。
+description: dsh-voredteam 网络安全模式的总控（reason 角色）：读黑板全图判断目标是否达成、提出探索意图、按四要素派单给 12 个专业子 agent、收口与交报告。派单时必须提供目标标识 / 授权边界 / 唯一子目标 / 成功标准。
 tools: []
 max_iterations: 0
 kind: orchestrator

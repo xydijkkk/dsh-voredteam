@@ -1,10 +1,10 @@
-# voredteam 技能注册表（由 deploy/gen-skill-registry.mjs 从仓库内置技能目录生成）
+# dsh-voredteam 技能注册表（由 deploy/gen-skill-registry.mjs 从仓库内置技能目录生成）
 #
 # 全部 path 为**仓库相对路径**（相对项目根），不指向任何本机外部位置 —— 便于发布。
 # 技能实体在 vendor/skills/（第三方库，许可证见 vendor/licenses/ 与 vendor/THIRD-PARTY.md）
 # 与本仓库 skills/（自研作战手册）。想登记本机独有的外部资产，请写在 skills/registry.local.yaml。
 #
-# 条目 247：Anthropic-Cybersecurity-Skills 120 · Claude-Red-main 50 · Claude-Red-main(legacy) 28 · clown-src-6k-skill 1 · reverse-skill-main 43 · voredteam 5
+# 条目 247：Anthropic-Cybersecurity-Skills 120 · Claude-Red-main 50 · Claude-Red-main(legacy) 28 · clown-src-6k-skill 1 · dsh-voredteam 5 · reverse-skill-main 43
 # kind: skill（可被宿主装载的技能）| knowledge（只能 read 的参考件）
 # stage: 粗分类标签（便于检索，非权威）
 skills:
@@ -1406,6 +1406,41 @@ skills:
     stage: ['other']
     desc: "|"
     source: clown-src-6k-skill
+  # ===== dsh-voredteam =====
+  - id: vore-registry-notes
+    name: "registry-notes"
+    path: 'skills/registry-notes.md'
+    kind: knowledge
+    stage: ['other']
+    source: dsh-voredteam
+  - id: vore-vore-blackboard-ops
+    name: "vore-blackboard-ops"
+    path: 'skills/vore-blackboard-ops/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "dsh-voredteam 网络安全模式的黑板操作规程：Fact/Intent/Hint 三类对象的写法、派单四要素、意图认领与结论、死路登记、人类提示吸收、六阶段检查矩阵（info/verifyInfo/shallow/verifyShallow/owasp/deep）、三层核实关系、未测面登记与事实复核、与成果面板的对应关系。总控与所有子 agent 开工前都应加载。"
+    source: dsh-voredteam
+  - id: vore-vore-rate-discipline
+    name: "vore-rate-discipline"
+    path: 'skills/vore-rate-discipline/SKILL.md'
+    kind: skill
+    stage: ['other']
+    desc: "dsh-voredteam 唯一门禁的操作细则：禁 DDoS、禁爆破、模糊测试必须智能化低频。含各类工具的具体参数写法、被 vore-guard 拦截后的合规替代、以及\"先小样本后放大\"的样本策略。任何发起主动请求的子 agent 开工前必读。"
+    source: dsh-voredteam
+  - id: vore-vore-report
+    name: "vore-report"
+    path: 'skills/vore-report/SKILL.md'
+    kind: skill
+    stage: ['recon', 'exploit', 'report']
+    desc: "dsh-voredteam 网络安全模式的报告规范：七项必备结构（信息收集 / 漏洞验证含完整原始请求响应包 / 利用载荷 / 完整通关攻略 / 全 URL / 按资产类别分篇 / 失败项单独成篇）、高危判定标准、证据要求、成果面板同步。报告员必读，总控收口前必读。"
+    source: dsh-voredteam
+  - id: vore-vore-testing-methodology
+    name: "vore-testing-methodology"
+    path: 'skills/vore-testing-methodology/SKILL.md'
+    kind: skill
+    stage: ['recon', 'reverse', 'report']
+    desc: "dsh-voredteam 网络安全模式的六阶段作业法：P1 起点（资产收集到连续一轮 0 新增）→ P2 信息收集（对每个资产把信息画像采全：JS 逆向/语言/代码与构建/中间件/OS/架构/目录/路径参数/证书/DNS/WAF/第三方/安全头 + 按 kind 追加项）→ P3 浅层（先核实信息收集的产出 verifyInfo，再做 8 项浅层测试 shallow）→ P4 中间层（先核实浅层的产出 verifyShallow，再过 OWASP Top 10 A01–A1"
+    source: dsh-voredteam
   # ===== reverse-skill-main =====
   - id: reverse-api-security
     name: "api-security"
@@ -1708,38 +1743,3 @@ skills:
     stage: ['auth', 'internal']
     desc: "Use for authorized Active Directory and Windows identity attacks including Kerberos, AD CS, BloodHound paths, NTLM relay, and domain privilege escalation research."
     source: reverse-skill-main
-  # ===== voredteam =====
-  - id: vore-vore-blackboard-ops
-    name: "vore-blackboard-ops"
-    path: 'skills/vore-blackboard-ops/SKILL.md'
-    kind: skill
-    stage: ['other']
-    desc: "voredteam 网络安全模式的黑板操作规程：Fact/Intent/Hint 三类对象的写法、派单四要素、意图认领与结论、死路登记、人类提示吸收、与成果面板的对应关系。总控与所有子 agent 开工前都应加载。"
-    source: voredteam
-  - id: vore-vore-rate-discipline
-    name: "vore-rate-discipline"
-    path: 'skills/vore-rate-discipline/SKILL.md'
-    kind: skill
-    stage: ['other']
-    desc: "voredteam 唯一门禁的操作细则：禁 DDoS、禁爆破、模糊测试必须智能化低频。含各类工具的具体参数写法、被 vore-guard 拦截后的合规替代、以及\"先小样本后放大\"的样本策略。任何发起主动请求的子 agent 开工前必读。"
-    source: voredteam
-  - id: vore-vore-report
-    name: "vore-report"
-    path: 'skills/vore-report/SKILL.md'
-    kind: skill
-    stage: ['recon', 'exploit', 'report']
-    desc: "voredteam 网络安全模式的报告规范：七项必备结构（信息收集 / 漏洞验证含完整原始请求响应包 / 利用载荷 / 完整通关攻略 / 全 URL / 按资产类别分篇 / 失败项单独成篇）、高危判定标准、证据要求、成果面板同步。报告员必读，总控收口前必读。"
-    source: voredteam
-  - id: vore-vore-testing-methodology
-    name: "vore-testing-methodology"
-    path: 'skills/vore-testing-methodology/SKILL.md'
-    kind: skill
-    stage: ['web', 'auth', 'reverse']
-    desc: "voredteam 网络安全模式的三阶段作业法：P1 资产收集（直到连续一轮 0 新增的饱和）→ P2 对每个资产做指纹识别 + 低频模糊测试 + JS 逆向（新资产必须回灌）→ P3 深测（组件 CVE/Nday、逻辑漏洞、业务漏洞、越权、上传）。含每类资产的浅测清单、回灌规则、覆盖率账本与阶段出关条件。总控与所有子 agent 开工前必读。"
-    source: voredteam
-  - id: voredteam-registry-notes
-    name: "registry-notes"
-    path: 'skills/registry-notes.md'
-    kind: knowledge
-    stage: ['other']
-    source: voredteam

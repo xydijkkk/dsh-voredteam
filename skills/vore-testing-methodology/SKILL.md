@@ -1,6 +1,6 @@
 ---
 name: vore-testing-methodology
-description: voredteam 网络安全模式的六阶段作业法：P1 起点（资产收集到连续一轮 0 新增）→ P2 信息收集（对每个资产把信息画像采全：JS 逆向/语言/代码与构建/中间件/OS/架构/目录/路径参数/证书/DNS/WAF/第三方/安全头 + 按 kind 追加项）→ P3 浅层（先核实信息收集的产出 verifyInfo，再做 8 项浅层测试 shallow）→ P4 中间层（先核实浅层的产出 verifyShallow，再过 OWASP Top 10 A01–A10）→ P5 深层（读全量信息、核验中间层、8 个必测类别逐资产验证）→ P6 成果（证据索引 + 报告 + 未测面显式声明 + 每条 vuln 有复核）。含四份清单、六张检查矩阵、回灌规则、覆盖率读法与反模式表。总控与所有子 agent 开工前必读。
+description: dsh-voredteam 网络安全模式的六阶段作业法：P1 起点（资产收集到连续一轮 0 新增）→ P2 信息收集（对每个资产把信息画像采全：JS 逆向/语言/代码与构建/中间件/OS/架构/目录/路径参数/证书/DNS/WAF/第三方/安全头 + 按 kind 追加项）→ P3 浅层（先核实信息收集的产出 verifyInfo，再做 8 项浅层测试 shallow）→ P4 中间层（先核实浅层的产出 verifyShallow，再过 OWASP Top 10 A01–A10）→ P5 深层（读全量信息、核验中间层、8 个必测类别逐资产验证）→ P6 成果（证据索引 + 报告 + 未测面显式声明 + 每条 vuln 有复核）。含四份清单、六张检查矩阵、回灌规则、覆盖率读法与反模式表。总控与所有子 agent 开工前必读。
 ---
 
 # 六阶段作业法（vore-testing-methodology）

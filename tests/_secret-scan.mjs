@@ -1,4 +1,4 @@
-// 发布前密钥扫描：把 ~/.dsh/voredteam/settings.json 里的真实密钥值拿去全仓比对，
+// 发布前密钥扫描：把 ~/.dsh/dsh-voredteam/settings.json 里的真实密钥值拿去全仓比对，
 // 再按形状扫一遍可疑串。**只打印命中位置，绝不回显密钥本身**。
 import fs from "node:fs";
 import path from "node:path";

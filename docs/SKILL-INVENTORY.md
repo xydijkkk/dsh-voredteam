@@ -20,7 +20,7 @@
 
 | 根（`agent.cordis.yml` 的 `customSkillDirs`） | 可加载 | 说明 |
 |---|---|---|
-| `voredteam\skills` | **4** | 自研作战手册：`vore-testing-methodology`（三阶段作业法）、`vore-blackboard-ops`（黑板/覆盖账本规程）、`vore-rate-discipline`（门禁细则）、`vore-report`（报告规范） |
+| `dsh-voredteam\skills` | **4** | 自研作战手册：`vore-testing-methodology`（三阶段作业法）、`vore-blackboard-ops`（黑板/覆盖账本规程）、`vore-rate-discipline`（门禁细则）、`vore-report`（报告规范） |
 | `skill-roots\claude-red` | **50** | **Claude-Red-main** 带 frontmatter 的技能（联接农场，指向源目录，不改源） |
 | `skill-roots\claude-red-legacy` | **28** | Claude-Red 老格式（`# SKILL` + `## Description`，无 frontmatter，宿主本来会跳过）→ 由 `sync-skill-roots.mjs` **生成规范化扁平技能**（合成 frontmatter + 原文正文） |
 | `skill-roots\reverse-skill` | **43** | reverse-skill-main 的逆向纵深（ida/apk/固件/pwn/EDR/协议逆向…） |
@@ -36,7 +36,7 @@
 ## 三、检索面：984 条（`npm run skills` / 面板「扫描技能」）
 
 ```
-voredteam 3 · clown 1 · anthropic 817 · reverse-skill 89 · claude-red 74 = 984    truncated = false
+dsh-voredteam 3 · clown 1 · anthropic 817 · reverse-skill 89 · claude-red 74 = 984    truncated = false
 ```
 
 - 扫描规则：递归 **6 层**找 `SKILL.md`；单文件 ≤256 KB、单次总量 ≤**64 MB**、条数上限 **3000**。
@@ -98,7 +98,7 @@ node deploy/sync-skill-roots.mjs --list      # 列出农场内容
 ## 六、复现
 
 ```bash
-cd <voredteam 仓库根>
+cd <dsh-voredteam 仓库根>
 npm run skills                       # 逐根装载面盘点 + registry 500 条对照
 node tests/skill-discovery.mjs       # 一层规则 + frontmatter 校验（含联接跟随）
 node tests/skill-catalog-size.mjs    # 系统提示技能目录体积（--cap N 试算）

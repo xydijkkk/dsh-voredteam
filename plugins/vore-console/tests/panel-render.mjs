@@ -222,7 +222,7 @@ function payloadFor(url, opts = {}, body = "") {
     return {
       ok: true, id: pid, title: "巨人网络SRC · 第17轮",
       deleted: { facts: 9, intents: 6, intentSources: 5, hints: 4, assets: 91, assetChecks: 30, untested: 2 },
-      backupPath: "C:\\Users\\user\\.dsh\\voredteam\\blackboard.backup-20260921T150000.db",
+      backupPath: "C:\\Users\\user\\.dsh\\dsh-voredteam\\blackboard.backup-20260921T150000.db",
     };
   }
   // 本会话没黑板（noMine）且没显式点开历史项目时：后端**必须**回 null —— 面板显示"本会话还没有黑板"

@@ -131,7 +131,7 @@ t("JSON 读写往返（临时目录，不碰真实 ~/.dsh）", () => {
 
 // ── 3) 极简 YAML 行解析 ──────────────────────────────────────────────────────
 
-const REGISTRY_SAMPLE = `# voredteam MCP registry（样例）
+const REGISTRY_SAMPLE = `# dsh-voredteam MCP registry（样例）
 version: 1
 servers:
   - id: anything-analyzer
@@ -500,7 +500,7 @@ t("注册项元数据：双入口的 id / order / label（页签 60 · 设置节
   assert.ok(section, "缺 settings.section");
   assert.equal(section.id, "vore-settings");
   assert.equal(section.order, 130);
-  assert.equal(section.label(), "voredteam 设置");
+  assert.equal(section.label(), "dsh-voredteam 设置");
   const view = byName.get("conversation.view");
   assert.ok(view, "缺 conversation.view 页签");
   assert.equal(view.id, "vore-settings");

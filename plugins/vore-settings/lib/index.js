@@ -1,7 +1,7 @@
 // vore-settings / lib/index.js —— 宿主平面插件（ESM）。
 //
 // 职责：
-//   1) 把 voredteam 的运行期设置持久化到 ~/.dsh/voredteam/settings.json；
+//   1) 把 dsh-voredteam 的运行期设置持久化到 ~/.dsh/voredteam/settings.json；
 //   2) 提供设置面板的 HTTP 通道（同源栅栏 + CSRF，写法照抄 vore-blackboard）；
 //   3) 提供模型侧工具面：vore_settings_get / vore_settings_set / vore_skill_search / vore_mcp_list。
 // 纯逻辑（掩码、深合并、目录扫描、极简 YAML 解析）全在 ./pure.js，可离线自测。
@@ -244,7 +244,7 @@ export function apply(ctx, config) {
 
   ctx.tools.register(defineTool({
     name: "vore_settings_get",
-    description: "读 voredteam 运行期设置（~/.dsh/voredteam/settings.json）：测绘 API（fofa/shodan/yescaptcha/grokGateway）、限速、技能根、MCP registry。apiKey 只回前 6 位掩码 + hasKey，绝不回明文。",
+    description: "读 dsh-voredteam 运行期设置（~/.dsh/voredteam/settings.json）：测绘 API（fofa/shodan/yescaptcha/grokGateway）、限速、技能根、MCP registry。apiKey 只回前 6 位掩码 + hasKey，绝不回明文。",
     parameters: {},
     output: {
       schema: { type: "object", additionalProperties: true, properties: { ok: { type: "boolean", required: true } } },

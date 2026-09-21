@@ -11,7 +11,7 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..
 const ROOTS = [
   ["project-dsh(项目根)", path.join(REPO_ROOT, ".dsh", "skills")],
   ["project-agents", path.join(REPO_ROOT, ".agents", "skills")],
-  ["custom[0] voredteam 自研", path.join(REPO_ROOT, "skills")],
+  ["custom[0] dsh-voredteam 自研", path.join(REPO_ROOT, "skills")],
   ["custom[1] vendor: claude-red", path.join(REPO_ROOT, "vendor", "skills", "claude-red")],
   ["custom[2] vendor: claude-red-legacy(规范化扁平)", path.join(REPO_ROOT, "vendor", "skills", "claude-red-legacy")],
   ["custom[3] vendor: reverse-skill", path.join(REPO_ROOT, "vendor", "skills", "reverse-skill")],

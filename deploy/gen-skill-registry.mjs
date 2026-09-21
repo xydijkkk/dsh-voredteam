@@ -15,7 +15,7 @@ const CHECK = process.argv.includes("--check");
 
 /** 内置技能根（相对仓库根） → 来源标签 */
 const ROOTS = [
-  ["skills", "voredteam"],
+  ["skills", "dsh-voredteam"],
   ["vendor/skills/claude-red", "Claude-Red-main"],
   ["vendor/skills/claude-red-legacy", "Claude-Red-main(legacy)"],
   ["vendor/skills/reverse-skill", "reverse-skill-main"],
@@ -67,7 +67,9 @@ for (const [rel, source] of ROOTS) {
       if (!fs.existsSync(skillMd)) continue;
       const fm = frontmatter(skillMd) ?? {};
       entries.push({
-        id: `${source === "voredteam" ? "vore" : source.split(/[-.]/)[0].toLowerCase()}-${e.name}`,
+        // 自研技能的 id 前缀固定为 `vore-`（**稳定标识符**，不随项目改名的牌子走：
+        // 已有引用/报告/文档都按 `vore-*` 记，改前缀会让 247 条注册表整体漂移）
+        id: `${source === "dsh-voredteam" || source === "voredteam" ? "vore" : source.split(/[-.]/)[0].toLowerCase()}-${e.name}`,
         name: fm.name ?? e.name,
         path: `${rel}/${e.name}/SKILL.md`,
         kind: "skill",
@@ -79,7 +81,9 @@ for (const [rel, source] of ROOTS) {
       const fm = frontmatter(path.join(abs, e.name)) ?? {};
       const hasFm = Boolean(fm.name && fm.description);
       entries.push({
-        id: `${source.split(/[-.]/)[0].toLowerCase()}-${e.name.replace(/\.md$/i, "")}`,
+        // 扁平 .md（如 skills/registry-notes.md）同样按"自研 → vore-"的稳定前缀，
+        // 不跟牌子走（改项目名不该让 247 条注册表的 id 漂移）
+        id: `${source === "dsh-voredteam" || source === "voredteam" ? "vore" : source.split(/[-.]/)[0].toLowerCase()}-${e.name.replace(/\.md$/i, "")}`,
         name: fm.name ?? e.name.replace(/\.md$/i, ""),
         path: `${rel}/${e.name}`,
         kind: hasFm ? "skill" : "knowledge",
@@ -103,7 +107,7 @@ entries.sort((a, b) => a.source.localeCompare(b.source) || a.id.localeCompare(b.
 
 const bySource = entries.reduce((m, e) => ((m[e.source] = (m[e.source] ?? 0) + 1), m), {});
 const lines = [
-  "# voredteam 技能注册表（由 deploy/gen-skill-registry.mjs 从仓库内置技能目录生成）",
+  "# dsh-voredteam 技能注册表（由 deploy/gen-skill-registry.mjs 从仓库内置技能目录生成）",
   "#",
   "# 全部 path 为**仓库相对路径**（相对项目根），不指向任何本机外部位置 —— 便于发布。",
   "# 技能实体在 vendor/skills/（第三方库，许可证见 vendor/licenses/ 与 vendor/THIRD-PARTY.md）",

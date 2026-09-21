@@ -1,4 +1,4 @@
-# voredteam 全量验证报告（VERIFICATION）
+# dsh-voredteam 全量验证报告（VERIFICATION）
 
 > 变更（本轮）：① 移除 `vore-webshell` 面板（C2/后渗透改由内置 **AdaptixC2 MCP** 承担）；② **技能全部内置**（`vendor/skills/`）、出厂文件零本机路径；③ 预设模板化（`{{PROJECT_ROOT}}`）并修掉三处 mount 阻塞。
 >
@@ -62,7 +62,7 @@
 ## 四、复现全部结论
 
 ```bash
-cd <voredteam 仓库根>
+cd <dsh-voredteam 仓库根>
 
 npm test                       # 142 项断言
 npm run accept                 # 25 项验收自检
@@ -157,7 +157,7 @@ Windows 上 Node 把 junction 报成 `isSymbolicLink() === true / isDirectory() 
 `order`：作战面板 50 → 设置 60（并排且固定相对次序）。两处注册都在 `slots.inject` 内，
 `dsh.client.inject` 相应补齐 owner 包（`dsh-client-ui-conversation` / `dsh-client-ui-settings-general`）。
 闸门同步收紧：`tests/client-contract.mjs` 按**逐插件多槽位**断言（vore-settings 必须有 `conversation.view` 与 `settings.section` 两个条目 + 两个 owner 边），
-`settings.test.mjs` 断言注册项为 2 条、页签 order=60/标签「设置」、设置节 order=130/标签「voredteam 设置」。
+`settings.test.mjs` 断言注册项为 2 条、页签 order=60/标签「设置」、设置节 order=130/标签「dsh-voredteam 设置」。
 
 ### 8.4 「没选模式也是网络安全模式」——默认位被 preset.yml 的 `order: 0` 抢走
 
@@ -222,7 +222,7 @@ import 它自己的 `Config`（cordis schema），把预设行里的 `config` �
 | # | 报错 | 真因 | 修法 |
 |---|---|---|---|
 | 1 | `webserver: duplicate prefix route "/vore-blackboard"` | 预设里写了 `vore-blackboard` / `vore-guard` 两行，而这两个插件**本来就在 profile bundles**（宿主面）里 → 同一条 HTTP 前缀路由注册两次 | 删掉这两行；宿主面插件对每个会话都生效，行为由工具内部的模式判定约束 |
-| 2 | `PlanModeConfig needs a non-empty \`section\`` | `plan-mode` 行的 `config.section` 必填（计划模式激活时替换的提示词段） | 补一段 voredteam 口径的计划模式策略 |
+| 2 | `PlanModeConfig needs a non-empty \`section\`` | `plan-mode` 行的 `config.section` 必填（计划模式激活时替换的提示词段） | 补一段 dsh-voredteam 口径的计划模式策略 |
 | 3 | `workflow: waiting for workflowEngine` | 只挂了 `tool-workflow`，没挂引擎行；宿主 standard 预设在同组里有 `@deepseek-ai/dsh-workflow-worker-thread`（`provider: spawn`）并声明 `isolate: { workflowEngine: true }` | 补引擎行，并把三个 group 的 `isolate` 从 `true` 对齐成命名 realm（`workflowEngine` / `planMode` / `compaction`+`toolResultPruner`） |
 
 **修好后**：`npm run preset:mount` → `✓ mount('network-security') 成功：工具 43 个`，关键工具齐备：
@@ -285,7 +285,7 @@ import 它自己的 `Config`（cordis schema），把预设行里的 `config` �
 
 ## 十二、第四起：作战面板三个分栏全空（本轮，真凶有三层）
 
-用户反馈：装上新版 voredteam 后「作战面板里面没有任何显示」。查下来是**三层叠加**，前两层各自都足以让面板看起来是空的。
+用户反馈：装上新版 dsh-voredteam 后「作战面板里面没有任何显示」。查下来是**三层叠加**，前两层各自都足以让面板看起来是空的。
 
 ### 12.1 第一层（真凶）：id 是"按项目编号"，主键却是全局的 → 第二个项目建不出来
 

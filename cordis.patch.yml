@@ -1,4 +1,4 @@
-# voredteam 合集入口（部署脚本会把 plugins/* 逐个挂到 profile 的 bundles）。
+# dsh-voredteam 合集入口（部署脚本会把 plugins/* 逐个挂到 profile 的 bundles）。
 - insert:
-    - id: voredteam
-      name: '@dsh-external/voredteam'
+    - id: dsh-voredteam
+      name: '@dsh-external/dsh-voredteam'

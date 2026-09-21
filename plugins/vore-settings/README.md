@@ -1,6 +1,6 @@
 # vore-settings
 
-> voredteam 的**设置面板**（双入口：会话页签「设置」+ 设置弹窗「voredteam 设置」）：测绘 / 辅助 API 密钥、限速参数、技能根与 SKILL.md 扫描、MCP registry 清单与启用开关。
+> dsh-voredteam 的**设置面板**（双入口：会话页签「设置」+ 设置弹窗「dsh-voredteam 设置」）：测绘 / 辅助 API 密钥、限速参数、技能根与 SKILL.md 扫描、MCP registry 清单与启用开关。
 > 一个宿主插件（工具面 + HTTP 通道 + JSON 持久化）+ 一个 Web 客户端面板（注册到 DSH 设置的 `settings.section`）。
 
 ---
@@ -21,7 +21,7 @@ plugins/vore-settings/
 └─ README.md
 ```
 
-## 2. 安装（voredteam 侧）
+## 2. 安装（dsh-voredteam 侧）
 
 ```powershell
 # 1) 校验（会逐项检查本插件的 name / main / dsh.bundle.patch / exports["./client"]）
@@ -34,7 +34,7 @@ node ${VORE_PROJECT_ROOT}/deploy/deploy.mjs --apply
 cd $env:USERPROFILE\.dsh\profiles; pnpm install
 ```
 
-重启后进入「设置」→ 左侧导航出现 **voredteam 设置**（`order: 130`）。
+重启后进入「设置」→ 左侧导航出现 **dsh-voredteam 设置**（`order: 130`）。
 
 ## 3. 设置文件
 
@@ -47,8 +47,8 @@ cd $env:USERPROFILE\.dsh\profiles; pnpm install
   "yescaptcha":  { "apiKey": "" },
   "grokGateway": { "baseUrl": "http://127.0.0.1:3001/", "apiKey": "" },
   "rate":        { "defaultRps": 5, "wafRps": 1, "fuzzSampleFirst": 50 },
-  "skills":      { "roots": ["…voredteam\\skills", "…clown-src-6k-skill\\skills", "…Anthropic-Cybersecurity-Skills-1.3.0", "…reverse-skill-main"] },
-  "mcp":         { "enabled": ["anything-analyzer", "adaptix-c2"], "registryPath": "…voredteam\\mcp\\registry.yaml" }
+  "skills":      { "roots": ["…dsh-voredteam\\skills", "…clown-src-6k-skill\\skills", "…Anthropic-Cybersecurity-Skills-1.3.0", "…reverse-skill-main"] },
+  "mcp":         { "enabled": ["anything-analyzer", "adaptix-c2"], "registryPath": "…dsh-voredteam\\mcp\\registry.yaml" }
 }
 ```
 
@@ -108,7 +108,7 @@ cd $env:USERPROFILE\.dsh\profiles; pnpm install
 理由：
 
 1. **宿主加载器要的就是 classic script + 工厂注册**。`@deepseek-ai/dsh-client-modules` 把 `exports["./client"]` 解析成绝对路径，作为同源 `<script>` 原样下发到 `/plugins/@dsh-external/vore-settings/client.js`，脚本执行时**只能**通过 `window.__ModuleLoader__.load({ id, factory })` 注册工厂；之后 cordis 客户端 loader 走 `internal.import(id)` → `factory(require)` → `exports`。`lib/client.cjs` 的第一行就是这个 IIFE 注册式调用，与本仓库 `plugins/vore-console/lib/client.js` 同构（那个文件由 `scripts/build-client.mjs` 从 `client.mjs` 生成，同样导出 `./client`）。
-2. **`"type": "module"` 是本插件（也是 voredteam 全部插件）的既定约束**，包内 `.js` 一律按 ESM 解析。ESM 客户端 bundle 的下发形态反而不匹配：`export default` 在 classic script 里是语法错误，而把 `apply` 从 `module.exports` 改成 ESM 导出还要宿主再做一层包装。用 `.cjs` 让 Node 侧（`node --check`、工具脚本、未来可能的 require 校验）与浏览器侧（classic script）**两边语义一致**，零歧义。
+2. **`"type": "module"` 是本插件（也是 dsh-voredteam 全部插件）的既定约束**，包内 `.js` 一律按 ESM 解析。ESM 客户端 bundle 的下发形态反而不匹配：`export default` 在 classic script 里是语法错误，而把 `apply` 从 `module.exports` 改成 ESM 导出还要宿主再做一层包装。用 `.cjs` 让 Node 侧（`node --check`、工具脚本、未来可能的 require 校验）与浏览器侧（classic script）**两边语义一致**，零歧义。
 3. **浏览器侧不看扩展名**：client-modules 只做 `join(dirname(pkgJson), clientRel)` + 读字节 + `content-type: text/javascript`，`.cjs` 与 `.js` 无差别；`deploy.mjs` 的存在性检查同样只看路径存在与否（已实测打 ✓）。
 4. **与项目其余部分一致**：`inject` 里只写模块表 seed 词 `react`（`require("react")`），不需要任何子包 `external` 声明，也无需构建工具。
 
@@ -129,7 +129,7 @@ node tests/host.check.mjs      # 宿主面端到端：工具注册/CSRF 栅栏/�
 
 两个测试都**不联网、不碰真实 `~/.dsh`**：`host.check.mjs` 通过 `apply(ctx, { settingsPath })` 把设置写到临时目录（`apply` 支持 `config.settingsPath` 覆盖，默认才是 `~/.dsh/voredteam/settings.json`）。
 
-客户端 bundle 契约的验证方式（`settings.test.mjs` 第 [5] 组）：用 `node:vm` 起一个只有 `window.__ModuleLoader__` 与 `document` 的沙盒，把 `lib/client.cjs` 当 classic script 跑一遍，断言「只注册工厂、零副作用」；再用 React 桩 `factory(require, module, exports)` 材化，断言导出 `{ name, inject: ["slots"], apply }`，且 `apply` 注册了 `settings.section`（id `vore-settings` / order 130 / label 「voredteam 设置」）、注入了含 `.dsh-vset-` 与 `body[data-ds-dark-theme]` 的样式。
+客户端 bundle 契约的验证方式（`settings.test.mjs` 第 [5] 组）：用 `node:vm` 起一个只有 `window.__ModuleLoader__` 与 `document` 的沙盒，把 `lib/client.cjs` 当 classic script 跑一遍，断言「只注册工厂、零副作用」；再用 React 桩 `factory(require, module, exports)` 材化，断言导出 `{ name, inject: ["slots"], apply }`，且 `apply` 注册了 `settings.section`（id `vore-settings` / order 130 / label 「dsh-voredteam 设置」）、注入了含 `.dsh-vset-` 与 `body[data-ds-dark-theme]` 的样式。
 
 ## 8. 实现注记
 

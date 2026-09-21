@@ -1,4 +1,4 @@
-# deploy —— voredteam 一键部署
+# deploy —— dsh-voredteam 一键部署
 
 把本项目的**预设模式**与**全部子插件**挂进 DSH，并做成可重复执行的校验/应用流程。
 
@@ -22,7 +22,7 @@ node deploy/deploy.mjs --apply      # 幂等写入：建/修预设 junction + �
 | `<DSH_HOME>/profiles/web/package.json` | `dependencies["<pkg>"] = "link:<插件绝对路径>"` | 逐个挂载 `plugins/*/package.json`（**自动发现**，不硬编码插件名） |
 | 同上 | `dsh.profile.bundles` 追加 `<pkg>` | 保留原有顺序，新插件追加末尾 |
 | `<DSH_HOME>/profiles/<profile>/node_modules/<scope>/<name>` | junction → 插件目录（**变更 3**） | 与 pnpm 处理 `link:` 依赖等价；建好后**无需 `pnpm install` 也能被 loader 解析**（已存在且指向正确则跳过） |
-| 项目根 | `lib/index.js` + `cordis.patch.yml` | 合集入口包 `@dsh-external/voredteam`，保证包可被加载 |
+| 项目根 | `lib/index.js` + `cordis.patch.yml` | 合集入口包 `@dsh-external/dsh-voredteam`，保证包可被加载 |
 
 `--apply` 会改的文件与备份：
 
@@ -42,7 +42,7 @@ cd "<DSH_HOME>/profiles" && pnpm install   # 可选：变更 3 已建立 node_mo
 ## 卸载
 
 1. 编辑 `<DSH_HOME>/profiles/<profile>/package.json`：删掉 `dependencies` 里所有 `vore-*` 项，
-   以及 `dsh.profile.bundles` 里对应的包名（`@dsh-external/voredteam` 与各 `@dsh-external/vore-*`）。
+   以及 `dsh.profile.bundles` 里对应的包名（`@dsh-external/dsh-voredteam` 与各 `@dsh-external/vore-*`）。
 2. 删除预设目录：`Remove-Item -Recurse -Force "<DSH_HOME>\.agent-presets\network-security"`（它是本项目落盘的副本，删掉不影响仓库里的模板）。
 3. `cd "<DSH_HOME>/profiles" && pnpm install`，再重启 dsh web。
 4. 需要回滚时用同目录下的 `package.json.bak-voredteam-<时间戳>` 覆盖回去。

@@ -1,4 +1,4 @@
-// voredteam 冒烟测试：黑板引擎（store）与唯一门禁（guard）的核心逻辑。
+// dsh-voredteam 冒烟测试：黑板引擎（store）与唯一门禁（guard）的核心逻辑。
 // 运行：node tests/smoke.mjs
 import assert from "node:assert/strict";
 import fs from "node:fs";

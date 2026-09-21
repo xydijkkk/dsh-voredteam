@@ -1,6 +1,9 @@
 // 用**真实服务返回的 payload**跑一遍面板的纯函数层，看有没有会抛错/产出空 UI 的地方
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const BASE = "http://127.0.0.1:3080/vore-blackboard";
 const csrf = JSON.parse(execSync(
@@ -25,7 +28,7 @@ const cov = post("coverage", { projectId: pid });
 const assets = post("assets", { projectId: pid });
 console.log(`项目 ${pid}｜graph facts=${graph.graph?.facts?.length} intents=${graph.graph?.intents?.length}｜assets=${assets.assets?.length}`);
 
-const pure = await import("file:///C:/Users/user/Desktop/sentou/voredteam/plugins/vore-console/lib/pure.mjs");
+const pure = await import("file://C:/Users/user/Desktop/sentou/voredteam/plugins/vore-console/lib/pure.mjs");
 console.log("pure.mjs 导出：", Object.keys(pure).join(", "));
 
 function tryCall(label, fn) {
@@ -62,7 +65,7 @@ for (const n of ["extractFindings", "extractAssets", "extractDeadEnds", "toMarkd
 }
 
 // 面板源码里是否有对可空字段的直接解引用（粗筛）
-const panel = readFileSync("C:/Users/user/Desktop/sentou/voredteam/plugins/vore-console/lib/panel.js", "utf8");
+const panel = readFileSync("C:/Users/user/Desktop/sentou/dsh-voredteam/plugins/vore-console/lib/panel.js", "utf8");
 const risk = panel.split(/\r?\n/).map((l, i) => ({ l, i: i + 1 }))
   .filter(({ l }) => /coverage\.[a-zA-Z]+\.|\.counts\.[a-zA-Z]+|byKind\[|pct\.[a-zA-Z]+/.test(l) && !/\?\.|&&|\|\|/.test(l));
 console.log(`\n面板源码里对 coverage/counts/pct 的直接解引用（需人工确认，共 ${risk.length} 处）：`);

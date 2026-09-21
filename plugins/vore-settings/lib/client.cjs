@@ -1,5 +1,5 @@
 /*!
- * vore-settings / lib/client.cjs —— voredteam 设置面板（Web 客户端插件）。
+ * vore-settings / lib/client.cjs —— dsh-voredteam 设置面板（Web 客户端插件）。
  *
  * 手写 CommonJS，无构建工具、无 JSX（React.createElement）。
  * 交付形态 = DSH 客户端 bundle 契约：一个 classic script，执行时只做工厂注册
@@ -343,7 +343,7 @@
       return e("div", { className: "dsh-vset-root" },
         e("div", { className: "dsh-vset-head" },
           e("div", null,
-            e("div", { className: "dsh-vset-title" }, "voredteam 设置"),
+            e("div", { className: "dsh-vset-title" }, "dsh-voredteam 设置"),
             e("div", { className: "dsh-vset-sub" }, "持久化于 ~/.dsh/voredteam/settings.json · 密钥仅回显前 6 位掩码")),
           e("div", { className: "dsh-vset-actions" },
             busy ? e("span", { className: "dsh-vset-spin" }, busy + "…") : null,
@@ -548,7 +548,7 @@
           name: "settings.section",
           id: PANEL_ID,
           order: 130,
-          label: function () { return "voredteam 设置"; },
+          label: function () { return "dsh-voredteam 设置"; },
         }, SettingsPage);
       });
       ctx.slots.inject("conversation.view", function () {

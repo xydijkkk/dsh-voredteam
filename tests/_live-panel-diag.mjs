@@ -5,7 +5,7 @@ import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = "C:/Users/user/Desktop/sentou/voredteam";
+const ROOT = ROOT;
 const BUNDLE = path.join(ROOT, "plugins", "vore-console", "lib", "client.js");
 const BASE = "http://127.0.0.1:3080/vore-blackboard";
 const SESSION = process.argv[2] ?? "session-c44b3a1c-1aa4-4058-8635-74dcfbd01a05";

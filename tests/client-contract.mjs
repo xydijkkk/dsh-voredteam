@@ -25,7 +25,7 @@ const pluginsDir = path.join(root, "plugins");
 const EXPECT = {
   "@dsh-external/vore-console": { slots: [{ name: "conversation.view", label: "作战面板" }], minInject: 1, owner: "@deepseek-ai/dsh-client-ui-conversation" },
   "@dsh-external/vore-settings": {
-    slots: [{ name: "conversation.view", label: "设置" }, { name: "settings.section", label: "voredteam 设置" }],
+    slots: [{ name: "conversation.view", label: "设置" }, { name: "settings.section", label: "dsh-voredteam 设置" }],
     minInject: 1,
     owners: ["@deepseek-ai/dsh-client-ui-conversation", "@deepseek-ai/dsh-client-ui-settings-general"],
   },

@@ -1,4 +1,4 @@
-# voredteam 体系结构（ARCHITECTURE）
+# dsh-voredteam 体系结构（ARCHITECTURE）
 
 ## 一、范式：把渗透测试还原为状态空间搜索
 
@@ -15,7 +15,7 @@
 
 ## 二、三处关键设计取舍
 
-| 维度 | 常见做法 | voredteam 的做法 |
+| 维度 | 常见做法 | dsh-voredteam 的做法 |
 |---|---|---|
 | Worker | 无角色，同一 Worker 跑 bootstrap/reason/explore | **总控做 reason，12 个专业子 agent 做 explore** |
 | 任务来源 | 运行时由图状态生成 | 同（图状态生成）**+ 按领域路由到专家** |
