@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-本项目的范式参考 Cairn（AGPL-3.0，Apache-2.0 兼容性归其作者所有）、
-组织形态参考 DesRedTeam（Apache-2.0，CyberStrike 二开衍生）与 dsh-redteam-model（MIT）。
-本仓库内的子插件 vore-webshell 移植自 dsh-redteam-model 的 dsh-webshell-mgr（MIT），
-已按 MIT 要求保留出处说明（见该插件 README 的「移植说明」段）。
