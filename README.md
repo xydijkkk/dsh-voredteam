@@ -169,6 +169,8 @@ P6 成果 ── 缺口清零 → 未测面声明 → 每条漏洞事实复核 �
 
 - **测绘 API**：FOFA / Shodan / YesCaptcha / Grok 网关的 key 与限速，读写 `~/.dsh/voredteam/settings.json`（**密钥只回显掩码**，绝不明文返回）；
 - **技能管理**：列出内置技能根、扫描技能（`vore_skill_search` 用）、显示条数与目录体积；
+  **额外技能根**（本机自己的技能农场）走环境变量 `VORE_EXTRA_SKILL_DIRS`（多个用 `;` / `,` 分隔）——
+  `deploy --apply` 会把它渲染进预设的 `customSkillDirs`，那些技能同样能被 `skill` 工具装载，且仓库里不写死任何本机路径；
 - **MCP 管理**：勾选启用/停用注册表条目，展示缺哪个环境变量、端口是否在听；
 - **速率门禁参数**：模糊测试的默认速率上限等阈值由这里下发（与 `vore-guard` 共用）。
 

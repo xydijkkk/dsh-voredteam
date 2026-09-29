@@ -186,6 +186,10 @@
       - '{{PROJECT_ROOT}}/vendor/skills/reverse-skill'
       - '{{PROJECT_ROOT}}/vendor/skills/anthropic'
       - '{{PROJECT_ROOT}}/vendor/skills/clown'
+      # 额外技能根（本机可选）：落盘时用环境变量 `VORE_EXTRA_SKILL_DIRS` 渲染（多个用 `;` 或 `,` 分隔），
+      # 没设变量就把整行删掉 —— 所以仓库里依然不写死任何本机路径（可移植性门禁要求）。
+      # 例：$env:VORE_EXTRA_SKILL_DIRS = "D:/vonandi/桌面的/sentou/voskill" → 那个目录里的一层技能可被 skill 工具装载。
+      - '{{EXTRA_SKILL_DIRS}}'
 
 # ── sub-agents / delegation ─────────────────────────────────────────────────
 - id: delegation

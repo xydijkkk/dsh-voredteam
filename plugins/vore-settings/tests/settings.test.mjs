@@ -221,8 +221,19 @@ t("scanSkills：不存在的根只记 skipped，不抛错", () => {
   assert.match(String(r.skipped[0].reason), /不存在|不可访问|ENOENT/);
 });
 t("scanSkills：拒绝盘根与一级目录（防越权遍历全盘）", () => {
-  const root = path.parse(process.cwd()).root;                       // 例如 C:\
-  const oneLevel = path.join(root, "Users");                          // 一级目录
+  const root = path.parse(process.cwd()).root;                       // 例如 D:\
+  // 一级目录必须**真实存在**才测得到"一级目录"这条拒绝理由（校验顺序是"先存在性、后深度"）：
+  // 机器不同、盘不同，"Users"不一定在（仓库搬到 D: 后 D:\Users 就不存在 → 旧写法会拿到"不存在"）。
+  const oneLevel = fs.readdirSync(root, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && !e.name.startsWith("$"))
+    .map((e) => path.join(root, e.name))[0];
+  if (!oneLevel) {
+    // 盘上连一个一级目录都没有（极端情况）：只断言盘根被拒
+    const r0 = pure.scanSkills([root]);
+    assert.equal(r0.total, 0);
+    assert.match(String(r0.skipped[0].reason), /盘根/);
+    return;
+  }
   const r = pure.scanSkills([root, oneLevel]);
   assert.equal(r.total, 0);
   assert.equal(r.skipped.length, 2);

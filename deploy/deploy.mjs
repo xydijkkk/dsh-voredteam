@@ -22,10 +22,15 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 // ────────────────────────────────────────────────────────────── 基础工具
 
-const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
+// ⚠️ 必须用 fileURLToPath，**不能**用 `new URL(import.meta.url).pathname`：
+// 后者是**百分号编码**的（仓库路径里带中文就会变成 `%E6%A1%8C%E9%9D%A2%E7%9A%84`），
+// 于是 ROOT 指向一个不存在的目录 → 预设"目录不存在"、插件全被当成"陈旧项"、
+// apply 还会把预设渲染成错的路径（真实踩过：仓库被移到 `D:\vonandi\桌面的\sentou\voredteam`）。
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, "..");
 /** 仓库根，也是预设模板里 `{{PROJECT_ROOT}}` 的替换值。 */
 const rootDir = ROOT;
@@ -296,19 +301,47 @@ function collectRelFiles(dir, out = [], base = dir) {
 /** 由本项目托管的预设目录里的诊断标记（不属于预设本体）。 */
 const PRESET_MARKER = ".vore-preset.json";
 
-/** 预设模板里的仓库根占位符（落盘时替换为绝对路径，使仓库本身可发布）。 */
+/**
+ * 预设模板里的仓库根占位符（落盘时替换为绝对路径，使仓库本身可发布）。
+ *
+ * 另有**可选**的额外技能根占位符 `- '{{EXTRA_SKILL_DIRS}}'`：由环境变量
+ * `VORE_EXTRA_SKILL_DIRS`（多个用 `;` 或 `,` 分隔）提供，渲染成若干条 `- '<dir>'`；
+ * 没设变量就把那一行整行删掉。为什么要这样：用户本机的技能农场（例如桌面上另建的
+ * `voskill`）必须挂在 customSkillDirs 才可被 `skill` 工具装载，但**仓库里不能写死本机路径**
+ * （可移植性门禁），所以走"模板占位符 + 本机环境变量"这条路，既能让 `deploy --check` 保持全绿，
+ * 也不会在 `deploy --apply` 时把手工加的那一行冲掉。
+ */
 const PRESET_ROOT_TOKEN = "{{PROJECT_ROOT}}";
+const PRESET_EXTRA_SKILLS_LINE = /^[ \t]*-[ \t]*'?\{\{EXTRA_SKILL_DIRS\}\}'?[ \t]*\r?\n?/m;
+
+/** 环境变量里的额外技能根（去空、去重、统一正斜杠）。 */
+function extraSkillDirs() {
+  const raw = String(process.env.VORE_EXTRA_SKILL_DIRS ?? "");
+  const out = [];
+  for (const part of raw.split(/[;,]/)) {
+    const p = part.trim();
+    if (!p) continue;
+    const norm = p.replace(/\\/g, "/").replace(/\/+$/, "");
+    if (!out.includes(norm)) out.push(norm);
+  }
+  return out;
+}
 
 /**
- * 把模板源文件渲染成落盘内容（`{{PROJECT_ROOT}}` → 仓库绝对路径，正斜杠形式）。
+ * 把模板源文件渲染成落盘内容（`{{PROJECT_ROOT}}` → 仓库绝对路径，正斜杠形式；
+ * 额外技能根占位符 → 环境变量给的目录或整行删除）。
  * @param {string} file - 源文件绝对路径
  * @returns {string}
  */
 function renderPresetFile(file) {
-  const raw = fs.readFileSync(file, "utf8");
-  return raw.includes(PRESET_ROOT_TOKEN)
-    ? raw.split(PRESET_ROOT_TOKEN).join(rootDir.replace(/\\/g, "/"))
-    : raw;
+  let raw = fs.readFileSync(file, "utf8");
+  if (raw.includes(PRESET_ROOT_TOKEN)) raw = raw.split(PRESET_ROOT_TOKEN).join(rootDir.replace(/\\/g, "/"));
+  if (PRESET_EXTRA_SKILLS_LINE.test(raw)) {
+    const dirs = extraSkillDirs();
+    const indent = (raw.match(PRESET_EXTRA_SKILLS_LINE)[0].match(/^[ \t]*/) ?? ["      "])[0];
+    raw = raw.replace(PRESET_EXTRA_SKILLS_LINE, dirs.map((d) => `${indent}- '${d}'\n`).join(""));
+  }
+  return raw;
 }
 
 /**
@@ -368,12 +401,9 @@ function materializePreset(src, dest, mode) {
     const from = path.join(src, f), to = path.join(dest, f);
     fs.mkdirSync(path.dirname(to), { recursive: true });
     const raw = fs.readFileSync(from, "utf8");
-    if (raw.includes(PRESET_ROOT_TOKEN)) {
-      fs.writeFileSync(to, raw.split(PRESET_ROOT_TOKEN).join(rootDir.replace(/\\/g, "/")), "utf8");
-      rendered.push(f);
-    } else {
-      fs.writeFileSync(to, raw, "utf8");
-    }
+    const out = renderPresetFile(from);          // 统一走渲染（含 {{PROJECT_ROOT}} 与额外技能根）
+    fs.writeFileSync(to, out, "utf8");
+    if (out !== raw) rendered.push(f);
   }
   fs.writeFileSync(path.join(dest, PRESET_MARKER), JSON.stringify({
     managedBy: "dsh-voredteam/deploy/deploy.mjs",

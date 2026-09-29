@@ -24,6 +24,16 @@ node deploy/deploy.mjs --apply      # 幂等写入：建/修预设 junction + �
 | `<DSH_HOME>/profiles/<profile>/node_modules/<scope>/<name>` | junction → 插件目录（**变更 3**） | 与 pnpm 处理 `link:` 依赖等价；建好后**无需 `pnpm install` 也能被 loader 解析**（已存在且指向正确则跳过） |
 | 项目根 | `lib/index.js` + `cordis.patch.yml` | 合集入口包 `@dsh-external/dsh-voredteam`，保证包可被加载 |
 
+### 两个占位符（仓库可发布的关键）
+
+| 占位符 | 渲染成 | 来源 |
+|---|---|---|
+| `{{PROJECT_ROOT}}` | 仓库绝对路径（正斜杠） | 脚本自身位置（`fileURLToPath`，**不能**用 `URL.pathname`——仓库路径含中文会变 `%E6…`） |
+| `- '{{EXTRA_SKILL_DIRS}}'` | 若干条 `- '<dir>'`，**没设变量就整行删除** | 环境变量 `VORE_EXTRA_SKILL_DIRS`（多个用 `;` 或 `,` 分隔），例如 `$env:VORE_EXTRA_SKILL_DIRS = "D:/.../voskill"` |
+
+> 额外技能根走"占位符 + 环境变量"是为了两件事同时成立：① 仓库里**不写死任何本机路径**（可移植性门禁）；
+> ② 本机技能农场（例如桌面上另建的 `voskill`）**能被 `skill` 工具装载**，且 `deploy --apply` 不会把手工加的那一行冲掉。设了变量再 apply，`--check` 仍应 28/28 全绿。
+
 `--apply` 会改的文件与备份：
 
 - 新建/修复：`<DSH_HOME>/.agent-presets/<mode>`（已指向本项目则**跳过**；指向别处才先删再建）

@@ -110,10 +110,37 @@ const deploySrc = fs.readFileSync(path.join(root, "deploy", "deploy.mjs"), "utf8
 const checks = [
   ["预设模板含 {{PROJECT_ROOT}} 占位符", presetYml.includes("{{PROJECT_ROOT}}")],
   ["deploy 会渲染 {{PROJECT_ROOT}}", deploySrc.includes("PRESET_ROOT_TOKEN") && deploySrc.includes("renderPresetFile")],
+  // 本机额外技能根走"模板占位符 + 环境变量"：既能让本机技能农场（如桌面上另建的 voskill）
+  // 被 skill 工具装载，又不在仓库里写死路径 —— 两侧少一个就静默失效，所以钉住
+  ["预设模板含 {{EXTRA_SKILL_DIRS}} 占位符", presetYml.includes("- '{{EXTRA_SKILL_DIRS}}'")],
+  ["deploy 会渲染 {{EXTRA_SKILL_DIRS}}（读 VORE_EXTRA_SKILL_DIRS）", deploySrc.includes("PRESET_EXTRA_SKILLS_LINE") && deploySrc.includes("VORE_EXTRA_SKILL_DIRS")],
   ["技能注册表路径全为仓库相对", !/^\s+path:\s*'?[A-Za-z]:/m.test(fs.readFileSync(path.join(root, "skills", "registry.yaml"), "utf8"))],
   ["MCP 注册表使用 ${VAR} 占位符", /\$\{[A-Z_]+\}/.test(fs.readFileSync(path.join(root, "mcp", "registry.yaml"), "utf8"))],
   ["vendor 下无目录联接", !fs.readdirSync(path.join(root, "vendor", "skills")).some((n) => fs.lstatSync(path.join(root, "vendor", "skills", n)).isSymbolicLink())],
+  // 仓库路径**含非 ASCII**（中文目录名）时，脚本必须用 fileURLToPath 解析自身位置：
+  // `new URL(import.meta.url).pathname` 是百分号编码的，会把 ROOT 指到一个不存在的目录
+  // （真实事故：仓库移到 `D:\vonandi\桌面的\sentou\voredteam` 后，deploy 报"modes/ 目录不存在"、
+  //   4 个插件全被当成"陈旧项"、apply 还把预设渲染成 `%E6%A1%8C%E9%9D%A2%E7%9A%84` 的错路径）。
+  ["脚本位置一律用 fileURLToPath（URL.pathname 遇非 ASCII 路径会变成 %E6…）", !urlPathnameOffenders().length],
 ];
+
+/** 扫全仓库脚本，找出"用 new URL(import.meta.url).pathname 代替 fileURLToPath"的地方。 */
+function urlPathnameOffenders() {
+  const out = [];
+  (function walk(dir) {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (e.isDirectory()) { if (!["node_modules", ".git", "vendor", "_uninstall-backup"].includes(e.name)) walk(path.join(dir, e.name)); continue; }
+      if (![".mjs", ".js", ".cjs"].includes(path.extname(e.name).toLowerCase())) continue;
+      const src = fs.readFileSync(path.join(dir, e.name), "utf8");
+      src.split(/\r?\n/).forEach((line, i) => {
+        if (/^\s*(\/\/|\*|#)/.test(line)) return;                          // 注释行（包括本闸门的说明行）
+        if (/fileURLToPath/.test(line)) return;                            // 同行里已经用了正确写法
+        if (/new URL\(import\.meta\.url\)\.pathname/.test(line)) out.push(`${path.relative(root, path.join(dir, e.name))}:${i + 1}`);
+      });
+    }
+  })(root);
+  return out;
+}
 let ok = hits.length === 0 && checkOriginClean;
 console.log("");
 for (const [label, pass] of checks) {
