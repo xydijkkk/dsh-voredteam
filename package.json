@@ -19,6 +19,9 @@
     "deploy",
     "cordis.patch.yml",
     "README.md",
+    "AUTHORIZED-USE.md",
+    "SECURITY.md",
+    "NOTICE.md",
     "LICENSE",
     "vendor",
     "docs"

@@ -88,6 +88,21 @@ info.push(["预设 junction", exists(path.join(home, ".agent-presets", "network-
 // 6) 文档
 add("README / ARCHITECTURE / LICENSE", ["README.md", "docs/ARCHITECTURE.md", "LICENSE", "deploy/README.md"].every((f) => exists(path.join(root, f))));
 add("离线测试三件套", ["tests/smoke.mjs", "tests/registry.test.mjs", "tests/preset.test.mjs"].every((f) => exists(path.join(root, f))));
+{
+  // 授权使用声明必须是"活的"：文件在册 + README 里有指向它的链接 + 四段要件齐备
+  // （防止哪天被静默删掉，或者在 README 里失去入口 —— 那等于没有声明）
+  const declPath = path.join(root, "AUTHORIZED-USE.md");
+  const readmePath = path.join(root, "README.md");
+  const declOk = exists(declPath);
+  const decl = declOk ? fs.readFileSync(declPath, "utf8") : "";
+  const linked = exists(readmePath) && /AUTHORIZED-USE\.md/.test(fs.readFileSync(readmePath, "utf8"));
+  const missing = ["授权", "五问", "禁止", "免责"].filter((k) => !decl.includes(k));
+  add("授权使用声明（AUTHORIZED-USE.md）在册且被 README 引用", declOk && linked && missing.length === 0,
+    !declOk ? "文件不存在"
+      : !linked ? "README 里没有指向它的链接"
+      : missing.length ? `缺要件：${missing.join("/")}`
+      : "文件 + README 链接 + 四段要件齐备");
+}
 
 // 输出
 const pad = (s, n) => s + " ".repeat(Math.max(0, n - [...s].reduce((w, c) => w + (c.charCodeAt(0) > 255 ? 2 : 1), 0)));

@@ -51,7 +51,7 @@ for (const f of files) {
 // ── 1) 文件清单 ─────────────────────────────────────────────────────────────
 {
   const total = files.reduce((s, f) => s + fs.statSync(f).size, 0);
-  const need = ["README.md", "LICENSE", "package.json", "cordis.patch.yml", "docs/ARCHITECTURE.md",
+  const need = ["README.md", "LICENSE", "AUTHORIZED-USE.md", "SECURITY.md", "NOTICE.md", "package.json", "cordis.patch.yml", "docs/ARCHITECTURE.md",
     "docs/VERIFICATION.md", "docs/SKILL-INVENTORY.md", "vendor/THIRD-PARTY.md", "mcp/registry.local.example.yaml"];
   add("文件清单", `共 ${files.length} 文件 / ${(total / 1024).toFixed(0)} KB；扩展名 ${Object.entries(byExt).map(([k, v]) => `${k}:${v}`).join(" ")}`, true);
   for (const n of need) add("文件清单", n, fs.existsSync(path.join(root, n)));
